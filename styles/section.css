@@ -88,3 +88,24 @@ section {
     grid-template-columns: repeat(3, 1fr);
   }
 }
+
+.menu-card.item-destacado {
+  border: 2px solid var(--brand-orange);
+  position: relative;
+  box-shadow: 0 0 10px rgba(249, 112, 21, 0.5);
+}
+
+.menu-card.item-destacado::after {
+  content: "Destaque!";
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: var(--brand-orange);
+  color: white;
+  padding: 3px 10px;
+  border-radius: 15px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  z-index: 1;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
