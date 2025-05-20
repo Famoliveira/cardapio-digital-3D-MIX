@@ -3,7 +3,7 @@
 // Configuração das categorias e seus nomes de exibição
 const categorias = [
   {
-    id: 'destaques', nome: 'Destaques',
+    id: 'destaques', nome: 'Destaques', // Categoria Destaques readicionada
     icon: 'assets/icons/hamburgueres-icon.png'
   },
   {
@@ -11,19 +11,27 @@ const categorias = [
     icon: 'assets/icons/hamburgueres-icon.png'
   },
   {
-    id: 'hamburgueres', nome: 'Hambúrgueres',
-    icon: 'assets/icons/hamburgueres-icon.png'
-  },
-  {
     id: 'pizzas', nome: 'Pizzas',
     icon: 'assets/icons/hamburgueres-icon.png'
   },
   {
-    id: 'esfirras', nome: 'Esfirras',
+    id: 'lanches', nome: 'Lanches',
     icon: 'assets/icons/hamburgueres-icon.png'
   },
   {
     id: 'pasteis', nome: 'Pastéis',
+    icon: 'assets/icons/hamburgueres-icon.png'
+  },
+  {
+    id: 'esfirras', nome: 'Esfihas',
+    icon: 'assets/icons/hamburgueres-icon.png'
+  },
+  {
+    id: 'crepes', nome: 'Crepes',
+    icon: 'assets/icons/hamburgueres-icon.png'
+  },
+  {
+    id: 'batatas', nome: 'Batatas',
     icon: 'assets/icons/hamburgueres-icon.png'
   },
   {
@@ -34,13 +42,13 @@ const categorias = [
 
 // Dados do cardápio
 const cardapio = {
-  hamburgueres: [
+  lanches: [
     {
       id: 1,
       nome: 'X-Burger Clássico',
       descricao: 'Pão, hambúrguer 150g, queijo cheddar, alface, tomate e molho especial.',
       preco: 'R$ 23,50',
-      destaque: true,
+      destaque: false,
       imagem: 'assets/sections/hamburgueres/hamburguer-1.jpg'
     },
     {
@@ -56,7 +64,7 @@ const cardapio = {
       nome: 'X-Bacon Artesanal',
       descricao: 'Pão brioche, hambúrguer de costela 180g, queijo mussarela, fatias crocantes de bacon, cebola caramelizada e barbecue.',
       preco: 'R$ 29,90',
-      destaque: true,
+      destaque: true, // Destaque aleatório
       imagem: 'assets/sections/hamburgueres/hamburguer-3.jpg'
     },
     {
@@ -74,7 +82,7 @@ const cardapio = {
       nome: 'Pizza Margherita Especial',
       descricao: 'Molho de tomate italiano, mussarela de búfala, rodelas de tomate fresco, manjericão e um fio de azeite extra virgem.',
       preco: 'R$ 45,00',
-      destaque: true,
+      destaque: false,
       imagem: 'assets/sections/pizzas/pizza-1.jpg'
     },
     {
@@ -82,7 +90,7 @@ const cardapio = {
       nome: 'Pizza Calabresa Acebolada',
       descricao: 'Molho de tomate, mussarela, calabresa fatiada, cebola roxa e azeitonas pretas.',
       preco: 'R$ 42,00',
-      destaque: false,
+      destaque: true, // Destaque aleatório
       imagem: 'assets/sections/pizzas/pizza-2.jpg'
     },
     {
@@ -90,7 +98,7 @@ const cardapio = {
       nome: 'Pizza Portuguesa Completa',
       descricao: 'Molho de tomate, mussarela, presunto, ovo cozido, cebola, pimentão, ervilha e azeitonas verdes.',
       preco: 'R$ 48,90',
-      destaque: true,
+      destaque: false,
       imagem: 'assets/sections/pizzas/pizza-3.jpg'
     },
     {
@@ -108,7 +116,7 @@ const cardapio = {
       nome: 'Esfirra Aberta de Carne',
       descricao: 'Massa fina e crocante, recheada com carne moída temperada com especiarias árabes e limão.',
       preco: 'R$ 7,50',
-      destaque: true,
+      destaque: false,
       imagem: 'assets/sections/esfirras/esfirra-1.jpg'
     },
     {
@@ -124,7 +132,7 @@ const cardapio = {
       nome: 'Esfirra Folhada de Calabresa',
       descricao: 'Massa folhada crocante, recheada com calabresa moída, cebola e um toque de pimenta.',
       preco: 'R$ 8,50',
-      destaque: true,
+      destaque: true, // Destaque aleatório
       imagem: 'assets/sections/esfirras/esfirra-3.jpg'
     },
     {
@@ -142,7 +150,7 @@ const cardapio = {
       nome: 'Pastel de Camarão com Catupiry',
       descricao: 'Massa crocante recheada com camarões frescos salteados e catupiry cremoso.',
       preco: 'R$ 12,90',
-      destaque: true,
+      destaque: false,
       imagem: 'assets/sections/pasteis/pastel-1.jpg'
     },
     {
@@ -158,7 +166,7 @@ const cardapio = {
       nome: 'Pastel de Queijo Padrão',
       descricao: 'O clássico pastel de feira, recheado com queijo mussarela derretido.',
       preco: 'R$ 9,00',
-      destaque: true,
+      destaque: false,
       imagem: 'assets/sections/pasteis/pastel-3.jpg'
     },
     {
@@ -176,7 +184,7 @@ const cardapio = {
       nome: 'Suco Natural de Laranja',
       descricao: 'Suco feito com laranjas frescas espremidas na hora (400ml).',
       preco: 'R$ 9,50',
-      destaque: true,
+      destaque: false,
       imagem: 'assets/sections/bebidas/bebida-1.jpg'
     },
     {
@@ -184,7 +192,7 @@ const cardapio = {
       nome: 'Refrigerante Lata',
       descricao: 'Coca-Cola, Guaraná Antarctica, Fanta Laranja (350ml).',
       preco: 'R$ 6,00',
-      destaque: false,
+      destaque: true, // Destaque aleatório
       imagem: 'assets/sections/bebidas/bebida-2.jpg'
     },
     {
@@ -200,7 +208,7 @@ const cardapio = {
       nome: 'Cerveja Long Neck',
       descricao: 'Heineken, Budweiser, Stella Artois (330ml).',
       preco: 'R$ 10,00',
-      destaque: true,
+      destaque: false,
       imagem: 'assets/sections/bebidas/bebida-4.jpg'
     }
   ],
@@ -209,7 +217,7 @@ const cardapio = {
       id: 1,
       nome: 'Combo Clássico Individual',
       descricao: 'X-Burger Clássico + Batata Frita Média + Refrigerante Lata.',
-      preco: 'R$ 35,90',
+      preco: 'R$ 40,90',
       destaque: true,
       imagem: 'assets/sections/combos/combo-1.jpg'
     },
@@ -218,7 +226,7 @@ const cardapio = {
       nome: 'Combo Casal Perfeito',
       descricao: '2 X-Salada Completo + Porção Grande de Batata com Cheddar e Bacon + 2 Refrigerantes Lata.',
       preco: 'R$ 69,90',
-      destaque: true,
+      destaque: false,
       imagem: 'assets/sections/combos/combo-2.jpg'
     },
     {
@@ -226,8 +234,60 @@ const cardapio = {
       nome: 'Combo Família Feliz',
       descricao: '1 Pizza Grande (qualquer sabor) + 1 Refrigerante 2 Litros + 4 Esfirras Doces.',
       preco: 'R$ 89,90',
-      destaque: false,
+      destaque: true, // Destaque aleatório
       imagem: 'assets/sections/combos/combo-3.jpg'
+    }
+  ],
+  crepes: [
+    {
+      id: 1,
+      nome: 'Crepe de Frango com Catupiry',
+      descricao: 'Delicioso crepe recheado com frango desfiado e catupiry cremoso.',
+      preco: 'R$ 22,00',
+      destaque: false,
+      imagem: 'assets/sections/crepes/crepe-frango-catupiry.jpg'
+    },
+    {
+      id: 2,
+      nome: 'Crepe de Chocolate com Morango',
+      descricao: 'Irresistível crepe doce com chocolate derretido e morangos frescos.',
+      preco: 'R$ 20,00',
+      destaque: false,
+      imagem: 'assets/sections/crepes/crepe-chocolate-morango.jpg'
+    },
+    {
+      id: 3,
+      nome: 'Crepe de Queijo com Presunto',
+      descricao: 'Clássico crepe salgado com queijo derretido e presunto de qualidade.',
+      preco: 'R$ 19,50',
+      destaque: false,
+      imagem: 'assets/sections/crepes/crepe-queijo-presunto.jpg'
+    }
+  ],
+  batatas: [
+    {
+      id: 1,
+      nome: 'Batata Frita Simples (Porção)',
+      descricao: 'Porção generosa de batatas fritas crocantes e sequinhas.',
+      preco: 'R$ 15,00',
+      destaque: true, // Destaque aleatório
+      imagem: 'assets/sections/batatas/batata-frita-simples.jpg'
+    },
+    {
+      id: 2,
+      nome: 'Batata Frita com Cheddar e Bacon (Porção)',
+      descricao: 'Batatas fritas cobertas com cheddar cremoso e bacon crocante em cubos.',
+      preco: 'R$ 25,00',
+      destaque: false,
+      imagem: 'assets/sections/batatas/batata-cheddar-bacon.jpg'
+    },
+    {
+      id: 3,
+      nome: 'Batata Rústica com Alecrim (Porção)',
+      descricao: 'Deliciosas batatas rústicas temperadas com alecrim e azeite.',
+      preco: 'R$ 18,00',
+      destaque: false,
+      imagem: 'assets/sections/batatas/batata-rustica-alecrim.jpg'
     }
   ]
 };
