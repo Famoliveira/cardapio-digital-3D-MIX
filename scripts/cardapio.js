@@ -3,40 +3,40 @@
 // Configuração das categorias e seus nomes de exibição
 const categorias = [
   {
-    id: 'destaques', nome: 'Destaques', // Categoria Destaques readicionada
-    icon: 'assets/icons/hamburgueres-icon.png'
+    id: 'destaques', nome: 'Destaques',
+    icon: 'assets/icons/destaques.png'
   },
   {
     id: 'combos', nome: 'Combos',
-    icon: 'assets/icons/hamburgueres-icon.png'
+    icon: 'assets/icons/combos.png'
   },
   {
     id: 'pizzas', nome: 'Pizzas',
-    icon: 'assets/icons/hamburgueres-icon.png'
+    icon: 'assets/icons/pizzas.png'
   },
   {
     id: 'lanches', nome: 'Lanches',
-    icon: 'assets/icons/hamburgueres-icon.png'
+    icon: 'assets/icons/lanches.png'
   },
   {
     id: 'pasteis', nome: 'Pastéis',
-    icon: 'assets/icons/hamburgueres-icon.png'
+    icon: 'assets/icons/pasteis.png'
   },
   {
-    id: 'esfirras', nome: 'Esfihas',
-    icon: 'assets/icons/hamburgueres-icon.png'
+    id: 'esfihas', nome: 'Esfihas',
+    icon: 'assets/icons/esfihas.png'
   },
   {
     id: 'crepes', nome: 'Crepes',
-    icon: 'assets/icons/hamburgueres-icon.png'
+    icon: 'assets/icons/crepes.png'
   },
   {
     id: 'batatas', nome: 'Batatas',
-    icon: 'assets/icons/hamburgueres-icon.png'
+    icon: 'assets/icons/batatas.png'
   },
   {
     id: 'bebidas', nome: 'Bebidas',
-    icon: 'assets/icons/hamburgueres-icon.png'
+    icon: 'assets/icons/bebidas.png'
   }
 ];
 
@@ -62,7 +62,7 @@ const cardapio = {
     {
       id: 3,
       nome: 'Combo Família Feliz',
-      descricao: '1 Pizza Grande (qualquer sabor) + 1 Refrigerante 2 Litros + 4 Esfirras Doces.',
+      descricao: '1 Pizza Grande (qualquer sabor) + 1 Refrigerante 2 Litros + 4 esfihas Doces.',
       preco: 'R$ 89,90',
       destaque: true, // Destaque aleatório da sua última colagem
       imagem: 'assets/sections/combos/combo-3.jpg'
@@ -170,14 +170,14 @@ const cardapio = {
       imagem: 'assets/sections/pasteis/pastel-4.jpg'
     }
   ],
-  esfirras: [
+  esfihas: [
     {
       id: 1,
       nome: 'Esfirra Aberta de Carne',
       descricao: 'Massa fina e crocante, recheada com carne moída temperada com especiarias árabes e limão.',
       preco: 'R$ 7,50',
       destaque: false,
-      imagem: 'assets/sections/esfirras/esfirra-1.jpg'
+      imagem: 'assets/sections/esfihas/esfirra-1.jpg'
     },
     {
       id: 2,
@@ -185,7 +185,7 @@ const cardapio = {
       descricao: 'Massa macia, recheada com queijo branco fresco temperado e um toque de hortelã.',
       preco: 'R$ 8,00',
       destaque: false,
-      imagem: 'assets/sections/esfirras/esfirra-2.jpg'
+      imagem: 'assets/sections/esfihas/esfirra-2.jpg'
     },
     {
       id: 3,
@@ -193,7 +193,7 @@ const cardapio = {
       descricao: 'Massa folhada crocante, recheada com calabresa moída, cebola e um toque de pimenta.',
       preco: 'R$ 8,50',
       destaque: true, // Destaque aleatório da sua última colagem
-      imagem: 'assets/sections/esfirras/esfirra-3.jpg'
+      imagem: 'assets/sections/esfihas/esfirra-3.jpg'
     },
     {
       id: 4,
@@ -201,7 +201,7 @@ const cardapio = {
       descricao: 'Massa doce, recheada com chocolate ao leite derretido e pedaços de morango fresco.',
       preco: 'R$ 9,00',
       destaque: false,
-      imagem: 'assets/sections/esfirras/esfirra-4.jpg'
+      imagem: 'assets/sections/esfihas/esfirra-4.jpg'
     }
   ],
   crepes: [
