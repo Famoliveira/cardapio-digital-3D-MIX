@@ -10,17 +10,43 @@
   box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.1); /* 2px 8px */
   overflow-x: auto;
   -webkit-overflow-scrolling: touch; /* Melhora a rolagem no iOS */
+
+  /* Estilização da barra de rolagem para Firefox */
+  scrollbar-width: thin; /* Deixa a barra de rolagem mais fina */
+  scrollbar-color: rgba(249, 112, 21, 0.7) rgba(0, 0, 0, 0.08); /* Cor do thumb (laranja com opacidade) e do track (fundo sutil) */
 }
 
-/* Esconde a barra de rolagem mas mantém a funcionalidade */
+/* Estilização da barra de rolagem para navegadores WebKit (Chrome, Safari, Edge, etc.) */
+/* Define a espessura da barra de rolagem horizontal */
 .category-nav::-webkit-scrollbar {
-  display: none;
+  height: 6px; /* Mais fina, ajuste conforme preferir */
+  background-color: transparent; /* Fundo da barra de rolagem inteira (opcional) */
+}
+
+/* Estiliza o "polegar" (a parte que você arrasta) da barra de rolagem */
+.category-nav::-webkit-scrollbar-thumb {
+  background-color: rgba(249, 112, 21, 0.7); /* Cor laranja da marca com opacidade */
+  border-radius: 10px; /* Cantos arredondados para um visual moderno */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Borda sutil para destacar (opcional) */
+}
+
+/* Estiliza a "trilha" (o fundo onde o polegar se move) da barra de rolagem */
+.category-nav::-webkit-scrollbar-track {
+  background-color: rgba(0, 0, 0, 0.08); /* Cor de fundo sutil para a trilha */
+  border-radius: 10px; /* Cantos arredondados para a trilha */
+}
+
+/* Remove as regras antigas que escondiam a scrollbar */
+/*
+.category-nav::-webkit-scrollbar {
+  display: none; // REMOVIDO
 }
 
 .category-nav {
-  -ms-overflow-style: none;  /* IE e Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;  // REMOVIDO
+  scrollbar-width: none;  // REMOVIDO
 }
+*/
 
 nav {
   width: 100%;
@@ -64,24 +90,19 @@ nav ul li a:hover {
 nav ul li a:focus {
   outline: 2px solid var(--brand-orange); /* Usar um contorno para indicar foco */
   outline-offset: 2px;
-  /* Não definir background-color laranja aqui para evitar conflito com .active */
 }
 
 /* Classe para a categoria ativa/selecionada (controlada pelo IntersectionObserver) */
 nav ul li a.active {
   background-color: var(--brand-orange);
-  color: white;
-  box-shadow: 0rem 0rem 0.625rem rgba(0, 0, 0, 0.3);
+  color: white; /* Cor do texto para o estado ativo */
+  box-shadow: 0rem 0rem 0.625rem rgba(0, 0, 0, 0.3); /* 0px 0px 10px */
 }
 
 /* Se um link ativo também receber foco, garanta que ele mantenha sua aparência ativa */
 nav ul li a.active:focus {
   background-color: var(--brand-orange); /* Manter o fundo ativo */
   color: white; /* Manter a cor do texto ativa */
-  /* O outline de 'a:focus' ainda será aplicado, o que é aceitável,
-     ou pode ser customizado aqui se necessário, por exemplo:
-     outline: 2px solid darken(var(--brand-orange), 10%);
-  */
 }
 
 /* Estilo para o span dentro do link (nome da categoria) */
