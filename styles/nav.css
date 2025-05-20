@@ -1,3 +1,5 @@
+/* styles/nav.css */
+
 /* Ajuste para o posicionamento do nav */
 .category-nav {
   position: sticky;
@@ -37,35 +39,62 @@ nav ul {
   padding-block: 0.8rem
 }
 
+/* Estilos para o link de navegação */
 nav ul li a {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background-color: #f1f1f1;
+  background-color: #f1f1f1; /* Fundo padrão */
   padding: 0.5rem 1rem;
   border-radius: 4.5rem;
   box-shadow: 0rem 0.25rem 0.5rem rgba(0, 0, 0, 0.15); /* 0px 4px 8px */
-  transition: background-color 0.6s ease, box-shadow 0.2s ease, scale 0.2s ease;
+  transition: background-color 0.3s ease, box-shadow 0.2s ease, color 0.3s ease; /* Transições suaves */
   white-space: nowrap;
+  color: #333; /* Cor do texto padrão - importante para contraste */
 }
 
-nav ul li a:hover,
-nav ul li a:focus,
-nav ul li a:focus-within {
+/* Efeito de hover */
+nav ul li a:hover {
   background-color: var(--brand-orange);
+  color: white; /* Cor do texto para o estado hover */
   box-shadow: 0rem 0rem 0.625rem rgba(0, 0, 0, 0.5); /* 0px 0px 10px */
 }
 
-/* Classe para a categoria ativa/selecionada */
+/* Efeito de focus - distinto do .active */
+nav ul li a:focus {
+  outline: 2px solid var(--brand-orange); /* Usar um contorno para indicar foco */
+  outline-offset: 2px;
+  /* Não definir background-color laranja aqui para evitar conflito com .active */
+}
+
+/* Classe para a categoria ativa/selecionada (controlada pelo IntersectionObserver) */
 nav ul li a.active {
   background-color: var(--brand-orange);
-  box-shadow: 0rem 0rem 0.625rem rgba(0, 0, 0, 0.3); /* 0px 0px 10px */
+  color: white;
+  box-shadow: 0rem 0rem 0.625rem rgba(0, 0, 0, 0.3);
+}
+
+/* Se um link ativo também receber foco, garanta que ele mantenha sua aparência ativa */
+nav ul li a.active:focus {
+  background-color: var(--brand-orange); /* Manter o fundo ativo */
+  color: white; /* Manter a cor do texto ativa */
+  /* O outline de 'a:focus' ainda será aplicado, o que é aceitável,
+     ou pode ser customizado aqui se necessário, por exemplo:
+     outline: 2px solid darken(var(--brand-orange), 10%);
+  */
+}
+
+/* Estilo para o span dentro do link (nome da categoria) */
+nav ul li a span {
+  color: inherit; /* O span herda a cor do texto do 'a' por padrão */
+  opacity: 0.6; /* Opacidade padrão para o texto do span */
+  transition: opacity 0.3s ease, color 0.3s ease;
 }
 
 nav ul li a:hover span,
-nav ul li a:focus span,
 nav ul li a.active span {
-  opacity: 0.8;
+  color: white; /* Garante que o texto do span seja branco quando o fundo for laranja */
+  opacity: 0.9; /* Opacidade ajustada para melhor leitura */
 }
 
 /* Keyframes para a animação de shake sutil do ícone */
