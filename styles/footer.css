@@ -113,6 +113,24 @@ footer {
   width: 100%;
 }
 
+/* Estilos para o horário de funcionamento no footer */
+.footer-horario {
+  color: #f5f5f5; /* Mantém a consistência com o texto da logo */
+  opacity: 0.9; /* Mantém a consistência com o texto da logo */
+  font-size: 0.9rem; /* Tamanho de fonte similar ao texto da logo */
+  line-height: 1.5; /* Espaçamento entre linhas similar ao texto da logo */
+  margin-top: 1rem; /* Adiciona um espaço acima do bloco de horário */
+}
+
+.footer-horario p {
+  margin-bottom: 0.25rem; /* Espaçamento menor entre as linhas do horário */
+}
+
+.footer-horario strong {
+  font-weight: var(--fw-semibold); /* Usa uma variável global para peso da fonte, se definida, ou bold */
+  color: #ffffff; /* Cor um pouco mais destacada para o título */
+}
+
 /* Responsividade */
 @media (max-width: 768px) {
   .footer-container {
@@ -146,6 +164,11 @@ footer {
   
   .social-button {
     width: 100%;
+  }
+
+  /* Ajuste para o horário em telas menores */
+  .footer-horario {
+    text-align: center; /* Centraliza o texto do horário em telas menores */
   }
 }
 
