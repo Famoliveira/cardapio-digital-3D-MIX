@@ -29,9 +29,9 @@ section {
 
   /* Transições combinadas para scroll e hover */
   /* Usando cubic-bezier para uma animação mais suave e moderna */
-  transition: opacity 0.6s cubic-bezier(0.65, 0, 0.35, 1),
-              transform 0.6s cubic-bezier(0.65, 0, 0.35, 1),
-              box-shadow 0.3s ease; /* Transição original do hover para sombra */
+  transition: opacity 0.4s cubic-bezier(0.65, 0, 0.35, 1),
+              transform 0.4s cubic-bezier(0.65, 0, 0.35, 1),
+              box-shadow 0.4s ease; /* Transição original do hover para sombra */
 }
 
 /* Efeito de hover (mantido do seu código original) */
