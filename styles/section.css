@@ -1,6 +1,6 @@
 section {
   margin-bottom: 2rem;
-  
+
   & > h2 {
     text-align: center;
   }
@@ -20,14 +20,30 @@ section {
   flex-direction: column;
   background-color: white;
   border-radius: 1rem;
-  overflow: hidden;
+  overflow: hidden; /* Importante para que o conteúdo não vaze antes da animação */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  /* Estado inicial para a animação de entrada (scroll) */
+  opacity: 0;
+  transform: translateY(30px); /* Começa um pouco abaixo e invisível */
+
+  /* Transições combinadas para scroll e hover */
+  /* Usando cubic-bezier para uma animação mais suave e moderna */
+  transition: opacity 0.6s cubic-bezier(0.65, 0, 0.35, 1),
+              transform 0.6s cubic-bezier(0.65, 0, 0.35, 1),
+              box-shadow 0.3s ease; /* Transição original do hover para sombra */
 }
 
+/* Efeito de hover (mantido do seu código original) */
 .menu-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-5px); /* Esta transformação será relativa ao estado atual do card (seja visível ou não) */
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Classe que será adicionada/removida via JavaScript para animar na rolagem */
+.menu-card.is-visible {
+  opacity: 1;
+  transform: translateY(0); /* Estado final: totalmente visível e na posição correta */
 }
 
 /* Container da imagem com posição relativa para o preço */
@@ -89,10 +105,13 @@ section {
   }
 }
 
+/* Estilos para item destacado (mantidos do seu código original) */
 .menu-card.item-destacado {
   border: 2px solid var(--brand-orange);
   position: relative;
   box-shadow: 0 0 10px rgba(249, 112, 21, 0.5);
+  /* Se você quiser que a sombra do destaque no hover seja diferente, adicione aqui: */
+  /* .menu-card.item-destacado:hover { box-shadow: 0 0 15px rgba(249, 112, 21, 0.7); } */
 }
 
 .menu-card.item-destacado::after {

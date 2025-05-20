@@ -24,7 +24,6 @@ function gerarNavegacao() {
 
     if (deveExibirCategoria) {
       const li = document.createElement('li');
-      // CORREÇÃO APLICADA AQUI: removido o comentário que estava quebrando o HTML
       li.innerHTML = `
         <a href="#${categoria.id}">
           <img src="${categoria.icon || 'assets/icons/burguer.png'}" alt="${categoria.nome}">
@@ -39,7 +38,7 @@ function gerarNavegacao() {
 // Função para criar um card de item do cardápio
 function criarCardItem(item) {
   const card = document.createElement('div');
-  card.className = 'menu-card';
+  card.className = 'menu-card'; // A animação de scroll será aplicada a esta classe
   if (item.destaque) {
     card.classList.add('item-destacado');
   }
@@ -120,9 +119,10 @@ function gerarCardapio() {
 // Inicializar o cardápio quando o DOM estiver carregado
 document.addEventListener('DOMContentLoaded', () => {
   gerarNavegacao();
-  gerarCardapio();
+  gerarCardapio(); // Gera e adiciona os cards ao DOM
 
-  const observer = new IntersectionObserver((entries) => {
+  // IntersectionObserver para destacar a categoria ativa na navegação (código existente)
+  const navObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         const id = entry.target.id;
@@ -137,6 +137,30 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { threshold: 0.2 });
 
   document.querySelectorAll('.cardapio-digital section[id]').forEach(section => {
-    observer.observe(section);
+    navObserver.observe(section);
+  });
+
+  // NOVO IntersectionObserver para animação dos cards ao rolar
+  const cardAnimationObserverOptions = {
+    root: null, // Observa em relação à viewport
+    rootMargin: '0px 0px -50px 0px', // Começa a animar um pouco antes de estar 100% na tela e remove a classe um pouco depois de sair
+    threshold: 0.1 // Pelo menos 10% do card precisa estar visível para acionar
+  };
+
+  const cardAnimationObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+      } else {
+        // Remove a classe para que o card "suma" ao sair da tela,
+        // permitindo re-animar se o usuário rolar de volta.
+        entry.target.classList.remove('is-visible');
+      }
+    });
+  }, cardAnimationObserverOptions);
+
+  // Aplicar o observador a todos os cards do menu
+  document.querySelectorAll('.menu-card').forEach(card => {
+    cardAnimationObserver.observe(card);
   });
 });
