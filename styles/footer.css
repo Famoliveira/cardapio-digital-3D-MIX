@@ -9,10 +9,11 @@ footer {
 .footer-container {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start; /* Alterado para alinhar ao topo */
   max-width: 1360px;
   margin: 0 auto;
   flex-wrap: wrap;
+  gap: 2rem; /* Adicionado gap para melhor espaçamento */
 }
 
 /* Seção da logo */
@@ -20,6 +21,9 @@ footer {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  flex: 1;
+  min-width: 250px; /* Largura mínima para evitar compressão */
+  max-width: 350px; /* Largura máxima para desktop */
 }
 
 .footer-logo {
@@ -30,24 +34,39 @@ footer {
 .footer-logo-text {
   color: #f5f5f5;
   opacity: 0.9;
-  max-width: 300px;
   font-size: 0.9rem;
+  line-height: 1.5; /* Melhorar legibilidade */
 }
 
 /* Links de redes sociais */
 .footer-social-links {
   display: flex;
-  gap: 1.5rem;
+  gap: 2rem; /* Aumentado o gap entre os itens sociais */
+  flex-wrap: wrap; /* Permitir quebrar em linhas caso necessário */
+  justify-content: flex-end; /* Alinhar à direita no desktop */
+  flex: 2; /* Dar mais espaço para os links sociais */
 }
 
 /* Estilos para cada item de rede social */
 .social-item {
   display: flex;
   flex-direction: column;
-  align-items: stretch; /* Garante que o botão e o texto ocupem toda a largura */
-  gap: 0.5rem;
-  width: 150px;
-  max-width: 100%;
+  align-items: center; /* Centralizar conteúdo */
+  gap: 0.75rem; /* Espaço entre texto e botão */
+  width: 180px; /* Largura fixa para cada item social - aumentada */
+}
+
+.social-text {
+  color: #e0e0e0;
+  font-size: 0.85rem; /* Aumento ligeiro para melhorar legibilidade */
+  text-align: center;
+  line-height: 1.4;
+  height: 2.5em; /* Altura fixa para texto de duas linhas */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  white-space: normal; /* Permitir quebra de texto natural */
 }
 
 .social-button {
@@ -57,16 +76,17 @@ footer {
   gap: 0.5rem;
   background-color: var(--brand-orange);
   color: white;
-  padding: 0.75rem 1.25rem;
+  padding: 0.75rem 1rem; /* Ajustado para melhor proporção */
   border-radius: 2rem;
   font-weight: var(--fw-medium);
   font-size: 0.9rem;
   text-align: center;
   transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
   width: 100%;
+  min-width: 150px; /* Largura mínima para o botão */
   box-sizing: border-box;
-  margin: 0 auto;
   text-decoration: none;
+  white-space: nowrap; /* Evitar quebra de texto dentro do botão */
 }
 
 .social-button:hover {
@@ -79,15 +99,7 @@ footer {
   width: 20px;
   height: 20px;
   object-fit: contain;
-}
-
-.social-text {
-  color: #e0e0e0;
-  font-size: 0.8rem;
-  max-width: 100%;
-  text-align: center;
-  line-height: 1.4;
-  margin: 0 auto;
+  flex-shrink: 0; /* Impedir que o ícone encolha */
 }
 
 /* Copyright */
@@ -112,6 +124,7 @@ footer {
   
   .footer-logo-section {
     align-items: center;
+    max-width: 100%;
   }
   
   .footer-logo-text {
@@ -123,17 +136,27 @@ footer {
     width: 100%;
     gap: 2rem;
     align-items: center;
+    justify-content: center;
   }
   
   .social-item {
     width: 100%;
     max-width: 300px;
-    align-items: stretch;
   }
   
-  .social-button, .social-text {
+  .social-button {
     width: 100%;
-    margin: 0 auto;
+  }
+}
+
+/* Desktop específico */
+@media (min-width: 1024px) {
+  .footer-social-links {
+    justify-content: flex-end;
+  }
+  
+  .social-item {
+    margin-bottom: 0;
   }
 }
 
