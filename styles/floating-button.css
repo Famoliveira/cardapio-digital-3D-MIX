@@ -1,0 +1,62 @@
+/* styles/floating-button.css */
+.floating-delivery-button {
+  position: fixed;
+  bottom: 1.5rem; /* 24px */
+  right: 1.5rem; /* 24px */
+  width: 3.75rem; /* 60px */
+  height: 3.75rem; /* 60px */
+  background-color: #272727;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 0.9rem rgba(0, 0, 0, 0.4); /* Sombra sutil */
+  z-index: 1000; /* Para garantir que fique acima de outros elementos */
+  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+  text-decoration: none; /* Remove sublinhado do link */
+}
+
+.floating-delivery-button img {
+  width: 60%; /* Ajuste o tamanho do ícone conforme necessário */
+  height: auto;
+  object-fit: contain;
+}
+
+.floating-delivery-button:hover {
+  transform: scale(1.1) translateY(-0.3rem); /* Efeito de leve subida e aumento */
+  background-color: #1d1d1d; /* Um tom de laranja um pouco mais escuro no hover */
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.8);
+  animation: deliveryPulse 1s infinite;
+}
+
+.floating-delivery-button:focus {
+  outline: 2px solid var(--brand-orange);
+  outline-offset: 3px;
+}
+
+/* Ajustes para telas menores */
+@media (max-width: 425px) {
+  .floating-delivery-button {
+    bottom: 1rem; /* 16px */
+    right: 1rem; /* 16px */
+    width: 3.25rem; /* 52px */
+    height: 3.25rem; /* 52px */
+  }
+
+  .floating-delivery-button:hover {
+    animation: none;
+  }
+}
+
+@keyframes deliveryPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
