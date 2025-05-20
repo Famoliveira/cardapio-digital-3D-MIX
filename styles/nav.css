@@ -34,6 +34,7 @@ nav ul {
   padding-inline: 1rem;
   width: max-content; /* Garante que a lista ocupe o espaço necessário */
   min-width: 100%; /* Garante que ocupe pelo menos toda a largura disponível */
+  padding-block: 0.8rem
 }
 
 nav ul li a {

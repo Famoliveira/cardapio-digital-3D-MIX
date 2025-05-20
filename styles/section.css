@@ -1,0 +1,90 @@
+section {
+  margin-bottom: 2rem;
+  
+  & > h2 {
+    text-align: center;
+  }
+}
+
+/* Estilos para a grid de cards das seções */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+}
+
+/* Card dos itens do cardápio */
+.menu-card {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.menu-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Container da imagem com posição relativa para o preço */
+.card-image-container {
+  position: relative;
+  width: 100%;
+  height: 200px;
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Estilo do preço */
+.card-price {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: var(--brand-orange);
+  opacity: 0.9;
+  color: white;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-medium);
+}
+
+/* Conteúdo do card */
+.card-content {
+  padding: 1rem;
+}
+
+.card-title {
+  font-size: 1.125rem; /* 18px */
+  font-weight: var(--fw-semibold);
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.card-description {
+  font-size: 0.875rem; /* 14px */
+  color: #666;
+  line-height: 1.4;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .grid-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Desktop: 3 cards por linha */
+@media (min-width: 1024px) {
+  .grid-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
