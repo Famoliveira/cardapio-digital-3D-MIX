@@ -207,45 +207,11 @@ document.addEventListener('DOMContentLoaded', () => {
       navObserver.observe(section);
     });
   };
-
-  // IntersectionObserver para animação dos cards ao rolar
-  const setupCardAnimationObserver = () => {
-    const cards = document.querySelectorAll('.menu-card');
-    if (cards.length === 0) {
-      // requestAnimationFrame(setupCardAnimationObserver);
-      return;
-    }
-
-    const cardAnimationObserverOptions = {
-      root: null,
-      rootMargin: '0px 0px -50px 0px',
-      threshold: 0.1
-    };
-
-    const cardAnimationObserver = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-        } else {
-          // Opcional: remover a classe se quiser que a animação ocorra toda vez que entra na tela
-          // entry.target.classList.remove('is-visible');
-        }
-      });
-    }, cardAnimationObserverOptions);
-
-    cards.forEach(card => {
-      cardAnimationObserver.observe(card);
-    });
-  };
   
-  // Chama as configurações dos observers após um pequeno delay para garantir que o DOM foi atualizado
-  // por gerarCardapio e gerarNavegacao.
-  // Ou, melhor ainda, garantir que sejam chamados após a conclusão dessas funções.
-  // Como as funções são síncronas, podemos chamá-las diretamente após.
+  // A função setupCardAnimationObserver e sua chamada foram removidas.
   setupNavObserver();
-  setupCardAnimationObserver();
 
   // Se houver atualizações dinâmicas no cardápio que recriem os cards ou seções,
-  // lembre-se de re-executar setupNavObserver() e setupCardAnimationObserver()
+  // lembre-se de re-executar setupNavObserver()
   // ou de desconectar os observers antigos e reconectar aos novos elementos.
 });
