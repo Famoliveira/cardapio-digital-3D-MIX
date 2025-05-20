@@ -40,8 +40,68 @@ const categorias = [
   }
 ];
 
-// Dados do cardápio
+// Dados do cardápio (chaves reordenadas para seguir a ordem de 'categorias')
 const cardapio = {
+  combos: [ // Primeira categoria de produtos conforme 'categorias' (após destaques)
+    {
+      id: 1,
+      nome: 'Combo Clássico Individual',
+      descricao: 'X-Burger Clássico + Batata Frita Média + Refrigerante Lata.',
+      preco: 'R$ 40,90', // Preço atualizado na sua última colagem
+      destaque: true,    // Destaque atualizado na sua última colagem
+      imagem: 'assets/sections/combos/combo-1.jpg'
+    },
+    {
+      id: 2,
+      nome: 'Combo Casal Perfeito',
+      descricao: '2 X-Salada Completo + Porção Grande de Batata com Cheddar e Bacon + 2 Refrigerantes Lata.',
+      preco: 'R$ 69,90',
+      destaque: false,
+      imagem: 'assets/sections/combos/combo-2.jpg'
+    },
+    {
+      id: 3,
+      nome: 'Combo Família Feliz',
+      descricao: '1 Pizza Grande (qualquer sabor) + 1 Refrigerante 2 Litros + 4 Esfirras Doces.',
+      preco: 'R$ 89,90',
+      destaque: true, // Destaque aleatório da sua última colagem
+      imagem: 'assets/sections/combos/combo-3.jpg'
+    }
+  ],
+  pizzas: [
+    {
+      id: 1,
+      nome: 'Pizza Margherita Especial',
+      descricao: 'Molho de tomate italiano, mussarela de búfala, rodelas de tomate fresco, manjericão e um fio de azeite extra virgem.',
+      preco: 'R$ 45,00',
+      destaque: false,
+      imagem: 'assets/sections/pizzas/pizza-1.jpg'
+    },
+    {
+      id: 2,
+      nome: 'Pizza Calabresa Acebolada',
+      descricao: 'Molho de tomate, mussarela, calabresa fatiada, cebola roxa e azeitonas pretas.',
+      preco: 'R$ 42,00',
+      destaque: true, // Destaque aleatório da sua última colagem
+      imagem: 'assets/sections/pizzas/pizza-2.jpg'
+    },
+    {
+      id: 3,
+      nome: 'Pizza Portuguesa Completa',
+      descricao: 'Molho de tomate, mussarela, presunto, ovo cozido, cebola, pimentão, ervilha e azeitonas verdes.',
+      preco: 'R$ 48,90',
+      destaque: false,
+      imagem: 'assets/sections/pizzas/pizza-3.jpg'
+    },
+    {
+      id: 4,
+      nome: 'Pizza Frango com Catupiry Original',
+      descricao: 'Molho de tomate, mussarela, frango desfiado temperado e catupiry original gratinado.',
+      preco: 'R$ 47,50',
+      destaque: false,
+      imagem: 'assets/sections/pizzas/pizza-4.jpg'
+    }
+  ],
   lanches: [
     {
       id: 1,
@@ -64,7 +124,7 @@ const cardapio = {
       nome: 'X-Bacon Artesanal',
       descricao: 'Pão brioche, hambúrguer de costela 180g, queijo mussarela, fatias crocantes de bacon, cebola caramelizada e barbecue.',
       preco: 'R$ 29,90',
-      destaque: true, // Destaque aleatório
+      destaque: true, // Destaque aleatório da sua última colagem
       imagem: 'assets/sections/hamburgueres/hamburguer-3.jpg'
     },
     {
@@ -74,74 +134,6 @@ const cardapio = {
       preco: 'R$ 32,50',
       destaque: false,
       imagem: 'assets/sections/hamburgueres/hamburguer-4.jpg'
-    }
-  ],
-  pizzas: [
-    {
-      id: 1,
-      nome: 'Pizza Margherita Especial',
-      descricao: 'Molho de tomate italiano, mussarela de búfala, rodelas de tomate fresco, manjericão e um fio de azeite extra virgem.',
-      preco: 'R$ 45,00',
-      destaque: false,
-      imagem: 'assets/sections/pizzas/pizza-1.jpg'
-    },
-    {
-      id: 2,
-      nome: 'Pizza Calabresa Acebolada',
-      descricao: 'Molho de tomate, mussarela, calabresa fatiada, cebola roxa e azeitonas pretas.',
-      preco: 'R$ 42,00',
-      destaque: true, // Destaque aleatório
-      imagem: 'assets/sections/pizzas/pizza-2.jpg'
-    },
-    {
-      id: 3,
-      nome: 'Pizza Portuguesa Completa',
-      descricao: 'Molho de tomate, mussarela, presunto, ovo cozido, cebola, pimentão, ervilha e azeitonas verdes.',
-      preco: 'R$ 48,90',
-      destaque: false,
-      imagem: 'assets/sections/pizzas/pizza-3.jpg'
-    },
-    {
-      id: 4,
-      nome: 'Pizza Frango com Catupiry Original',
-      descricao: 'Molho de tomate, mussarela, frango desfiado temperado e catupiry original gratinado.',
-      preco: 'R$ 47,50',
-      destaque: false,
-      imagem: 'assets/sections/pizzas/pizza-4.jpg'
-    }
-  ],
-  esfirras: [
-    {
-      id: 1,
-      nome: 'Esfirra Aberta de Carne',
-      descricao: 'Massa fina e crocante, recheada com carne moída temperada com especiarias árabes e limão.',
-      preco: 'R$ 7,50',
-      destaque: false,
-      imagem: 'assets/sections/esfirras/esfirra-1.jpg'
-    },
-    {
-      id: 2,
-      nome: 'Esfirra Fechada de Queijo Branco',
-      descricao: 'Massa macia, recheada com queijo branco fresco temperado e um toque de hortelã.',
-      preco: 'R$ 8,00',
-      destaque: false,
-      imagem: 'assets/sections/esfirras/esfirra-2.jpg'
-    },
-    {
-      id: 3,
-      nome: 'Esfirra Folhada de Calabresa',
-      descricao: 'Massa folhada crocante, recheada com calabresa moída, cebola e um toque de pimenta.',
-      preco: 'R$ 8,50',
-      destaque: true, // Destaque aleatório
-      imagem: 'assets/sections/esfirras/esfirra-3.jpg'
-    },
-    {
-      id: 4,
-      nome: 'Esfirra Doce de Chocolate com Morango',
-      descricao: 'Massa doce, recheada com chocolate ao leite derretido e pedaços de morango fresco.',
-      preco: 'R$ 9,00',
-      destaque: false,
-      imagem: 'assets/sections/esfirras/esfirra-4.jpg'
     }
   ],
   pasteis: [
@@ -178,64 +170,38 @@ const cardapio = {
       imagem: 'assets/sections/pasteis/pastel-4.jpg'
     }
   ],
-  bebidas: [
+  esfirras: [
     {
       id: 1,
-      nome: 'Suco Natural de Laranja',
-      descricao: 'Suco feito com laranjas frescas espremidas na hora (400ml).',
-      preco: 'R$ 9,50',
+      nome: 'Esfirra Aberta de Carne',
+      descricao: 'Massa fina e crocante, recheada com carne moída temperada com especiarias árabes e limão.',
+      preco: 'R$ 7,50',
       destaque: false,
-      imagem: 'assets/sections/bebidas/bebida-1.jpg'
+      imagem: 'assets/sections/esfirras/esfirra-1.jpg'
     },
     {
       id: 2,
-      nome: 'Refrigerante Lata',
-      descricao: 'Coca-Cola, Guaraná Antarctica, Fanta Laranja (350ml).',
-      preco: 'R$ 6,00',
-      destaque: true, // Destaque aleatório
-      imagem: 'assets/sections/bebidas/bebida-2.jpg'
+      nome: 'Esfirra Fechada de Queijo Branco',
+      descricao: 'Massa macia, recheada com queijo branco fresco temperado e um toque de hortelã.',
+      preco: 'R$ 8,00',
+      destaque: false,
+      imagem: 'assets/sections/esfirras/esfirra-2.jpg'
     },
     {
       id: 3,
-      nome: 'Água Mineral com Gás',
-      descricao: 'Garrafa de água mineral gaseificada (500ml).',
-      preco: 'R$ 4,50',
-      destaque: false,
-      imagem: 'assets/sections/bebidas/bebida-3.jpg'
+      nome: 'Esfirra Folhada de Calabresa',
+      descricao: 'Massa folhada crocante, recheada com calabresa moída, cebola e um toque de pimenta.',
+      preco: 'R$ 8,50',
+      destaque: true, // Destaque aleatório da sua última colagem
+      imagem: 'assets/sections/esfirras/esfirra-3.jpg'
     },
     {
       id: 4,
-      nome: 'Cerveja Long Neck',
-      descricao: 'Heineken, Budweiser, Stella Artois (330ml).',
-      preco: 'R$ 10,00',
+      nome: 'Esfirra Doce de Chocolate com Morango',
+      descricao: 'Massa doce, recheada com chocolate ao leite derretido e pedaços de morango fresco.',
+      preco: 'R$ 9,00',
       destaque: false,
-      imagem: 'assets/sections/bebidas/bebida-4.jpg'
-    }
-  ],
-  combos: [
-    {
-      id: 1,
-      nome: 'Combo Clássico Individual',
-      descricao: 'X-Burger Clássico + Batata Frita Média + Refrigerante Lata.',
-      preco: 'R$ 40,90',
-      destaque: true,
-      imagem: 'assets/sections/combos/combo-1.jpg'
-    },
-    {
-      id: 2,
-      nome: 'Combo Casal Perfeito',
-      descricao: '2 X-Salada Completo + Porção Grande de Batata com Cheddar e Bacon + 2 Refrigerantes Lata.',
-      preco: 'R$ 69,90',
-      destaque: false,
-      imagem: 'assets/sections/combos/combo-2.jpg'
-    },
-    {
-      id: 3,
-      nome: 'Combo Família Feliz',
-      descricao: '1 Pizza Grande (qualquer sabor) + 1 Refrigerante 2 Litros + 4 Esfirras Doces.',
-      preco: 'R$ 89,90',
-      destaque: true, // Destaque aleatório
-      imagem: 'assets/sections/combos/combo-3.jpg'
+      imagem: 'assets/sections/esfirras/esfirra-4.jpg'
     }
   ],
   crepes: [
@@ -270,7 +236,7 @@ const cardapio = {
       nome: 'Batata Frita Simples (Porção)',
       descricao: 'Porção generosa de batatas fritas crocantes e sequinhas.',
       preco: 'R$ 15,00',
-      destaque: true, // Destaque aleatório
+      destaque: true, // Destaque aleatório da sua última colagem
       imagem: 'assets/sections/batatas/batata-frita-simples.jpg'
     },
     {
@@ -288,6 +254,40 @@ const cardapio = {
       preco: 'R$ 18,00',
       destaque: false,
       imagem: 'assets/sections/batatas/batata-rustica-alecrim.jpg'
+    }
+  ],
+  bebidas: [
+    {
+      id: 1,
+      nome: 'Suco Natural de Laranja',
+      descricao: 'Suco feito com laranjas frescas espremidas na hora (400ml).',
+      preco: 'R$ 9,50',
+      destaque: false,
+      imagem: 'assets/sections/bebidas/bebida-1.jpg'
+    },
+    {
+      id: 2,
+      nome: 'Refrigerante Lata',
+      descricao: 'Coca-Cola, Guaraná Antarctica, Fanta Laranja (350ml).',
+      preco: 'R$ 6,00',
+      destaque: true, // Destaque aleatório da sua última colagem
+      imagem: 'assets/sections/bebidas/bebida-2.jpg'
+    },
+    {
+      id: 3,
+      nome: 'Água Mineral com Gás',
+      descricao: 'Garrafa de água mineral gaseificada (500ml).',
+      preco: 'R$ 4,50',
+      destaque: false,
+      imagem: 'assets/sections/bebidas/bebida-3.jpg'
+    },
+    {
+      id: 4,
+      nome: 'Cerveja Long Neck',
+      descricao: 'Heineken, Budweiser, Stella Artois (330ml).',
+      preco: 'R$ 10,00',
+      destaque: false,
+      imagem: 'assets/sections/bebidas/bebida-4.jpg'
     }
   ]
 };

@@ -7,16 +7,18 @@ function gerarNavegacao() {
   if (!navContainer) return;
   navContainer.innerHTML = '';
 
-  const temItensEmDestaque = Object.values(cardapio).flat().some(item => item.destaque);
+  const temItensEmDestaqueGeral = Object.values(cardapio).flat().some(item => item.destaque);
 
   categorias.forEach(categoria => {
     let deveExibirCategoria = false;
 
     if (categoria.id === 'destaques') {
-      if (temItensEmDestaque) {
+      // A categoria 'destaques' só deve ser exibida na navegação se houver algum item em destaque no cardápio.
+      if (temItensEmDestaqueGeral) {
         deveExibirCategoria = true;
       }
     } else {
+      // Para outras categorias, verifica se existem itens nelas.
       if (cardapio[categoria.id] && cardapio[categoria.id].length > 0) {
         deveExibirCategoria = true;
       }
@@ -74,11 +76,34 @@ function gerarSecaoCardapio(categoriaId) {
         });
       }
     });
+    // Opcional: Ordenar a seção de destaques principal, por exemplo, por nome.
+    // itensDaSecao.sort((a, b) => a.nome.localeCompare(b.nome));
   } else {
     itensDaSecao = cardapio[categoriaId] || [];
+    if (itensDaSecao.length > 0) {
+      // Ordena os itens: destacados primeiro, depois por ID.
+      itensDaSecao.sort((a, b) => {
+        if (a.destaque && !b.destaque) {
+          return -1; // 'a' (destaque) vem antes de 'b' (não destaque)
+        }
+        if (!a.destaque && b.destaque) {
+          return 1;  // 'b' (destaque) vem antes de 'a' (não destaque)
+        }
+        // Se ambos são destaques ou ambos não são, ordena por ID para consistência.
+        return a.id - b.id;
+      });
+    }
   }
 
-  if (itensDaSecao.length === 0) return null;
+  if (itensDaSecao.length === 0 && categoriaId === 'destaques') {
+    // Não cria a seção "Destaques" se não houver itens em destaque.
+    return null;
+  }
+  if (itensDaSecao.length === 0 && categoriaId !== 'destaques') {
+    // Para outras categorias, não cria a seção se não houver itens.
+    return null;
+  }
+
 
   const section = document.createElement('section');
   section.id = categoriaId;
@@ -147,47 +172,80 @@ function atualizarLinkWhatsapp() {
 
 // Inicializar o cardápio quando o DOM estiver carregado
 document.addEventListener('DOMContentLoaded', () => {
-  gerarNavegacao();
-  gerarCardapio();
-  atualizarLinkWhatsapp(); // Chama a função para configurar o link do WhatsApp
+  gerarNavegacao(); // Gera a navegação primeiro
+  gerarCardapio();  // Depois gera o cardápio (que depende da navegação para o IntersectionObserver)
+  atualizarLinkWhatsapp(); // Configura o link do WhatsApp
 
   // IntersectionObserver para destacar a categoria ativa na navegação
-  const navObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const id = entry.target.id;
-        document.querySelectorAll('.category-nav nav ul li a').forEach(link => {
-          link.classList.remove('active');
-          if (link.getAttribute('href') === `#${id}`) {
-            link.classList.add('active');
-          }
-        });
-      }
+  // Adia a configuração do IntersectionObserver até que o cardápio seja gerado.
+  const setupNavObserver = () => {
+    const sections = document.querySelectorAll('.cardapio-digital section[id]');
+    if (sections.length === 0) {
+      // Se ainda não há seções, tenta novamente em breve.
+      // Isso pode acontecer se gerarCardapio for muito rápido e o DOM não estiver totalmente pronto
+      // ou se não houver itens em nenhuma categoria (incluindo destaques).
+      // No entanto, a lógica de não criar a seção "Destaques" se vazia já deve cuidar disso.
+      // requestAnimationFrame(setupNavObserver); // Pode ser uma opção mais robusta se houver problemas de timing
+      return;
+    }
+
+    const navObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          document.querySelectorAll('.category-nav nav ul li a').forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${id}`) {
+              link.classList.add('active');
+            }
+          });
+        }
+      });
+    }, { threshold: 0.2, rootMargin: "-70px 0px -40% 0px" }); // Ajuste no rootMargin para melhor detecção
+
+    sections.forEach(section => {
+      navObserver.observe(section);
     });
-  }, { threshold: 0.2 });
-
-  document.querySelectorAll('.cardapio-digital section[id]').forEach(section => {
-    navObserver.observe(section);
-  });
-
-  // IntersectionObserver para animação dos cards ao rolar
-  const cardAnimationObserverOptions = {
-    root: null,
-    rootMargin: '0px 0px -50px 0px',
-    threshold: 0.1
   };
 
-  const cardAnimationObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-      } else {
-        entry.target.classList.remove('is-visible');
-      }
-    });
-  }, cardAnimationObserverOptions);
+  // IntersectionObserver para animação dos cards ao rolar
+  const setupCardAnimationObserver = () => {
+    const cards = document.querySelectorAll('.menu-card');
+    if (cards.length === 0) {
+      // requestAnimationFrame(setupCardAnimationObserver);
+      return;
+    }
 
-  document.querySelectorAll('.menu-card').forEach(card => {
-    cardAnimationObserver.observe(card);
-  });
+    const cardAnimationObserverOptions = {
+      root: null,
+      rootMargin: '0px 0px -50px 0px',
+      threshold: 0.1
+    };
+
+    const cardAnimationObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+        } else {
+          // Opcional: remover a classe se quiser que a animação ocorra toda vez que entra na tela
+          // entry.target.classList.remove('is-visible');
+        }
+      });
+    }, cardAnimationObserverOptions);
+
+    cards.forEach(card => {
+      cardAnimationObserver.observe(card);
+    });
+  };
+  
+  // Chama as configurações dos observers após um pequeno delay para garantir que o DOM foi atualizado
+  // por gerarCardapio e gerarNavegacao.
+  // Ou, melhor ainda, garantir que sejam chamados após a conclusão dessas funções.
+  // Como as funções são síncronas, podemos chamá-las diretamente após.
+  setupNavObserver();
+  setupCardAnimationObserver();
+
+  // Se houver atualizações dinâmicas no cardápio que recriem os cards ou seções,
+  // lembre-se de re-executar setupNavObserver() e setupCardAnimationObserver()
+  // ou de desconectar os observers antigos e reconectar aos novos elementos.
 });
