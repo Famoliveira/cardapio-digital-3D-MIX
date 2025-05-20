@@ -10,8 +10,71 @@
   --fw-regular: 400;
   --fw-medium: 500;
   --fw-semibold: 600;
+  --fw-bold: 700;
+  --fw-extrabold: 800;
+
+  --bg-color: #fbfbf8;
+  --brand-orange: #f97015;
+  
+  --fs-title: 2.25rem; /* 36px */
+  --fs-medium: 1rem; /* 16px */
+  --fs-small: 0.875rem; /* 14px */
 }
 
 body {
-  font-family: var(--font-family);
+  font-family: var(--ff-poppins);
+  background-color: var(--bg-color);
+}
+
+h1, h2 {
+  font-weight: var(--fw-bold);
+}
+
+h1 {
+  font-size: var(--fs-title);
+}
+
+span {
+  font-weight: var(--fw-regular);
+  font-size: var(--fw-medium);
+  opacity: 0.6;
+}
+
+@media (width <= 425px) {
+  :root {
+    --fs-title: 1.875rem; /* 30px */
+  }
+
+  .desktop-only {
+    display: none;
+  }
+}
+
+ul, li, a  {
+  display: flex;
+  list-style: none;
+  text-decoration: none;
+  color: inherit;
+  font-family: var(--ff-poppins);
+}
+
+ul li a img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  aspect-ratio: 1/1;
+  object-fit: contain;
+}
+
+.logo {
+  max-width: 20%;
+  object-fit: cover;
+  height: auto;
+}
+
+.lorem {
+  text-align: center;
+  max-width: 100px;
+  margin: 0 auto;
 }

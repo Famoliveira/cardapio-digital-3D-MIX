@@ -1,0 +1,24 @@
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: 16px;
+  padding-block: 24px;
+  margin: 0 auto;
+  max-width: 80rem;
+}
+
+@media (max-width: 425px) {
+  header {
+    justify-content: center;
+  }
+}
+
+.boas-vindas {
+  display: block;
+  padding-block: 24px;
+  padding-inline: 16px;
+  background-color: #fbede2;
+  text-align: center;
+}
+
