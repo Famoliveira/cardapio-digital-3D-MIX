@@ -88,12 +88,6 @@ ul li a img {
   object-fit: contain;
 }
 
-.logo {
-  max-width: 20%;
-  object-fit: cover;
-  height: auto;
-}
-
 .lorem {
   text-align: left;
   max-width: 100%;

@@ -1,3 +1,4 @@
+/* Estilos para o header e seção de boas-vindas */
 header {
   display: flex;
   align-items: center;
@@ -8,17 +9,41 @@ header {
   max-width: 80rem;
 }
 
-@media (max-width: 425px) {
-  header {
-    justify-content: center;
-  }
-}
-
 .boas-vindas {
   display: block;
   padding-block: 24px;
   padding-inline: 16px;
   background-color: #fbede2;
   text-align: center;
+  width: 100%;
+  overflow: hidden;
 }
 
+.boas-vindas h1 {
+  font-size: clamp(1.5rem, 5vw, 2.25rem);
+  margin-bottom: 0.5rem;
+}
+
+.boas-vindas span {
+  font-size: clamp(0.875rem, 3vw, 1rem);
+  display: inline-block;
+  max-width: 90%;
+}
+
+.logo {
+  max-width: 20%;
+  object-fit: cover;
+  height: auto;
+}
+
+@media (max-width: 425px) {
+  header {
+    justify-content: center;
+  }
+
+  .logo {
+    max-width: 50%;
+    object-fit: cover;
+    margin: 0 auto;
+  }
+}

@@ -6,6 +6,18 @@
   background-color: var(--bg-color);
   z-index: 100;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch; /* Melhora a rolagem no iOS */
+}
+
+/* Esconde a barra de rolagem mas mantém a funcionalidade */
+.category-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.category-nav {
+  -ms-overflow-style: none;  /* IE e Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 
 nav {
@@ -15,11 +27,13 @@ nav {
 
 nav ul {
   display: flex;
-  justify-content: center;
-  padding-block: 0.5rem;
+  justify-content: center; /* Mudado para flex-start para scroll horizontal */
   align-items: center;
   margin-block: 0;
   gap: 1rem;
+  padding-inline: 1rem;
+  width: max-content; /* Garante que a lista ocupe o espaço necessário */
+  min-width: 100%; /* Garante que ocupe pelo menos toda a largura disponível */
 }
 
 nav ul li a {
@@ -31,6 +45,7 @@ nav ul li a {
   border-radius: 4.5rem;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
   transition: background-color 0.6s ease, box-shadow 0.2s ease, scale 0.2s ease;
+  white-space: nowrap; /* Evita quebra de texto nos botões */
 }
 
 nav ul li a:hover, 
@@ -40,7 +55,14 @@ nav ul li a:focus-within {
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 }
 
+/* Classe para a categoria ativa/selecionada */
+nav ul li a.active {
+  background-color: var(--brand-orange);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+
 nav ul li a:hover span, 
-nav ul li a:focus span {
+nav ul li a:focus span,
+nav ul li a.active span {
   opacity: 0.8;
 }
