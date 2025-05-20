@@ -38,7 +38,7 @@ function gerarNavegacao() {
 // Função para criar um card de item do cardápio
 function criarCardItem(item) {
   const card = document.createElement('div');
-  card.className = 'menu-card'; // A animação de scroll será aplicada a esta classe
+  card.className = 'menu-card';
   if (item.destaque) {
     card.classList.add('item-destacado');
   }
@@ -116,12 +116,42 @@ function gerarCardapio() {
   });
 }
 
+// Função para atualizar o link do WhatsApp com mensagem dinâmica
+function atualizarLinkWhatsapp() {
+  const whatsappLink = document.getElementById('whatsapp-order-link');
+  if (!whatsappLink) {
+    console.warn('AVISO: Elemento do link do WhatsApp com ID "whatsapp-order-link" não foi encontrado no HTML.');
+    return;
+  }
+
+  const numeroWhatsapp = "5522999964529"; // Número da lanchonete
+  const agora = new Date();
+  const hora = agora.getHours();
+  let saudacao;
+
+  if (hora >= 5 && hora < 12) { // Das 5:00 às 11:59
+    saudacao = "Olá, bom dia!";
+  } else if (hora >= 12 && hora < 18) { // Das 12:00 às 17:59
+    saudacao = "Olá, boa tarde!";
+  } else { // Das 18:00 às 4:59 (incluindo madrugada)
+    saudacao = "Olá, boa noite!";
+  }
+
+  const mensagemBase = " Vim do cardápio digital e gostaria de fazer um pedido.";
+  const mensagemCompleta = saudacao + mensagemBase;
+  const mensagemUrl = encodeURIComponent(mensagemCompleta);
+
+  whatsappLink.href = `https://wa.me/${numeroWhatsapp}?text=${mensagemUrl}`;
+  console.log("Link do WhatsApp gerado e atribuído:", whatsappLink.href); // Para depuração
+}
+
 // Inicializar o cardápio quando o DOM estiver carregado
 document.addEventListener('DOMContentLoaded', () => {
   gerarNavegacao();
-  gerarCardapio(); // Gera e adiciona os cards ao DOM
+  gerarCardapio();
+  atualizarLinkWhatsapp(); // Chama a função para configurar o link do WhatsApp
 
-  // IntersectionObserver para destacar a categoria ativa na navegação (código existente)
+  // IntersectionObserver para destacar a categoria ativa na navegação
   const navObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -140,11 +170,11 @@ document.addEventListener('DOMContentLoaded', () => {
     navObserver.observe(section);
   });
 
-  // NOVO IntersectionObserver para animação dos cards ao rolar
+  // IntersectionObserver para animação dos cards ao rolar
   const cardAnimationObserverOptions = {
-    root: null, // Observa em relação à viewport
-    rootMargin: '0px 0px -50px 0px', // Começa a animar um pouco antes de estar 100% na tela e remove a classe um pouco depois de sair
-    threshold: 0.1 // Pelo menos 10% do card precisa estar visível para acionar
+    root: null,
+    rootMargin: '0px 0px -50px 0px',
+    threshold: 0.1
   };
 
   const cardAnimationObserver = new IntersectionObserver((entries, observer) => {
@@ -152,14 +182,11 @@ document.addEventListener('DOMContentLoaded', () => {
       if (entry.isIntersecting) {
         entry.target.classList.add('is-visible');
       } else {
-        // Remove a classe para que o card "suma" ao sair da tela,
-        // permitindo re-animar se o usuário rolar de volta.
         entry.target.classList.remove('is-visible');
       }
     });
   }, cardAnimationObserverOptions);
 
-  // Aplicar o observador a todos os cards do menu
   document.querySelectorAll('.menu-card').forEach(card => {
     cardAnimationObserver.observe(card);
   });
