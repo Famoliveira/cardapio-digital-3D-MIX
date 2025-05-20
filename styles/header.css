@@ -3,16 +3,16 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-inline: 16px;
-  padding-block: 24px;
+  padding-inline: 1rem; /* 16px */
+  padding-block: 1.5rem; /* 24px */
   margin: 0 auto;
   max-width: 80rem;
 }
 
 .boas-vindas {
   display: block;
-  padding-block: 24px;
-  padding-inline: 16px;
+  padding-block: 1.5rem; /* 24px */
+  padding-inline: 1rem; /* 16px */
   /* background-color: #1a1a1a; SUBSTITUÍDO PELO GRADIENTE ABAIXO */
   background: radial-gradient(circle, #fc761c 0%, #ca5f17 55%, rgb(158, 74, 18) 100%);
   color: #fff;

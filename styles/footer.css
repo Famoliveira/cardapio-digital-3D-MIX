@@ -9,11 +9,11 @@ footer {
 .footer-container {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start; /* Alterado para alinhar ao topo */
-  max-width: 1360px;
+  align-items: flex-start;
+  max-width: 85rem; /* 1360px */
   margin: 0 auto;
   flex-wrap: wrap;
-  gap: 2rem; /* Adicionado gap para melhor espaçamento */
+  gap: 2rem;
 }
 
 /* Seção da logo */
@@ -22,12 +22,12 @@ footer {
   flex-direction: column;
   gap: 1rem;
   flex: 1;
-  min-width: 250px; /* Largura mínima para evitar compressão */
-  max-width: 350px; /* Largura máxima para desktop */
+  min-width: 15.625rem; /* 250px */
+  max-width: 21.875rem; /* 350px */
 }
 
 .footer-logo {
-  max-width: 150px;
+  max-width: 9.375rem; /* 150px */
   height: auto;
 }
 
@@ -35,38 +35,38 @@ footer {
   color: #f5f5f5;
   opacity: 0.9;
   font-size: 0.9rem;
-  line-height: 1.5; /* Melhorar legibilidade */
+  line-height: 1.5;
 }
 
 /* Links de redes sociais */
 .footer-social-links {
   display: flex;
-  gap: 2rem; /* Aumentado o gap entre os itens sociais */
-  flex-wrap: wrap; /* Permitir quebrar em linhas caso necessário */
-  justify-content: flex-end; /* Alinhar à direita no desktop */
-  flex: 2; /* Dar mais espaço para os links sociais */
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  flex: 2;
 }
 
 /* Estilos para cada item de rede social */
 .social-item {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centralizar conteúdo */
-  gap: 0.75rem; /* Espaço entre texto e botão */
-  width: 180px; /* Largura fixa para cada item social - aumentada */
+  align-items: center;
+  gap: 0.75rem;
+  width: 11.25rem; /* 180px */
 }
 
 .social-text {
   color: #e0e0e0;
-  font-size: 0.85rem; /* Aumento ligeiro para melhorar legibilidade */
+  font-size: 0.85rem;
   text-align: center;
   line-height: 1.4;
-  height: 2.5em; /* Altura fixa para texto de duas linhas */
+  height: 2.5em;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
-  white-space: normal; /* Permitir quebra de texto natural */
+  white-space: normal;
 }
 
 .social-button {
@@ -76,30 +76,30 @@ footer {
   gap: 0.5rem;
   background-color: var(--brand-orange);
   color: white;
-  padding: 0.75rem 1rem; /* Ajustado para melhor proporção */
+  padding: 0.75rem 1rem;
   border-radius: 2rem;
   font-weight: var(--fw-medium);
   font-size: 0.9rem;
   text-align: center;
   transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
   width: 100%;
-  min-width: 150px; /* Largura mínima para o botão */
+  min-width: 9.375rem; /* 150px */
   box-sizing: border-box;
   text-decoration: none;
-  white-space: nowrap; /* Evitar quebra de texto dentro do botão */
+  white-space: nowrap;
 }
 
 .social-button:hover {
   background-color: #e05908;
-  transform: translateY(-5px);
-  box-shadow: 0 0 15px rgba(249, 112, 21, 0.4);
+  transform: translateY(-0.3125rem); /* -5px */
+  box-shadow: 0 0 0.9375rem rgba(249, 112, 21, 0.4); /* 15px */
 }
 
 .social-icon {
-  width: 20px;
-  height: 20px;
+  width: 1.25rem; /* 20px */
+  height: 1.25rem; /* 20px */
   object-fit: contain;
-  flex-shrink: 0; /* Impedir que o ícone encolha */
+  flex-shrink: 0;
 }
 
 /* Copyright */
@@ -107,7 +107,7 @@ footer {
   text-align: center;
   margin-top: 3rem;
   padding-top: 1.5rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 0.0625rem solid rgba(255, 255, 255, 0.1); /* 1px */
   font-size: 0.8rem;
   color: #a0a0a0;
   width: 100%;
@@ -115,20 +115,20 @@ footer {
 
 /* Estilos para o horário de funcionamento no footer */
 .footer-horario {
-  color: #f5f5f5; /* Mantém a consistência com o texto da logo */
-  opacity: 0.9; /* Mantém a consistência com o texto da logo */
-  font-size: 0.9rem; /* Tamanho de fonte similar ao texto da logo */
-  line-height: 1.5; /* Espaçamento entre linhas similar ao texto da logo */
-  margin-top: 1rem; /* Adiciona um espaço acima do bloco de horário */
+  color: #f5f5f5;
+  opacity: 0.9;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-top: 1rem;
 }
 
 .footer-horario p {
-  margin-bottom: 0.25rem; /* Espaçamento menor entre as linhas do horário */
+  margin-bottom: 0.25rem;
 }
 
 .footer-horario strong {
-  font-weight: var(--fw-semibold); /* Usa uma variável global para peso da fonte, se definida, ou bold */
-  color: #ffffff; /* Cor um pouco mais destacada para o título */
+  font-weight: var(--fw-semibold);
+  color: #ffffff;
 }
 
 /* Responsividade */
@@ -139,16 +139,16 @@ footer {
     align-items: center;
     text-align: center;
   }
-  
+
   .footer-logo-section {
     align-items: center;
     max-width: 100%;
   }
-  
+
   .footer-logo-text {
     text-align: center;
   }
-  
+
   .footer-social-links {
     flex-direction: column;
     width: 100%;
@@ -156,19 +156,18 @@ footer {
     align-items: center;
     justify-content: center;
   }
-  
+
   .social-item {
     width: 100%;
-    max-width: 300px;
+    max-width: 18.75rem; /* 300px */
   }
-  
+
   .social-button {
     width: 100%;
   }
 
-  /* Ajuste para o horário em telas menores */
   .footer-horario {
-    text-align: center; /* Centraliza o texto do horário em telas menores */
+    text-align: center;
   }
 }
 
@@ -177,7 +176,7 @@ footer {
   .footer-social-links {
     justify-content: flex-end;
   }
-  
+
   .social-item {
     margin-bottom: 0;
   }

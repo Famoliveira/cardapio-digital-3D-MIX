@@ -15,7 +15,7 @@
 
   --bg-color: #fbfbf8;
   --brand-orange: #f97015;
-  
+
   --fs-title: 2.25rem; /* 36px */
   --fs-medium: 1rem; /* 16px */
   --fs-small: 0.875rem; /* 14px */
@@ -23,7 +23,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 80px; /* Ajuste conforme a altura do seu nav */
+  scroll-padding-top: 5rem; /* 80px */
 }
 
 body {
@@ -40,16 +40,15 @@ h1 {
 }
 
 h2 {
-  display: inline-block;       /* faz o elemento encolher ao conteúdo */
+  display: inline-block;
   font-size: 1.5rem;
   margin-bottom: 1.5rem;
   text-align: center;
   color: black;
   text-transform: capitalize;
 
-  /* traço diretamente como borda */
-  border-bottom: 4px solid var(--brand-orange);
-  padding-bottom: 0.3rem;      /* espaço entre texto e borda */
+  border-bottom: 0.25rem solid var(--brand-orange); /* 4px */
+  padding-bottom: 0.3rem;
   transition: letter-spacing 0.3s ease;
   letter-spacing: 0.03em;
 
@@ -57,7 +56,6 @@ h2 {
     letter-spacing: 0.1em;
   }
 }
-
 
 span {
   font-weight: var(--fw-regular);
@@ -67,7 +65,7 @@ span {
 
 section {
   padding: 2rem 1rem;
-  max-width: 1360px;
+  max-width: 85rem; /* 1360px */
   margin: 0 auto;
 }
 
@@ -97,7 +95,7 @@ ul li a img {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 20px;
+  width: 1.25rem; /* 20px */
   aspect-ratio: 1/1;
   object-fit: contain;
 }

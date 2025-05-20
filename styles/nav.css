@@ -5,7 +5,7 @@
   width: 100%;
   background-color: var(--bg-color);
   z-index: 100;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.1); /* 2px 8px */
   overflow-x: auto;
   -webkit-overflow-scrolling: touch; /* Melhora a rolagem no iOS */
 }
@@ -22,18 +22,18 @@
 
 nav {
   width: 100%;
-  padding: 10px 0;
+  padding: 0.625rem 0; /* 10px */
 }
 
 nav ul {
   display: flex;
-  justify-content: center; /* Mudado para flex-start para scroll horizontal */
+  justify-content: center;
   align-items: center;
   margin-block: 0;
   gap: 1rem;
   padding-inline: 1rem;
-  width: max-content; /* Garante que a lista ocupe o espaço necessário */
-  min-width: 100%; /* Garante que ocupe pelo menos toda a largura disponível */
+  width: max-content;
+  min-width: 100%;
   padding-block: 0.8rem
 }
 
@@ -44,22 +44,22 @@ nav ul li a {
   background-color: #f1f1f1;
   padding: 0.5rem 1rem;
   border-radius: 4.5rem;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: 0rem 0.25rem 0.5rem rgba(0, 0, 0, 0.15); /* 0px 4px 8px */
   transition: background-color 0.6s ease, box-shadow 0.2s ease, scale 0.2s ease;
-  white-space: nowrap; /* Evita quebra de texto nos botões */
+  white-space: nowrap;
 }
 
 nav ul li a:hover,
 nav ul li a:focus,
 nav ul li a:focus-within {
   background-color: var(--brand-orange);
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 0rem 0rem 0.625rem rgba(0, 0, 0, 0.5); /* 0px 0px 10px */
 }
 
 /* Classe para a categoria ativa/selecionada */
 nav ul li a.active {
   background-color: var(--brand-orange);
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0rem 0rem 0.625rem rgba(0, 0, 0, 0.3); /* 0px 0px 10px */
 }
 
 nav ul li a:hover span,
@@ -71,12 +71,12 @@ nav ul li a.active span {
 /* Keyframes para a animação de shake sutil do ícone */
 @keyframes navIconShake {
   0% { transform: rotate(0deg); }
-  33% { transform: rotate(4deg); }  /* Rotação leve para um lado */
-  66% { transform: rotate(-4deg); } /* Rotação leve para o outro lado */
-  100% { transform: rotate(0deg); } /* Volta à posição original */
+  33% { transform: rotate(4deg); }
+  66% { transform: rotate(-4deg); }
+  100% { transform: rotate(0deg); }
 }
 
 /* Aplica a animação de shake ao ícone no hover do link */
 nav ul li a:hover img {
-  animation: navIconShake 0.6s ease-in-out; /* Duração curta para sutileza */
+  animation: navIconShake 0.6s ease-in-out;
 }
