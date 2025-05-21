@@ -1,6 +1,18 @@
 // scripts/logica-cardapio.js
 import { cardapio, categorias } from './cardapio.js';
 
+// Mapa para ajudar a obter o nome singular da categoria para o caminho da imagem
+const singularMap = {
+  combos: 'combo',
+  pizzas: 'pizza',
+  lanches: 'lanche',
+  pasteis: 'pastel',
+  esfihas: 'esfiha',
+  crepes: 'crepe',
+  batatas: 'batata',
+  bebidas: 'bebida'
+};
+
 // Função para gerar o menu de navegação de categorias
 function gerarNavegacao() {
   const navContainer = document.querySelector('.category-nav nav ul');
@@ -13,12 +25,10 @@ function gerarNavegacao() {
     let deveExibirCategoria = false;
 
     if (categoria.id === 'destaques') {
-      // A categoria 'destaques' só deve ser exibida na navegação se houver algum item em destaque no cardápio.
       if (temItensEmDestaqueGeral) {
         deveExibirCategoria = true;
       }
     } else {
-      // Para outras categorias, verifica se existem itens nelas.
       if (cardapio[categoria.id] && cardapio[categoria.id].length > 0) {
         deveExibirCategoria = true;
       }
@@ -38,17 +48,25 @@ function gerarNavegacao() {
 }
 
 // Função para criar um card de item do cardápio
-function criarCardItem(item) {
+// Recebe o item e o ID da sua categoria original para gerar o caminho da imagem
+function criarCardItem(item, itemOriginalCategoriaId) {
   const card = document.createElement('div');
   card.className = 'menu-card';
   if (item.destaque) {
     card.classList.add('item-destacado');
   }
 
+  // Gera o caminho da imagem dinamicamente
+  const nomeSingularCategoria = singularMap[itemOriginalCategoriaId] || itemOriginalCategoriaId.slice(0, -1); // Tenta remover 's' como fallback
+  const imagemSrc = `assets/sections/${itemOriginalCategoriaId}/${nomeSingularCategoria}-${item.id}.jpg`;
+
+  // Formata o preço para o padrão brasileiro (R$ X,XX)
+  const precoFormatado = item.preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
   card.innerHTML = `
     <div class="card-image-container">
-      <img src="${item.imagem}" alt="${item.nome}" class="card-image">
-      <div class="card-price">${item.preco}</div>
+      <img src="${imagemSrc}" alt="${item.nome}" class="card-image">
+      <div class="card-price">${precoFormatado}</div>
     </div>
     <div class="card-content">
       <h3 class="card-title">${item.nome}</h3>
@@ -59,66 +77,62 @@ function criarCardItem(item) {
 }
 
 // Função para gerar o conteúdo de uma seção do cardápio
-function gerarSecaoCardapio(categoriaId) {
-  const categoriaInfo = categorias.find(cat => cat.id === categoriaId);
+function gerarSecaoCardapio(categoriaIdParaExibir) {
+  const categoriaInfo = categorias.find(cat => cat.id === categoriaIdParaExibir);
   if (!categoriaInfo) return null;
 
-  let itensDaSecao = [];
-  let tituloSecao = categoriaInfo.nome;
-
-  if (categoriaId === 'destaques') {
-    Object.values(cardapio).forEach(listaDeItensNaCategoria => {
-      if (Array.isArray(listaDeItensNaCategoria)) {
-        listaDeItensNaCategoria.forEach(item => {
-          if (item.destaque) {
-            itensDaSecao.push(item);
-          }
-        });
-      }
-    });
-    // Opcional: Ordenar a seção de destaques principal, por exemplo, por nome.
-    // itensDaSecao.sort((a, b) => a.nome.localeCompare(b.nome));
-  } else {
-    itensDaSecao = cardapio[categoriaId] || [];
-    if (itensDaSecao.length > 0) {
-      // Ordena os itens: destacados primeiro, depois por ID.
-      itensDaSecao.sort((a, b) => {
-        if (a.destaque && !b.destaque) {
-          return -1; // 'a' (destaque) vem antes de 'b' (não destaque)
-        }
-        if (!a.destaque && b.destaque) {
-          return 1;  // 'b' (destaque) vem antes de 'a' (não destaque)
-        }
-        // Se ambos são destaques ou ambos não são, ordena por ID para consistência.
-        return a.id - b.id;
-      });
-    }
-  }
-
-  if (itensDaSecao.length === 0 && categoriaId === 'destaques') {
-    // Não cria a seção "Destaques" se não houver itens em destaque.
-    return null;
-  }
-  if (itensDaSecao.length === 0 && categoriaId !== 'destaques') {
-    // Para outras categorias, não cria a seção se não houver itens.
-    return null;
-  }
-
-
   const section = document.createElement('section');
-  section.id = categoriaId;
+  section.id = categoriaIdParaExibir;
 
   const h2 = document.createElement('h2');
-  h2.textContent = tituloSecao;
+  h2.textContent = categoriaInfo.nome;
   section.appendChild(h2);
 
   const gridContainer = document.createElement('div');
   gridContainer.className = 'grid-container';
 
-  itensDaSecao.forEach(item => {
-    const card = criarCardItem(item);
-    gridContainer.appendChild(card);
-  });
+  if (categoriaIdParaExibir === 'destaques') {
+    const itensDestaqueGlobais = [];
+    Object.entries(cardapio).forEach(([originalCategoriaId, itensDaCategoria]) => {
+      if (Array.isArray(itensDaCategoria)) {
+        itensDaCategoria.forEach(item => {
+          if (item.destaque) {
+            // Passamos o originalCategoriaId para o criarCardItem
+            const card = criarCardItem(item, originalCategoriaId);
+            gridContainer.appendChild(card);
+            // Adiciona à lista se precisar ordenar ou processar depois, mas já cria o card aqui
+            // itensDestaqueGlobais.push({ ...item, originalCategoriaId });
+          }
+        });
+      }
+    });
+    // Se precisar ordenar os destaques, faria aqui antes de adicionar ao gridContainer
+    // Por exemplo, se os cards fossem criados após a ordenação:
+    // itensDestaqueGlobais.sort((a, b) => a.nome.localeCompare(b.nome)); // Exemplo de ordenação
+    // itensDestaqueGlobais.forEach(itemComCatId => {
+    //   const card = criarCardItem(itemComCatId, itemComCatId.originalCategoriaId);
+    //   gridContainer.appendChild(card);
+    // });
+
+    if (gridContainer.children.length === 0) return null; // Não cria seção de destaques se vazia
+
+  } else {
+    const itensDaSecao = cardapio[categoriaIdParaExibir] || [];
+    if (itensDaSecao.length === 0) return null; // Não cria seção se não tiver itens
+
+    // Ordena os itens: destacados primeiro, depois por ID.
+    itensDaSecao.sort((a, b) => {
+      if (a.destaque && !b.destaque) return -1;
+      if (!a.destaque && b.destaque) return 1;
+      return a.id - b.id;
+    });
+
+    itensDaSecao.forEach(item => {
+      // Passa o categoriaIdParaExibir que é o ID da categoria atual
+      const card = criarCardItem(item, categoriaIdParaExibir);
+      gridContainer.appendChild(card);
+    });
+  }
 
   section.appendChild(gridContainer);
   return section;
@@ -154,11 +168,11 @@ function atualizarLinkWhatsapp() {
   const hora = agora.getHours();
   let saudacao;
 
-  if (hora >= 5 && hora < 12) { // Das 5:00 às 11:59
+  if (hora >= 5 && hora < 12) {
     saudacao = "Olá, bom dia!";
-  } else if (hora >= 12 && hora < 18) { // Das 12:00 às 17:59
+  } else if (hora >= 12 && hora < 18) {
     saudacao = "Olá, boa tarde!";
-  } else { // Das 18:00 às 4:59 (incluindo madrugada)
+  } else {
     saudacao = "Olá, boa noite!";
   }
 
@@ -167,27 +181,17 @@ function atualizarLinkWhatsapp() {
   const mensagemUrl = encodeURIComponent(mensagemCompleta);
 
   whatsappLink.href = `https://wa.me/${numeroWhatsapp}?text=${mensagemUrl}`;
-  console.log("Link do WhatsApp gerado e atribuído:", whatsappLink.href); // Para depuração
 }
 
 // Inicializar o cardápio quando o DOM estiver carregado
 document.addEventListener('DOMContentLoaded', () => {
-  gerarNavegacao(); // Gera a navegação primeiro
-  gerarCardapio();  // Depois gera o cardápio (que depende da navegação para o IntersectionObserver)
-  atualizarLinkWhatsapp(); // Configura o link do WhatsApp
+  gerarNavegacao();
+  gerarCardapio();
+  atualizarLinkWhatsapp();
 
-  // IntersectionObserver para destacar a categoria ativa na navegação
-  // Adia a configuração do IntersectionObserver até que o cardápio seja gerado.
   const setupNavObserver = () => {
     const sections = document.querySelectorAll('.cardapio-digital section[id]');
-    if (sections.length === 0) {
-      // Se ainda não há seções, tenta novamente em breve.
-      // Isso pode acontecer se gerarCardapio for muito rápido e o DOM não estiver totalmente pronto
-      // ou se não houver itens em nenhuma categoria (incluindo destaques).
-      // No entanto, a lógica de não criar a seção "Destaques" se vazia já deve cuidar disso.
-      // requestAnimationFrame(setupNavObserver); // Pode ser uma opção mais robusta se houver problemas de timing
-      return;
-    }
+    if (sections.length === 0) return;
 
     const navObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -201,17 +205,12 @@ document.addEventListener('DOMContentLoaded', () => {
           });
         }
       });
-    }, { threshold: 0.2, rootMargin: "-70px 0px -40% 0px" }); // Ajuste no rootMargin para melhor detecção
+    }, { threshold: 0.2, rootMargin: "-70px 0px -40% 0px" });
 
     sections.forEach(section => {
       navObserver.observe(section);
     });
   };
   
-  // A função setupCardAnimationObserver e sua chamada foram removidas.
   setupNavObserver();
-
-  // Se houver atualizações dinâmicas no cardápio que recriem os cards ou seções,
-  // lembre-se de re-executar setupNavObserver()
-  // ou de desconectar os observers antigos e reconectar aos novos elementos.
 });
