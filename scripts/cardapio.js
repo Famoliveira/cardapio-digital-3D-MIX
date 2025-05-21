@@ -281,6 +281,14 @@ const cardapio = {
       destaque: false,
       imagem: 'assets/sections/bebidas/bebida-3.jpg'
     },
+    {
+      id: 4,
+      nome: 'Pepsi lata',
+      descricao: 'latinha de pespi 350ml',
+      preco: 'R$ 07,50',
+      destaque: true,
+      imagem: 'assets/sections/bebidas/bebida-4.jpg'
+    },
   ]
 };
 
