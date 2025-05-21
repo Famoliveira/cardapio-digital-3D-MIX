@@ -14,7 +14,7 @@
   --fw-extrabold: 800;
 
   --bg-color: #fbfbf8;
-  --brand-orange: #f97015;
+  --brand-color: #f97015;
 
   --fs-title: 2.25rem; /* 36px */
   --fs-medium: 1rem; /* 16px */
@@ -47,7 +47,7 @@ h2 {
   color: black;
   text-transform: capitalize;
 
-  border-bottom: 0.25rem solid var(--brand-orange); /* 4px */
+  border-bottom: 0.25rem solid var(--brand-color); /* 4px */
   padding-bottom: 0.3rem;
   transition: letter-spacing 0.3s ease;
   letter-spacing: 0.03em;

@@ -70,7 +70,7 @@ footer {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  background-color: var(--brand-orange);
+  background-color: var(--brand-color);
   color: white;
   padding: 0.75rem 1rem;
   border-radius: 2rem;

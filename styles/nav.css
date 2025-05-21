@@ -81,27 +81,27 @@ nav ul li a {
 
 /* Efeito de hover */
 nav ul li a:hover {
-  background-color: var(--brand-orange);
+  background-color: var(--brand-color);
   color: white; /* Cor do texto para o estado hover */
   box-shadow: 0rem 0rem 0.625rem rgba(0, 0, 0, 0.5); /* 0px 0px 10px */
 }
 
 /* Efeito de focus - distinto do .active */
 nav ul li a:focus {
-  outline: 2px solid var(--brand-orange); /* Usar um contorno para indicar foco */
+  outline: 2px solid var(--brand-color); /* Usar um contorno para indicar foco */
   outline-offset: 2px;
 }
 
 /* Classe para a categoria ativa/selecionada (controlada pelo IntersectionObserver) */
 nav ul li a.active {
-  background-color: var(--brand-orange);
+  background-color: var(--brand-color);
   color: white; /* Cor do texto para o estado ativo */
   box-shadow: 0rem 0rem 0.625rem rgba(0, 0, 0, 0.3); /* 0px 0px 10px */
 }
 
 /* Se um link ativo também receber foco, garanta que ele mantenha sua aparência ativa */
 nav ul li a.active:focus {
-  background-color: var(--brand-orange); /* Manter o fundo ativo */
+  background-color: var(--brand-color); /* Manter o fundo ativo */
   color: white; /* Manter a cor do texto ativa */
 }
 

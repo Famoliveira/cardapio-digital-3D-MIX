@@ -98,7 +98,7 @@ section {
   position: absolute;
   top: 0.625rem; /* 10px */
   right: 0.625rem; /* 10px */
-  background-color: var(--brand-orange);
+  background-color: var(--brand-color);
   opacity: 0.9;
   color: white;
   padding: 0.5rem 0.75rem;
@@ -166,7 +166,7 @@ section {
   position: absolute;
   top: 0.625rem; /* 10px */
   left: 0.625rem; /* 10px */
-  background-color: var(--brand-orange);
+  background-color: var(--brand-color);
   color: white;
   padding: 0.1875rem 0.625rem; /* 3px 10px */
   border-radius: 0.9375rem; /* 15px */

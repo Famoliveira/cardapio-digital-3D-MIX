@@ -30,7 +30,7 @@
 }
 
 .floating-delivery-button:focus {
-  outline: 2px solid var(--brand-orange);
+  outline: 2px solid var(--brand-color);
   outline-offset: 3px;
 }
 
