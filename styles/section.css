@@ -1,184 +1,275 @@
-section {
-  margin-bottom: 2rem;
+/* styles/section.css */
 
-  & > h2 {
-    text-align: center;
-  }
+/* Estilos para seções com imagem de fundo */
+section.category-section-with-bg {
+  padding: 3rem 1.5rem;
+  max-width: 100%;
+  margin: 0 auto 3rem auto;
+  position: relative;
+  background-size: cover;
+  background-position: center center;
+  border-radius: 0;
+  overflow: hidden;
+  color: white;
+}
+
+section.category-section-with-bg::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.55);
+  z-index: 1;
+}
+
+section.category-section-with-bg > h2,
+section.category-section-with-bg > .grid-container {
+  position: relative;
+  z-index: 2;
+  max-width: 85rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+section.category-section-with-bg > h2 {
+  color: white;
+  border-bottom: 0.25rem solid var(--brand-color);
+  padding-bottom: 0.5rem;
+  margin-bottom: 2.5rem;
+  text-align: center;
+  display: block;
+}
+
+/* Estilos para seções normais */
+section:not(.category-section-with-bg) {
+  padding: 2rem 1rem;
+  max-width: 85rem;
+  margin: 0 auto 2rem auto;
+}
+
+section:not(.category-section-with-bg) > h2 {
+  text-align: center;
+  display: block;
+  color: black;
+  border-bottom: 0.25rem solid var(--brand-color);
+  padding-bottom: 0.3rem;
+  margin-bottom: 1.5rem;
 }
 
 /* Estilos para a grid de cards das seções */
 .grid-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(18.75rem, 1fr)); /* 300px */
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); /* Ajustado minmax para cards com imagem maior */
   gap: 1.5rem;
   width: 100%;
 }
 
-/* Keyframes para a animação de "saltinho" no hover (para todos os cards) */
+/* Keyframes */
 @keyframes subtleJumpEffect {
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-0.20rem); /* -4px */
-  }
-  100% {
-    transform: translateY(0);
-  }
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+  100% { transform: translateY(0); }
 }
 
-/* Keyframes para a animação da BOX-SHADOW do CARD DESTACADO no hover */
 @keyframes cardDestaqueBoxShadowHover {
-  0% {
-    box-shadow: 0 0 0.625rem rgba(249, 112, 21, 0.5); /* Sombra base do destaque */
-  }
-  50% {
-    box-shadow: 0 0 0.8rem rgba(249, 112, 21, 0.65); /* Sombra um pouco mais intensa e espalhada */
-  }
-  100% {
-    box-shadow: 0 0 0.625rem rgba(249, 112, 21, 0.5);
-  }
+  0% { box-shadow: 0 0 0.625rem rgba(249, 112, 21, 0.5); }
+  50% { box-shadow: 0 0 0.8rem rgba(249, 112, 21, 0.65); }
+  100% { box-shadow: 0 0 0.625rem rgba(249, 112, 21, 0.5); }
 }
 
-/* Keyframes para a animação do SELO "Destaque!" no hover do card destacado */
 @keyframes seloDestaqueAnimacaoHover {
-  0% {
-    transform: scale(1) rotate(0deg);
-  }
-  25% {
-    transform: scale(1.03) rotate(-0.75deg); /* Shake e pulse sutis */
-  }
-  50% {
-    transform: scale(0.97) rotate(0.75deg);
-  }
-  75% {
-    transform: scale(1.03) rotate(0deg);
-  }
-  100% {
-    transform: scale(1) rotate(0deg);
-  }
+  0% { transform: scale(1) rotate(0deg); }
+  25% { transform: scale(1.05) rotate(-3deg); }
+  50% { transform: scale(0.95) rotate(3deg); }
+  75% { transform: scale(1.05) rotate(0deg); }
+  100% { transform: scale(1) rotate(0deg); }
 }
 
-/* Card dos itens do cardápio */
+/* Card dos itens do cardápio (Layout com Imagem à Esquerda Ajustado) */
 .menu-card {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   background-color: white;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.2rem 0.6rem rgba(0, 0, 0, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  position: relative;
   overflow: hidden;
-  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1); /* 4px 8px */
-  /* As propriedades opacity, transform e as transições relacionadas à animação de surgimento foram removidas */
-  transition: box-shadow 0.25s ease; /* Mantém apenas a transição da sombra */
+  min-height: 140px; /* AJUSTADO: Altura mínima para acomodar a imagem 3:4 */
+}
+
+section.category-section-with-bg .menu-card {
+  background-color: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 0.2rem 0.8rem rgba(0, 0, 0, 0.12);
 }
 
 .menu-card:hover {
-  /* Aplica o efeito de saltinho a todos os cards no hover */
-  animation: subtleJumpEffect 0.6s ease-out forwards;
-
-  /* A box-shadow do hover normal é um pouco mais pronunciada,
-     mas para o item destacado, a animação de box-shadow prevalecerá. */
-  box-shadow: 0 0.375rem 0.75rem rgba(0, 0, 0, 0.15); /* 6px 12px */
+  transform: translateY(-5px);
+  box-shadow: 0 0.375rem 1rem rgba(0, 0, 0, 0.12);
 }
 
-/* A classe .menu-card.is-visible foi removida pois não é mais necessária para a animação de surgimento */
-
-.card-image-container {
-  position: relative;
-  width: 100%;
-  height: 12.5rem; /* 200px */
+.card-image-wrapper {
+  flex-shrink: 0;
+  width: 105px; /* AJUSTADO: Largura da imagem (para proporção 3:4 com altura 140px) */
+  height: 140px; /* AJUSTADO: Altura explícita para proporção 3:4 */
+  background-color: #e9ecef;
 }
 
-.card-image {
+.item-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
+}
+.item-image.fallback-image {
+  object-fit: contain;
+  padding: 0.5rem;
 }
 
-.card-price {
-  position: absolute;
-  top: 0.625rem; /* 10px */
-  right: 0.625rem; /* 10px */
-  background-color: var(--brand-color);
-  opacity: 0.9;
-  color: white;
-  padding: 0.5rem 0.75rem;
-  border-radius: 0.5rem;
-  font-weight: var(--fw-semibold);
-  font-size: var(--fs-medium);
+.card-details {
+  flex-grow: 1;
+  padding: 0.75rem 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.card-content {
-  padding: 1rem;
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.4rem;
+  gap: 0.5rem;
 }
 
 .card-title {
-  font-size: 1.125rem; /* 18px */
+  font-size: 1.05rem;
   font-weight: var(--fw-semibold);
-  margin-bottom: 0.5rem;
-  color: #333;
+  color: #2c3e50;
+  margin-bottom: 0;
+  flex-grow: 1;
+}
+
+.card-price-inline {
+  font-weight: var(--fw-bold);
+  color: var(--brand-color);
+  font-size: 1rem;
+  white-space: nowrap;
+  margin-left: 0.5rem;
 }
 
 .card-description {
-  font-size: 0.875rem; /* 14px */
-  color: #666;
-  line-height: 1.4;
-}
-
-@media (max-width: 768px) {
-  .grid-container {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (min-width: 1024px) {
-  .grid-container {
-    grid-template-columns: repeat(3, 1fr);
-  }
+  font-size: 0.825rem;
+  color: #555e68;
+  line-height: 1.45;
+  margin-bottom: 0;
+  /* Opcional: Limitar linhas da descrição */
+  /* display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis; */
 }
 
 /* Estilos específicos para o card destacado */
 .menu-card.item-destacado {
-  border: 0.125rem solid #f9701554; /* 2px */
-  position: relative;
-  /* Box-shadow base para o item destacado (sem hover) */
-  box-shadow: 0 0.05rem 0.3rem rgba(249, 112, 21, 0.5);
-  transition: border 0.25s ease; /* A transição da box-shadow foi movida para a regra .menu-card principal */
+  border-left: 4px solid var(--brand-color);
+}
+
+section.category-section-with-bg .menu-card.item-destacado {
+    background-color: rgba(255, 255, 255, 0.98);
+}
+
+/* AJUSTADO: Posicionamento do selo "Destaque!" */
+.menu-card.item-destacado::before {
+  content: "Destaque!";
+  position: absolute;
+  top: 0.6rem;      /* Ajuste para não colar na borda */
+  left: 0.6rem;     /* Movido para a esquerda, sobre a imagem */
+  background-color: var(--brand-color);
+  color: white;
+  padding: 0.2rem 0.6rem;
+  border-radius: 0.9375rem;
+  font-size: 0.65rem;
+  font-weight: bold;
+  z-index: 3; /* Acima da imagem */
+  box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+  transform-origin: center; /* Para a animação de pulsar/girar no centro do selo */
 }
 
 .menu-card.item-destacado:hover {
-  /* Animação da box-shadow para o card destacado no hover.
-     Isso substituirá a box-shadow definida em .menu-card:hover,
-     mas manterá a animação subtleJumpEffect (que mexe no transform). */
-  box-shadow: 0 0 1rem rgba(249, 112, 21, 0.76);
-  border: 0.125rem solid #f97015; /* 2px */
-  animation: cardDestaqueBoxShadowHover 1.8s infinite ease-in-out,
-             subtleJumpEffect 0.6s ease-out forwards; /* Mantém o salto e adiciona pulsação da sombra */
+  animation: subtleJumpEffect 0.6s ease-out forwards;
+  box-shadow: 0 0.4rem 1.2rem rgba(249, 112, 21, 0.25);
 }
 
-@media (width <= 26.5625rem) {
-  .menu-card.item-destacado {
-  border: 0.125rem solid #f97015c5;
+.menu-card.item-destacado:hover::before {
+  animation: seloDestaqueAnimacaoHover 1.2s infinite ease-in-out;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .grid-container {
+     grid-template-columns: 1fr;
+  }
+   section.category-section-with-bg > h2 {
+    font-size: 1.8rem;
+  }
+  .menu-card {
+    min-height: 120px; /* Ajustar altura mínima responsiva */
+  }
+  .card-image-wrapper {
+    width: 90px; /* Imagem um pouco menor */
+    height: 120px; /* Mantendo proporção 3:4 */
+  }
+  .card-details {
+    padding: 0.6rem 0.8rem;
+  }
+  .card-title {
+    font-size: 1rem;
+  }
+  .card-price-inline {
+    font-size: 0.95rem;
   }
 }
 
-.menu-card.item-destacado::after {
-  content: "Destaque!";
-  position: absolute;
-  top: 0.625rem; /* 10px */
-  left: 0.625rem; /* 10px */
-  background-color: var(--brand-color);
-  color: white;
-  padding: 0.1875rem 0.625rem; /* 3px 10px */
-  border-radius: 0.9375rem; /* 15px */
-  font-size: 0.75rem;
-  font-weight: bold;
-  z-index: 1;
-  box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.2); /* 2px 4px */
-  /* Prepara para a animação de transform, se necessário */
-  transform-origin: center;
-}
-
-.menu-card.item-destacado:hover::after {
-  /* Animação do selo "Destaque!" apenas no hover do card */
-  animation: seloDestaqueAnimacaoHover 1.2s infinite ease-in-out;
+@media (max-width: 425px) {
+  section.category-section-with-bg {
+    padding: 2rem 1rem;
+  }
+  section:not(.category-section-with-bg) {
+    padding: 1.5rem 0.5rem;
+  }
+  .grid-container {
+    gap: 1rem;
+    grid-template-columns: 1fr;
+  }
+  .menu-card {
+    min-height: 105px; /* Ajustar altura mínima responsiva */
+  }
+  .card-image-wrapper {
+    width: 75px; /* Imagem ainda menor */
+    height: 100px; /* Mantendo proporção 3:4 */
+  }
+  .card-details {
+    padding: 0.5rem 0.75rem;
+  }
+  .card-title {
+    font-size: 0.9rem;
+  }
+  .card-price-inline {
+    font-size: 0.85rem;
+  }
+  .card-description {
+    font-size: 0.75rem;
+  }
+  .menu-card.item-destacado::before {
+    font-size: 0.6rem;
+    padding: 0.15rem 0.5rem;
+    top: 0.4rem;
+    left: 0.4rem;
+  }
 }

@@ -23,15 +23,10 @@ function gerarNavegacao() {
 
   categorias.forEach(categoria => {
     let deveExibirCategoria = false;
-
     if (categoria.id === 'destaques') {
-      if (temItensEmDestaqueGeral) {
-        deveExibirCategoria = true;
-      }
+      if (temItensEmDestaqueGeral) deveExibirCategoria = true;
     } else {
-      if (cardapio[categoria.id] && cardapio[categoria.id].length > 0) {
-        deveExibirCategoria = true;
-      }
+      if (cardapio[categoria.id] && cardapio[categoria.id].length > 0) deveExibirCategoria = true;
     }
 
     if (deveExibirCategoria) {
@@ -47,42 +42,53 @@ function gerarNavegacao() {
   });
 }
 
-// Função para criar um card de item do cardápio
-// Recebe o item e o ID da sua categoria original para gerar o caminho da imagem
-function criarCardItem(item, itemOriginalCategoriaId) {
+// Função para criar um card de item do cardápio (MODIFICADA PARA INCLUIR IMAGEM)
+function criarCardItem(item, categoriaOriginalId) {
   const card = document.createElement('div');
   card.className = 'menu-card';
   if (item.destaque) {
     card.classList.add('item-destacado');
   }
 
-  // Gera o caminho da imagem dinamicamente
-  const nomeSingularCategoria = singularMap[itemOriginalCategoriaId] || itemOriginalCategoriaId.slice(0, -1); // Tenta remover 's' como fallback
-  const imagemSrc = `assets/sections/${itemOriginalCategoriaId}/${nomeSingularCategoria}-${item.id}.jpg`;
-
-  // Formata o preço para o padrão brasileiro (R$ X,XX)
   const precoFormatado = item.preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
+  // Determina o caminho da imagem do item
+  const nomeSingularCategoria = singularMap[categoriaOriginalId] || categoriaOriginalId.slice(0, -1); // Fallback simples
+  const imagemItemSrc = `assets/sections/${categoriaOriginalId}/${nomeSingularCategoria}-${item.id}.jpg`;
+  const fallbackImageSrc = 'assets/logo-square.png'; // Imagem padrão
+
   card.innerHTML = `
-    <div class="card-image-container">
-      <img src="${imagemSrc}" alt="${item.nome}" class="card-image">
-      <div class="card-price">${precoFormatado}</div>
+    <div class="card-image-wrapper">
+      <img 
+        src="${imagemItemSrc}" 
+        alt="${item.nome}" 
+        class="item-image" 
+        onerror="this.onerror=null; this.src='${fallbackImageSrc}'; this.classList.add('fallback-image');"
+      >
     </div>
-    <div class="card-content">
-      <h3 class="card-title">${item.nome}</h3>
+    <div class="card-details">
+      <div class="card-header">
+        <h3 class="card-title">${item.nome}</h3>
+        <span class="card-price-inline">${precoFormatado}</span>
+      </div>
       <p class="card-description">${item.descricao}</p>
     </div>
   `;
   return card;
 }
 
-// Função para gerar o conteúdo de uma seção do cardápio
+// Função para gerar o conteúdo de uma seção do cardápio (AJUSTADA)
 function gerarSecaoCardapio(categoriaIdParaExibir) {
   const categoriaInfo = categorias.find(cat => cat.id === categoriaIdParaExibir);
   if (!categoriaInfo) return null;
 
   const section = document.createElement('section');
   section.id = categoriaIdParaExibir;
+
+  if (categoriaIdParaExibir !== 'destaques' && categoriaInfo.imagemFundo) {
+    section.classList.add('category-section-with-bg');
+    section.style.backgroundImage = `url('${categoriaInfo.imagemFundo}')`;
+  }
 
   const h2 = document.createElement('h2');
   h2.textContent = categoriaInfo.nome;
@@ -92,43 +98,30 @@ function gerarSecaoCardapio(categoriaIdParaExibir) {
   gridContainer.className = 'grid-container';
 
   if (categoriaIdParaExibir === 'destaques') {
-    const itensDestaqueGlobais = [];
     Object.entries(cardapio).forEach(([originalCategoriaId, itensDaCategoria]) => {
-      if (Array.isArray(itensDaCategoria)) {
+      if (Array.isArray(itensDaCategoria) && categorias.find(c => c.id === originalCategoriaId)) { // Garante que a categoria original existe
         itensDaCategoria.forEach(item => {
           if (item.destaque) {
-            // Passamos o originalCategoriaId para o criarCardItem
+            // Passa o ID da categoria original do item para criarCardItem
             const card = criarCardItem(item, originalCategoriaId);
             gridContainer.appendChild(card);
-            // Adiciona à lista se precisar ordenar ou processar depois, mas já cria o card aqui
-            // itensDestaqueGlobais.push({ ...item, originalCategoriaId });
           }
         });
       }
     });
-    // Se precisar ordenar os destaques, faria aqui antes de adicionar ao gridContainer
-    // Por exemplo, se os cards fossem criados após a ordenação:
-    // itensDestaqueGlobais.sort((a, b) => a.nome.localeCompare(b.nome)); // Exemplo de ordenação
-    // itensDestaqueGlobais.forEach(itemComCatId => {
-    //   const card = criarCardItem(itemComCatId, itemComCatId.originalCategoriaId);
-    //   gridContainer.appendChild(card);
-    // });
-
-    if (gridContainer.children.length === 0) return null; // Não cria seção de destaques se vazia
-
+    if (gridContainer.children.length === 0) return null;
   } else {
     const itensDaSecao = cardapio[categoriaIdParaExibir] || [];
-    if (itensDaSecao.length === 0) return null; // Não cria seção se não tiver itens
+    if (itensDaSecao.length === 0) return null;
 
-    // Ordena os itens: destacados primeiro, depois por ID.
     itensDaSecao.sort((a, b) => {
       if (a.destaque && !b.destaque) return -1;
       if (!a.destaque && b.destaque) return 1;
-      return a.id - b.id;
+      return a.id - b.id; // Supondo que ID é numérico para ordenação
     });
 
     itensDaSecao.forEach(item => {
-      // Passa o categoriaIdParaExibir que é o ID da categoria atual
+      // Passa o ID da categoria atual (que é a original neste caso)
       const card = criarCardItem(item, categoriaIdParaExibir);
       gridContainer.appendChild(card);
     });
@@ -155,32 +148,22 @@ function gerarCardapio() {
   });
 }
 
-// Função para atualizar o link do WhatsApp com mensagem dinâmica
+// Função para atualizar o link do WhatsApp
 function atualizarLinkWhatsapp() {
   const whatsappLink = document.getElementById('whatsapp-order-link');
   if (!whatsappLink) {
     console.warn('AVISO: Elemento do link do WhatsApp com ID "whatsapp-order-link" não foi encontrado no HTML.');
     return;
   }
-
-  const numeroWhatsapp = "5522999964529"; // Número da lanchonete
+  const numeroWhatsapp = "5522999964529";
   const agora = new Date();
   const hora = agora.getHours();
   let saudacao;
-
-  if (hora >= 5 && hora < 12) {
-    saudacao = "Olá, bom dia!";
-  } else if (hora >= 12 && hora < 18) {
-    saudacao = "Olá, boa tarde!";
-  } else {
-    saudacao = "Olá, boa noite!";
-  }
-
-  const mensagemBase = " Vim do cardápio digital e gostaria de fazer um pedido.";
-  const mensagemCompleta = saudacao + mensagemBase;
-  const mensagemUrl = encodeURIComponent(mensagemCompleta);
-
-  whatsappLink.href = `https://wa.me/${numeroWhatsapp}?text=${mensagemUrl}`;
+  if (hora >= 5 && hora < 12) saudacao = "Olá, bom dia!";
+  else if (hora >= 12 && hora < 18) saudacao = "Olá, boa tarde!";
+  else saudacao = "Olá, boa noite!";
+  const mensagemCompleta = saudacao + " Vim do cardápio digital e gostaria de fazer um pedido.";
+  whatsappLink.href = `https://wa.me/${numeroWhatsapp}?text=${encodeURIComponent(mensagemCompleta)}`;
 }
 
 // Inicializar o cardápio quando o DOM estiver carregado
@@ -191,25 +174,55 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const setupNavObserver = () => {
     const sections = document.querySelectorAll('.cardapio-digital section[id]');
-    if (sections.length === 0) return;
+    const navElement = document.querySelector('.category-nav nav ul');
+
+    if (sections.length === 0 || !navElement) return;
+
+    let activeSectionId = null;
+    const navHeight = document.querySelector('.category-nav')?.offsetHeight || 80;
+
+    const observerOptions = {
+      root: null,
+      rootMargin: `-${navHeight + 5}px 0px -55% 0px`, // Adicionado +5px de folga
+      threshold: 0.01
+    };
 
     const navObserver = new IntersectionObserver((entries) => {
+      let currentVisibleSections = [];
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          const id = entry.target.id;
-          document.querySelectorAll('.category-nav nav ul li a').forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href') === `#${id}`) {
-              link.classList.add('active');
-            }
-          });
+          currentVisibleSections.push(entry);
         }
       });
-    }, { threshold: 0.2, rootMargin: "-70px 0px -40% 0px" });
 
-    sections.forEach(section => {
-      navObserver.observe(section);
-    });
+      if (currentVisibleSections.length > 0) {
+        currentVisibleSections.sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+        const newActiveSectionId = currentVisibleSections[0].target.id;
+
+        if (activeSectionId !== newActiveSectionId) {
+          if (activeSectionId) {
+            const oldActiveLink = document.querySelector(`.category-nav nav ul li a[href="#${activeSectionId}"]`);
+            if (oldActiveLink) oldActiveLink.classList.remove('active');
+          }
+
+          const newActiveLink = document.querySelector(`.category-nav nav ul li a[href="#${newActiveSectionId}"]`);
+          if (newActiveLink) {
+            newActiveLink.classList.add('active');
+            activeSectionId = newActiveSectionId;
+
+            const listItem = newActiveLink.parentElement;
+            if (listItem) {
+              const navRect = navElement.getBoundingClientRect();
+              const itemRect = listItem.getBoundingClientRect();
+              const scrollLeftTarget = listItem.offsetLeft - navElement.offsetLeft - (navRect.width / 2) + (itemRect.width / 2);
+              navElement.scrollTo({ left: scrollLeftTarget, behavior: 'smooth' });
+            }
+          }
+        }
+      }
+    }, observerOptions);
+
+    sections.forEach(section => navObserver.observe(section));
   };
   
   setupNavObserver();
