@@ -70,9 +70,9 @@ const cardapio = {
   ],
   pizzas: [
     // Sabores Tradicionais
-    { id: 1, nome: 'Pizza Mussarela', descricao: 'Molho de tomate fresco e cobertura generosa de mussarela.', preco: 40.00, destaque: false },
-    { id: 2, nome: 'Pizza Calabresa', descricao: 'Molho de tomate, mussarela e fatias de calabresa selecionada.', preco: 42.00, destaque: false },
-    { id: 3, nome: 'Pizza Margherita', descricao: 'Molho de tomate, mussarela, rodelas de tomate fresco e manjericão.', preco: 44.00, destaque: false },
+    { id: 1, nome: 'Pizza Mussarela', descricao: 'Molho de tomate fresco e cobertura generosa de mussarela.', preco: 40.00, destaque: true },
+    { id: 2, nome: 'Pizza Calabresa', descricao: 'Molho de tomate, mussarela e fatias de calabresa selecionada.', preco: 42.00, destaque: true },
+    { id: 3, nome: 'Pizza Margherita', descricao: 'Molho de tomate, mussarela, rodelas de tomate fresco e manjericão.', preco: 44.00, destaque: true },
     { id: 4, nome: 'Pizza Presunto', descricao: 'Molho de tomate, mussarela e presunto de alta qualidade.', preco: 41.00, destaque: false },
     { id: 5, nome: 'Pizza Frango com Catupiry', descricao: 'Molho de tomate, mussarela, frango desfiado e catupiry original.', preco: 48.00, destaque: true },
     { id: 6, nome: 'Pizza Portuguesa', descricao: 'Molho de tomate, mussarela, presunto, ovo, cebola, pimentão e azeitonas.', preco: 49.00, destaque: false },

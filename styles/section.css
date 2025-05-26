@@ -4,7 +4,9 @@
 section.category-section-with-bg {
   padding: 3rem 1.5rem;
   max-width: 100%;
-  margin: 0 auto 3rem auto;
+  /* margin: 0 auto 3rem auto; FOI AJUSTADO ABAIXO */
+  margin: 0 auto; /* Removida margem inferior padrão */
+  padding-bottom: 100px; /* ADICIONADO: Espaço para o gradiente, ajuste conforme necessário */
   position: relative;
   background-size: cover;
   background-position: center center;
@@ -21,13 +23,26 @@ section.category-section-with-bg::before {
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.55);
-  z-index: 1;
+  z-index: 1; /* Overlay da imagem */
+}
+
+/* NOVO: Pseudo-elemento para o gradiente de transição para o footer */
+section.category-section-with-bg::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100px; /* Deve corresponder ao padding-bottom extra da seção */
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.65) 50%, #131313 100%);
+  /* Começa transparente, passa por um tom escuro (semelhante ao overlay) e termina na cor do footer */
+  z-index: 1; /* Mesmo nível do ::before, para não cobrir o conteúdo dos cards */
 }
 
 section.category-section-with-bg > h2,
 section.category-section-with-bg > .grid-container {
   position: relative;
-  z-index: 2;
+  z-index: 2; /* Conteúdo principal acima dos pseudo-elementos ::before e ::after */
   max-width: 85rem;
   margin-left: auto;
   margin-right: auto;
@@ -48,7 +63,8 @@ section.category-section-with-bg > h2 {
 section:not(.category-section-with-bg) {
   padding: 2rem 1rem;
   max-width: 85rem;
-  margin: 0 auto 2rem auto;
+  /* margin: 0 auto 2rem auto; FOI AJUSTADO ABAIXO */
+  margin: 0 auto; /* Removida margem inferior padrão */
 }
 
 section:not(.category-section-with-bg) > h2 {
@@ -60,18 +76,15 @@ section:not(.category-section-with-bg) > h2 {
   margin-bottom: 1.5rem;
 }
 
-/* Nova classe para as seções carregadas dinamicamente */
 .category-content-section {
-  /* Herda padding e max-width de 'section' em global.css, 
-     mas pode precisar de ajustes específicos de margem se necessário.
-     A margem inferior já está em .category-section-with-bg e section:not(...) */
+  /* Estilos adicionais para as seções carregadas dinamicamente, se necessário */
 }
 
 
 /* Estilos para a grid de cards das seções */
 .grid-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); 
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
   gap: 1.5rem;
   width: 100%;
 }
@@ -89,12 +102,13 @@ section:not(.category-section-with-bg) > h2 {
   100% { box-shadow: 0 0 0.625rem rgba(249, 112, 21, 0.5); }
 }
 
+/* Animação do selo CORRIGIDA para manter a posição base */
 @keyframes seloDestaqueAnimacaoHover {
-  0% { transform: scale(1) rotate(0deg); }
-  25% { transform: scale(1.05) rotate(-3deg); }
-  50% { transform: scale(0.95) rotate(3deg); }
-  75% { transform: scale(1.05) rotate(0deg); }
-  100% { transform: scale(1) rotate(0deg); }
+  0%   { transform: translate(-50%, -50%) scale(1)    rotate(0deg); }
+  25%  { transform: translate(-50%, -50%) scale(1.05) rotate(-3deg); }
+  50%  { transform: translate(-50%, -50%) scale(0.95) rotate(3deg); }
+  75%  { transform: translate(-50%, -50%) scale(1.05) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) scale(1)    rotate(0deg); }
 }
 
 /* Card dos itens do cardápio */
@@ -104,27 +118,56 @@ section:not(.category-section-with-bg) > h2 {
   background-color: white;
   border-radius: 0.5rem;
   box-shadow: 0 0.2rem 0.6rem rgba(0, 0, 0, 0.08);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition: box-shadow 0.25s ease;
   position: relative;
-  overflow: hidden;
-  min-height: 140px; 
+  min-height: 130px;
 }
+
+/* Efeito de hover para desktop apenas (pulinho) */
+@media (hover: hover) and (min-width: 769px) {
+  .menu-card {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .menu-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.375rem 1rem rgba(0, 0, 0, 0.12);
+    animation: subtleJumpEffect 0.6s ease-out forwards;
+  }
+
+  .menu-card.item-destacado:hover {
+    animation: cardDestaqueBoxShadowHover 1.8s infinite ease-in-out,
+               subtleJumpEffect 0.6s ease-out forwards;
+    box-shadow: 0 0.4rem 1.2rem rgba(249, 112, 21, 0.25);
+  }
+
+  .menu-card.item-destacado:hover::before {
+    animation: seloDestaqueAnimacaoHover 1.2s infinite ease-in-out;
+  }
+}
+
+/* Estilos de hover base para sombra (aplica-se a todos) */
+.menu-card:hover {
+  box-shadow: 0 0.375rem 1rem rgba(0, 0, 0, 0.12);
+}
+.menu-card.item-destacado:hover {
+  box-shadow: 0 0.4rem 1.2rem rgba(249, 112, 21, 0.25);
+}
+
 
 section.category-section-with-bg .menu-card {
   background-color: rgba(255, 255, 255, 0.94);
   box-shadow: 0 0.2rem 0.8rem rgba(0, 0, 0, 0.12);
 }
 
-.menu-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 0.375rem 1rem rgba(0, 0, 0, 0.12);
-}
-
 .card-image-wrapper {
   flex-shrink: 0;
-  width: 105px; 
-  height: 140px; 
+  width: 120px;
   background-color: #e9ecef;
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+  overflow: hidden;
+  display: flex;
+  align-items: stretch;
 }
 
 .item-image {
@@ -144,32 +187,31 @@ section.category-section-with-bg .menu-card {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  position: relative;
+  z-index: 1; /* Abaixo do z-index do conteúdo da seção para o ::after da seção não cobrir */
 }
 
 .card-header {
   display: flex;
   justify-content: space-between;
-  align-items: baseline; /* Alinha a base do ID/Título com o preço */
+  align-items: baseline;
   margin-bottom: 0.4rem;
   gap: 0.5rem;
 }
 
-/* NOVO: Container para ID e Título */
 .item-identifier {
   display: flex;
-  align-items: baseline; /* Alinha a base do número com o título */
-  flex-grow: 1; /* Permite que o título ocupe espaço */
-  margin-right: 0.5rem; /* Espaço antes do preço, se o preço estiver muito colado */
-  overflow: hidden; /* Para evitar que títulos longos quebrem o layout do preço */
+  align-items: baseline;
+  flex-grow: 1;
+  margin-right: 0.5rem;
+  overflow: hidden;
 }
 
-/* NOVO: Estilo para a numeração (ID do item) */
 .item-id-number {
-  font-size: 1rem; 
-  font-weight: var(--fw-semibold); /* Um pouco menos bold que o preço talvez */
-  color: var(--brand-color); 
-  margin-right: 0.4em; 
-  padding-left: 0.1em; /* Pequeno ajuste para não colar na imagem */
+  font-size: 1rem;
+  font-weight: var(--fw-semibold);
+  color: var(--brand-color);
+  margin-right: 0.4em;
   white-space: nowrap;
 }
 
@@ -178,11 +220,7 @@ section.category-section-with-bg .menu-card {
   font-weight: var(--fw-semibold);
   color: #2c3e50;
   margin-bottom: 0;
-  /* flex-grow: 1;  Removido daqui, pois .item-identifier já tem */
-  /* Assegurar que o título não quebre de forma estranha */
-  white-space: normal; /* Permite quebra de linha */
-  /* overflow: hidden; /* Evita que o título empurre o preço para fora */
-  /* text-overflow: ellipsis; /* Adiciona "..." se o título for muito longo e não couber */
+  white-space: normal;
 }
 
 .card-price-inline {
@@ -190,7 +228,6 @@ section.category-section-with-bg .menu-card {
   color: var(--brand-color);
   font-size: 1rem;
   white-space: nowrap;
-  /* margin-left: 0.5rem; Removido, .item-identifier deve cuidar do espaçamento */
 }
 
 .card-description {
@@ -212,27 +249,21 @@ section.category-section-with-bg .menu-card.item-destacado {
 .menu-card.item-destacado::before {
   content: "Destaque!";
   position: absolute;
-  top: 0.6rem;      
-  left: 0.6rem;     
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background-color: var(--brand-color);
   color: white;
-  padding: 0.2rem 0.6rem;
+  padding: 0.25rem 0.8rem;
   border-radius: 0.9375rem;
-  font-size: 0.65rem;
+  font-size: 0.7rem;
   font-weight: bold;
-  z-index: 3; 
-  box-shadow: 0 1px 2px rgba(0,0,0,0.3);
-  transform-origin: center; 
+  z-index: 5; /* Selo acima de tudo no card */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  transform-origin: center center;
+  white-space: nowrap;
 }
 
-.menu-card.item-destacado:hover {
-  animation: subtleJumpEffect 0.6s ease-out forwards;
-  box-shadow: 0 0.4rem 1.2rem rgba(249, 112, 21, 0.25);
-}
-
-.menu-card.item-destacado:hover::before {
-  animation: seloDestaqueAnimacaoHover 1.2s infinite ease-in-out;
-}
 
 /* Responsividade */
 @media (max-width: 768px) {
@@ -243,11 +274,10 @@ section.category-section-with-bg .menu-card.item-destacado {
     font-size: 1.8rem;
   }
   .menu-card {
-    min-height: 120px; 
+    min-height: 130px;
   }
   .card-image-wrapper {
-    width: 90px; 
-    height: 120px; 
+    width: 115px;
   }
   .card-details {
     padding: 0.6rem 0.8rem;
@@ -261,11 +291,19 @@ section.category-section-with-bg .menu-card.item-destacado {
   .card-price-inline {
     font-size: 0.95rem;
   }
+  .menu-card.item-destacado::before {
+    font-size: 0.65rem;
+    padding: 0.2rem 0.6rem;
+  }
 }
 
 @media (max-width: 425px) {
   section.category-section-with-bg {
-    padding: 2rem 1rem;
+    padding: 2rem 1rem; /* Padding original da seção */
+    padding-bottom: 80px; /* Padding inferior ajustado para o gradiente no mobile */
+  }
+  section.category-section-with-bg::after {
+    height: 80px; /* Altura do gradiente no mobile */
   }
   section:not(.category-section-with-bg) {
     padding: 1.5rem 0.5rem;
@@ -275,11 +313,10 @@ section.category-section-with-bg .menu-card.item-destacado {
     grid-template-columns: 1fr;
   }
   .menu-card {
-    min-height: 105px; 
+    min-height: 120px;
   }
   .card-image-wrapper {
-    width: 75px; 
-    height: 100px; 
+    width: 100px;
   }
   .card-details {
     padding: 0.5rem 0.75rem;
@@ -299,7 +336,5 @@ section.category-section-with-bg .menu-card.item-destacado {
   .menu-card.item-destacado::before {
     font-size: 0.6rem;
     padding: 0.15rem 0.5rem;
-    top: 0.4rem;
-    left: 0.4rem;
   }
 }
