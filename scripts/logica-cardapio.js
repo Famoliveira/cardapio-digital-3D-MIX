@@ -163,57 +163,28 @@ function criarCardItem(item, categoriaOriginalIdParaSeloEImagem, categoriaIdAtua
 
   const precoFormatado = item.preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   
-  // --- INÍCIO DA LÓGICA DE IMAGEM ATUALIZADA ---
+  // --- LÓGICA DE IMAGEM REVERTIDA PARA SOMENTE .JPG ---
+  const imagemItemSrc = `assets/sections/${categoriaOriginalIdParaSeloEImagem}/${item.id}.jpg`; 
   const fallbackImageSrc = 'assets/logo-square.png';
-  // Adicionada a extensão 'jpeg' à lista de prioridades
-  const extensoesPrioritarias = ['webp', 'jpg', 'jpeg', 'png']; // Ordem de preferência
-  const basePathImagem = `assets/sections/${categoriaOriginalIdParaSeloEImagem}/${item.id}`; // Sem extensão
 
-  const cardImageWrapper = document.createElement('div');
-  cardImageWrapper.className = 'card-image-wrapper';
-
-  const itemImage = document.createElement('img');
-  itemImage.alt = item.nome;
-  itemImage.className = 'item-image';
-  
-  let currentExtensionIndex = 0;
-
-  // Tenta carregar a imagem com a extensão atual da lista
-  function tentarCarregarImagemAtual() {
-    if (currentExtensionIndex < extensoesPrioritarias.length) {
-      itemImage.src = `${basePathImagem}.${extensoesPrioritarias[currentExtensionIndex]}`;
-    } else {
-      // Todas as extensões prioritárias falharam, usar fallback
-      itemImage.src = fallbackImageSrc;
-      itemImage.classList.add('fallback-image'); //
-      itemImage.onerror = null; // Remover o handler para evitar loops se o fallback também falhar
-    }
-  }
-
-  // Handler de erro: se a imagem não carregar, tenta a próxima extensão
-  itemImage.onerror = () => {
-    currentExtensionIndex++; // Avança para a próxima extensão
-    tentarCarregarImagemAtual(); // Tenta carregar com o novo índice/extensão
-  };
-  
-  // Inicia a primeira tentativa de carregamento
-  tentarCarregarImagemAtual(); 
-  // --- FIM DA LÓGICA DE IMAGEM ATUALIZADA ---
-
-  cardImageWrapper.appendChild(itemImage);
-
-  const cardDetails = document.createElement('div');
-  cardDetails.className = 'card-details';
-  cardDetails.innerHTML = `
-    <div class="card-header">
-      <h3 class="card-title">${item.nome}</h3> 
-      <span class="card-price-inline">${precoFormatado}</span>
+  card.innerHTML = `
+    <div class="card-image-wrapper">
+      <img 
+        src="${imagemItemSrc}" 
+        alt="${item.nome}" 
+        class="item-image" 
+        onerror="this.onerror=null; this.src='${fallbackImageSrc}'; this.classList.add('fallback-image');"
+      >
     </div>
-    <p class="card-description">${item.descricao}</p>
+    <div class="card-details">
+      <div class="card-header">
+        <h3 class="card-title">${item.nome}</h3> 
+        <span class="card-price-inline">${precoFormatado}</span>
+      </div>
+      <p class="card-description">${item.descricao}</p>
+    </div>
   `;
-
-  card.appendChild(cardImageWrapper);
-  card.appendChild(cardDetails);
+  // --- FIM DA LÓGICA DE IMAGEM REVERTIDA ---
   
   return card;
 }
