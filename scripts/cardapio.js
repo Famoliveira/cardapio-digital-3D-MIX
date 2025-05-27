@@ -208,6 +208,67 @@ const cardapio = {
             ]
           }
         ]
+      },
+      // NOVA SUBSEÇÃO ADICIONADA AQUI
+      {
+        tituloSubsecao: 'Promoções de Ter. a Qui.',
+        idSubsecao: 'promocoes-seg-sex',
+        grupos: [
+          {
+            // nomeGrupo: 'Promoções Especiais', // Opcional
+            itens: [
+              {
+                id: 19, // ID continua a partir do último combo de lanche
+                nome: 'Hambúrguer + Guaranita',
+                descricao: '1 Hambúrguer simples acompanhado de 1 Guaranita.',
+                preco: 13.00,
+                destaque: false // Defina como true se quiser destacar
+              },
+              {
+                id: 20,
+                nome: 'X Burguer Duplo + Guaranita',
+                descricao: '2 X Burguer acompanhados de 1 Guaranita.',
+                preco: 19.80,
+                destaque: false 
+              },
+              {
+                id: 21,
+                nome: 'X Egg Burguer Duplo + Guaranita',
+                descricao: '2 X Egg Burguer acompanhados de 1 Guaranita.',
+                preco: 24.90,
+                destaque: false
+              },
+              {
+                id: 22,
+                nome: 'X Frango Duplo + Guaranita',
+                descricao: '2 X Frango acompanhados de 1 Guaranita.',
+                preco: 32.90,
+                destaque: false
+              },
+              {
+                id: 23,
+                nome: 'X Egg Frango Duplo + Guaranita',
+                descricao: '2 X Egg Frango acompanhados de 1 Guaranita.',
+                preco: 34.90,
+                destaque: false
+              },
+              {
+                id: 24,
+                nome: 'X Bacon Duplo + Guaranita',
+                descricao: '2 X Bacon acompanhados de 1 Guaranita.',
+                preco: 32.90,
+                destaque: false
+              },
+              {
+                id: 25,
+                nome: 'X Egg Bacon Duplo + Guaranita',
+                descricao: '2 X Egg Bacon acompanhados de 1 Guaranita.',
+                preco: 35.90,
+                destaque: false
+              }
+            ]
+          }
+        ]
       }
     ]
   },
@@ -605,7 +666,7 @@ const cardapio = {
               { id: 1, nome: 'Coca-Cola Lata', descricao: 'Lata 350ml', preco: 8.00, destaque: true },
               { id: 2, nome: 'Refrigerante Lata (Sabores Diversos)', descricao: 'Lata 350ml', preco: 8.00, destaque: false },
               { id: 3, nome: 'H2OH!', descricao: 'Limão ou outros sabores - Garrafa 500ml', preco: 8.00, destaque: true },
-              { id: 4, nome: 'Refrigerante Mini', descricao: 'Ideal para consumo individual', preco: 0.00, destaque: false }
+              { id: 4, nome: 'Refrigerante Mini', descricao: 'Ideal para consumo individual', preco: 0.00, destaque: false } // PREÇO 0.00 - VERIFICAR SE É INTENCIONAL
             ]
           },
           {
