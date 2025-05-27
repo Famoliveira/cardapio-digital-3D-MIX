@@ -36,14 +36,14 @@ function exibirCategoria(categoryId) {
 
   if (secao) {
     activeCategoryContentContainer.appendChild(secao);
-    
+
     const navHeight = document.querySelector('.category-nav')?.offsetHeight || 80;
-    let finalScrollPosition = activeCategoryContentContainer.offsetTop - navHeight - 10; 
+    let finalScrollPosition = activeCategoryContentContainer.offsetTop - navHeight - 10;
 
     const boasVindasElement = document.querySelector('.boas-vindas');
     if (boasVindasElement && categoryId === 'destaques') {
         const boasVindasBottom = boasVindasElement.getBoundingClientRect().bottom;
-        if (boasVindasBottom > navHeight) { 
+        if (boasVindasBottom > navHeight) {
             if (activeCategoryContentContainer.getBoundingClientRect().top > window.innerHeight) {
                  window.scrollTo({ top: finalScrollPosition > 0 ? finalScrollPosition : 0, behavior: 'smooth'});
             }
@@ -69,10 +69,10 @@ function exibirCategoria(categoryId) {
     if (navListElement && newActiveLink.parentElement) {
         const navRect = navListElement.getBoundingClientRect();
         const itemRect = newActiveLink.parentElement.getBoundingClientRect();
-        
-        const scrollLeftTarget = newActiveLink.parentElement.offsetLeft - 
-                                 navListElement.offsetLeft - 
-                                 (navRect.width / 2) + 
+
+        const scrollLeftTarget = newActiveLink.parentElement.offsetLeft -
+                                 navListElement.offsetLeft -
+                                 (navRect.width / 2) +
                                  (itemRect.width / 2);
 
         navListElement.scrollTo({
@@ -88,9 +88,9 @@ function gerarNavegacao() {
   navListElement.innerHTML = '';
 
   const temItensEmDestaqueGeral = Object.values(cardapio).some(categoriaData => {
-    if (Array.isArray(categoriaData)) { 
+    if (Array.isArray(categoriaData)) {
       return categoriaData.some(item => item.destaque);
-    } else if (typeof categoriaData === 'object' && categoriaData.tipoEstrutura === 'hierarquica') { 
+    } else if (typeof categoriaData === 'object' && categoriaData.tipoEstrutura === 'hierarquica') {
       return categoriaData.subsecoes.some(subsecao =>
         subsecao.grupos.some(grupo =>
           grupo.itens.some(item => item.destaque)
@@ -118,18 +118,18 @@ function gerarNavegacao() {
     if (deveExibirCategoria) {
       const li = document.createElement('li');
       const a = document.createElement('a');
-      a.href = `#${categoria.id}`; 
-      a.dataset.categoryId = categoria.id; 
+      a.href = `#${categoria.id}`;
+      a.dataset.categoryId = categoria.id;
       a.innerHTML = `
         <img src="${categoria.icon || 'assets/icons/burguer.png'}" alt="${categoria.nome}">
         <span class="nav-span">${categoria.nome}</span>
       `;
-      
+
       a.addEventListener('click', (event) => {
-        event.preventDefault(); 
+        event.preventDefault();
         const categoryIdToDisplay = a.dataset.categoryId;
         exibirCategoria(categoryIdToDisplay);
-        
+
         if (history.pushState) {
             history.pushState(null, null, `#${categoryIdToDisplay}`);
         } else {
@@ -149,12 +149,12 @@ function criarCardItem(item, categoriaOriginalIdParaSeloEImagem, categoriaIdAtua
   if (item.destaque) {
     card.classList.add('item-destacado');
     let textoSelo;
-    
+
     const categoriaBaseParaSelo = item.originalCategoriaId || categoriaOriginalIdParaSeloEImagem;
 
     if (categoriaIdAtualSendoExibida === 'destaques') {
-      const nomeSingular = singularMap[categoriaBaseParaSelo] || categoriaBaseParaSelo.slice(0, -1); 
-      textoSelo = nomeSingular.charAt(0).toUpperCase() + nomeSingular.slice(1); 
+      const nomeSingular = singularMap[categoriaBaseParaSelo] || categoriaBaseParaSelo.slice(0, -1);
+      textoSelo = nomeSingular.charAt(0).toUpperCase() + nomeSingular.slice(1);
     } else {
       textoSelo = "Destaque!";
     }
@@ -162,28 +162,29 @@ function criarCardItem(item, categoriaOriginalIdParaSeloEImagem, categoriaIdAtua
   }
 
   const precoFormatado = item.preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-  
-  const imagemItemSrc = `assets/sections/${categoriaOriginalIdParaSeloEImagem}/${item.id}.jpg`; 
+
+  const imagemItemSrc = `assets/sections/${categoriaOriginalIdParaSeloEImagem}/${item.id}.jpg`;
   const fallbackImageSrc = 'assets/logo-square.png';
 
   card.innerHTML = `
     <div class="card-image-wrapper">
-      <img 
-        src="${imagemItemSrc}" 
-        alt="${item.nome}" 
-        class="item-image" 
+      <div class="item-id-badge">${item.id}</div>
+      <img
+        src="${imagemItemSrc}"
+        alt="${item.nome}"
+        class="item-image"
         onerror="this.onerror=null; this.src='${fallbackImageSrc}'; this.classList.add('fallback-image');"
       >
     </div>
     <div class="card-details">
       <div class="card-header">
-        <h3 class="card-title">${item.nome}</h3> 
+        <h3 class="card-title">${item.nome}</h3>
         <span class="card-price-inline">${precoFormatado}</span>
       </div>
       <p class="card-description">${item.descricao}</p>
     </div>
   `;
-  
+
   return card;
 }
 
@@ -193,9 +194,9 @@ function gerarSecaoCardapio(categoriaIdParaExibir) {
   if (!categoriaInfo) return null;
 
   const section = document.createElement('section');
-  section.classList.add('category-content-section'); 
+  section.classList.add('category-content-section');
 
-  if (categoriaInfo.imagemFundo) { 
+  if (categoriaInfo.imagemFundo) {
     section.classList.add('category-section-with-bg');
     section.style.backgroundImage = `url('${categoriaInfo.imagemFundo}')`;
   }
@@ -207,20 +208,20 @@ function gerarSecaoCardapio(categoriaIdParaExibir) {
     let destaquesEncontradosGeral = 0;
 
     categorias.forEach(categoriaOriginalInfo => {
-      if (categoriaOriginalInfo.id === 'destaques') return; 
+      if (categoriaOriginalInfo.id === 'destaques') return;
 
       const dadosCategoriaOriginal = cardapio[categoriaOriginalInfo.id];
-      if (!dadosCategoriaOriginal) return; 
+      if (!dadosCategoriaOriginal) return;
 
       const destaquesDestaCategoriaOriginal = [];
 
-      if (Array.isArray(dadosCategoriaOriginal)) { 
+      if (Array.isArray(dadosCategoriaOriginal)) {
         dadosCategoriaOriginal.forEach(item => {
           if (item.destaque) {
             destaquesDestaCategoriaOriginal.push({ ...item, originalCategoriaId: categoriaOriginalInfo.id });
           }
         });
-      } else if (typeof dadosCategoriaOriginal === 'object' && dadosCategoriaOriginal.tipoEstrutura === 'hierarquica') { 
+      } else if (typeof dadosCategoriaOriginal === 'object' && dadosCategoriaOriginal.tipoEstrutura === 'hierarquica') {
         dadosCategoriaOriginal.subsecoes.forEach(subsecao => {
           subsecao.grupos.forEach(grupo => {
             grupo.itens.forEach(item => {
@@ -235,17 +236,17 @@ function gerarSecaoCardapio(categoriaIdParaExibir) {
       if (destaquesDestaCategoriaOriginal.length > 0) {
         destaquesEncontradosGeral++;
 
-        // MODIFICAÇÃO AQUI: Alterado o formato do título da subcategoria
         const tituloSubCategoriaDestaques = criarTituloEstilizado(
-          `${categoriaOriginalInfo.nome} em Destaque`, // Formato alterado
-          'h3', 
-          'titulo-grupo-sabor' 
+          `${categoriaOriginalInfo.nome} em Destaque`,
+          'h3',
+          'titulo-grupo-sabor'
         );
         section.appendChild(tituloSubCategoriaDestaques);
 
         const gridContainer = document.createElement('div');
         gridContainer.className = 'grid-container';
-        
+
+        // Ordena os destaques desta categoria original apenas por ID
         destaquesDestaCategoriaOriginal.sort((a, b) => parseInt(a.id) - parseInt(b.id));
 
         destaquesDestaCategoriaOriginal.forEach(itemDestaque => {
@@ -255,21 +256,21 @@ function gerarSecaoCardapio(categoriaIdParaExibir) {
         section.appendChild(gridContainer);
       }
     });
-    
+
     if (destaquesEncontradosGeral === 0) {
         const noHighlightsMessage = document.createElement('p');
         noHighlightsMessage.textContent = 'Nenhum item em destaque no momento.';
         noHighlightsMessage.style.textAlign = 'center';
         noHighlightsMessage.style.padding = '1rem';
         if (section.classList.contains('category-section-with-bg')) {
-            noHighlightsMessage.style.color = 'white'; 
+            noHighlightsMessage.style.color = 'white';
         }
         section.appendChild(noHighlightsMessage);
     }
 
-  } else { 
+  } else {
     const dadosDaCategoria = cardapio[categoriaIdParaExibir];
-    if (dadosDaCategoria && dadosDaCategoria.tipoEstrutura === 'hierarquica') { 
+    if (dadosDaCategoria && dadosDaCategoria.tipoEstrutura === 'hierarquica') {
       if (!dadosDaCategoria.subsecoes || dadosDaCategoria.subsecoes.length === 0) {
         const noItemsMessage = document.createElement('p');
         noItemsMessage.textContent = 'Nenhum item disponível nesta categoria no momento.';
@@ -296,10 +297,9 @@ function gerarSecaoCardapio(categoriaIdParaExibir) {
               if (grupo.itens && grupo.itens.length > 0) {
                 const gridContainer = document.createElement('div');
                 gridContainer.className = 'grid-container';
-                
-                grupo.itens.sort((a, b) => { 
-                  if (a.destaque && !b.destaque) return -1;
-                  if (!a.destaque && b.destaque) return 1;
+
+                // Ordena os itens do grupo apenas por ID
+                grupo.itens.sort((a, b) => {
                   return parseInt(a.id) - parseInt(b.id);
                 });
 
@@ -308,7 +308,7 @@ function gerarSecaoCardapio(categoriaIdParaExibir) {
                   gridContainer.appendChild(card);
                 });
                 section.appendChild(gridContainer);
-              } else if (grupo.nomeGrupo) { 
+              } else if (grupo.nomeGrupo) {
                   const noItemsMessage = document.createElement('p');
                   noItemsMessage.textContent = `Nenhum item disponível em ${grupo.nomeGrupo} no momento.`;
                   noItemsMessage.style.textAlign = 'center';
@@ -331,7 +331,7 @@ function gerarSecaoCardapio(categoriaIdParaExibir) {
           }
         });
       }
-    } else if (dadosDaCategoria && Array.isArray(dadosDaCategoria)) { 
+    } else if (dadosDaCategoria && Array.isArray(dadosDaCategoria)) {
       const itensDaSecao = dadosDaCategoria;
       if (itensDaSecao.length === 0) {
           const noItemsMessage = document.createElement('p');
@@ -346,9 +346,8 @@ function gerarSecaoCardapio(categoriaIdParaExibir) {
           const gridContainer = document.createElement('div');
           gridContainer.className = 'grid-container';
 
-          itensDaSecao.sort((a, b) => { 
-            if (a.destaque && !b.destaque) return -1;
-            if (!a.destaque && b.destaque) return 1;
+          // Ordena os itens da seção apenas por ID
+          itensDaSecao.sort((a, b) => {
             return parseInt(a.id) - parseInt(b.id);
           });
 
@@ -358,7 +357,7 @@ function gerarSecaoCardapio(categoriaIdParaExibir) {
           });
           section.appendChild(gridContainer);
       }
-    } else if (categoriaIdParaExibir !== 'destaques') { 
+    } else if (categoriaIdParaExibir !== 'destaques') {
       const errorMessage = document.createElement('p');
       errorMessage.textContent = 'Nenhum item encontrado nesta categoria.';
       errorMessage.style.textAlign = 'center';
@@ -390,12 +389,12 @@ function atualizarLinkWhatsapp() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  gerarNavegacao(); 
-  
+  gerarNavegacao();
+
   let categoriaInicial = 'destaques';
-  const temItensEmDestaqueGeral = Object.values(cardapio).some(catData => { 
+  const temItensEmDestaqueGeral = Object.values(cardapio).some(catData => {
       if (Array.isArray(catData)) return catData.some(item => item.destaque);
-      if (catData.tipoEstrutura === 'hierarquica') { 
+      if (catData.tipoEstrutura === 'hierarquica') {
           return catData.subsecoes.some(sub => sub.grupos.some(g => g.itens.some(item => item.destaque)));
       }
       return false;
@@ -405,18 +404,18 @@ document.addEventListener('DOMContentLoaded', () => {
       const primeiraCategoriaValida = categorias.find(cat => cat.id !== 'destaques' && cardapio[cat.id] && ( (Array.isArray(cardapio[cat.id]) && cardapio[cat.id].length > 0) || (cardapio[cat.id].tipoEstrutura === 'hierarquica' && cardapio[cat.id].subsecoes.some(s => s.grupos.some(g => g.itens.length > 0))) ) );
       if (primeiraCategoriaValida) {
           categoriaInicial = primeiraCategoriaValida.id;
-      } else if (categorias.length > 0 && categorias[0].id !== 'destaques') { 
+      } else if (categorias.length > 0 && categorias[0].id !== 'destaques') {
           categoriaInicial = categorias[0].id;
       } else if (categorias.length > 1) {
-           categoriaInicial = categorias[1].id; 
+           categoriaInicial = categorias[1].id;
       }
   }
 
 
   if (window.location.hash) {
-    const hashCategory = window.location.hash.substring(1); 
+    const hashCategory = window.location.hash.substring(1);
     const categoriaValidaNoHash = categorias.find(cat => cat.id === hashCategory);
-    
+
     let temItensNaCategoriaDoHash = false;
     if (hashCategory === 'destaques') {
         temItensNaCategoriaDoHash = temItensEmDestaqueGeral;
@@ -425,12 +424,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (dadosCatHash) {
             if (Array.isArray(dadosCatHash) && dadosCatHash.length > 0) {
                 temItensNaCategoriaDoHash = true;
-            } else if (typeof dadosCatHash === 'object' && dadosCatHash.tipoEstrutura === 'hierarquica' && dadosCatHash.subsecoes) { 
+            } else if (typeof dadosCatHash === 'object' && dadosCatHash.tipoEstrutura === 'hierarquica' && dadosCatHash.subsecoes) {
                 temItensNaCategoriaDoHash = dadosCatHash.subsecoes.some(sub => sub.grupos.some(g => g.itens && g.itens.length > 0));
             }
         }
     }
-    
+
     if (categoriaValidaNoHash && temItensNaCategoriaDoHash ) {
       categoriaInicial = hashCategory;
     } else if (categoriaValidaNoHash && !temItensNaCategoriaDoHash && hashCategory !== 'destaques') {
@@ -439,7 +438,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Mantém categoriaInicial
     }
   }
-  
-  exibirCategoria(categoriaInicial); 
+
+  exibirCategoria(categoriaInicial);
   atualizarLinkWhatsapp();
 });

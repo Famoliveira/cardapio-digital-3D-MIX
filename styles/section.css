@@ -216,7 +216,36 @@ section.category-section-with-bg .menu-card {
   overflow: hidden;
   display: flex;
   align-items: stretch;
+  position: relative; /* Adicionado para posicionar o item-id-badge */
 }
+
+/* Estilo para o ID do item (normal) */
+.item-id-badge {
+  position: absolute;
+  top: 0.4rem; /* Ajuste fino da posição */
+  left: 0.4rem; /* Ajuste fino da posição */
+  width: 1.6rem; /* Tamanho do círculo */
+  height: 1.6rem; /* Tamanho do círculo */
+  background-color: rgba(0, 0, 0, 0.65); /* Fundo preto semi-transparente */
+  color: white; /* Cor do texto (número) */
+  border-radius: 50%; /* Para formar o círculo */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem; /* Tamanho da fonte do número */
+  font-weight: var(--fw-bold);
+  z-index: 3; /* Para garantir que fique sobre a imagem */
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2); /* Sombra sutil para destaque */
+  line-height: 1; /* Garante melhor centralização vertical do texto */
+  pointer-events: none; /* Para não interferir com cliques na imagem, se houver */
+}
+
+/* Estilo para o ID do item (quando o card é destacado) */
+.menu-card.item-destacado .item-id-badge {
+  background-color: var(--brand-color); /* Cor da marca para o fundo do badge em itens destacados */
+  /* text-shadow: 0 0 2px rgba(0,0,0,0.5); /* Opcional: sombra no texto para melhor contraste se necessário */
+}
+
 
 .item-image {
   width: 100%;
@@ -325,6 +354,13 @@ section.category-section-with-bg .menu-card.item-destacado {
   .card-image-wrapper {
     width: 115px;
   }
+  .item-id-badge { /* Ajuste para telas menores */
+    width: 1.5rem;
+    height: 1.5rem;
+    font-size: 0.65rem;
+    top: 0.3rem;
+    left: 0.3rem;
+  }
   .card-details {
     padding: 0.6rem 0.8rem;
   }
@@ -373,6 +409,13 @@ section.category-section-with-bg .menu-card.item-destacado {
   }
   .card-image-wrapper {
     width: 100px;
+  }
+  .item-id-badge { /* Ajuste para telas muito pequenas */
+    width: 1.4rem;
+    height: 1.4rem;
+    font-size: 0.6rem;
+    top: 0.25rem;
+    left: 0.25rem;
   }
   .card-details {
     padding: 0.5rem 0.75rem;
