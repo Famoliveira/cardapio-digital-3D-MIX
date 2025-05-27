@@ -4,9 +4,8 @@
 section.category-section-with-bg {
   padding: 3rem 1.5rem;
   max-width: 100%;
-  /* margin: 0 auto 3rem auto; FOI AJUSTADO ABAIXO */
-  margin: 0 auto; /* Removida margem inferior padrão */
-  padding-bottom: 100px; /* ADICIONADO: Espaço para o gradiente, ajuste conforme necessário */
+  margin: 0 auto;
+  padding-bottom: 100px; 
   position: relative;
   background-size: cover;
   background-position: center center;
@@ -23,26 +22,24 @@ section.category-section-with-bg::before {
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.55);
-  z-index: 1; /* Overlay da imagem */
+  z-index: 1;
 }
 
-/* NOVO: Pseudo-elemento para o gradiente de transição para o footer */
 section.category-section-with-bg::after {
   content: "";
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 100px; /* Deve corresponder ao padding-bottom extra da seção */
+  height: 100px; 
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.65) 50%, #131313 100%);
-  /* Começa transparente, passa por um tom escuro (semelhante ao overlay) e termina na cor do footer */
-  z-index: 1; /* Mesmo nível do ::before, para não cobrir o conteúdo dos cards */
+  z-index: 1; 
 }
 
 section.category-section-with-bg > h2,
 section.category-section-with-bg > .grid-container {
   position: relative;
-  z-index: 2; /* Conteúdo principal acima dos pseudo-elementos ::before e ::after */
+  z-index: 2; 
   max-width: 85rem;
   margin-left: auto;
   margin-right: auto;
@@ -63,8 +60,7 @@ section.category-section-with-bg > h2 {
 section:not(.category-section-with-bg) {
   padding: 2rem 1rem;
   max-width: 85rem;
-  /* margin: 0 auto 2rem auto; FOI AJUSTADO ABAIXO */
-  margin: 0 auto; /* Removida margem inferior padrão */
+  margin: 0 auto;
 }
 
 section:not(.category-section-with-bg) > h2 {
@@ -102,7 +98,6 @@ section:not(.category-section-with-bg) > h2 {
   100% { box-shadow: 0 0 0.625rem rgba(249, 112, 21, 0.5); }
 }
 
-/* Animação do selo CORRIGIDA para manter a posição base */
 @keyframes seloDestaqueAnimacaoHover {
   0%   { transform: translate(-50%, -50%) scale(1)    rotate(0deg); }
   25%  { transform: translate(-50%, -50%) scale(1.05) rotate(-3deg); }
@@ -123,7 +118,7 @@ section:not(.category-section-with-bg) > h2 {
   min-height: 130px;
 }
 
-/* Efeito de hover para desktop apenas (pulinho) */
+/* Efeito de hover para desktop apenas */
 @media (hover: hover) and (min-width: 769px) {
   .menu-card {
     transition: transform 0.25s ease, box-shadow 0.25s ease;
@@ -143,9 +138,15 @@ section:not(.category-section-with-bg) > h2 {
   .menu-card.item-destacado:hover::before {
     animation: seloDestaqueAnimacaoHover 1.2s infinite ease-in-out;
   }
+
+  /* Preço com opacidade ajustada no hover do card em desktop */
+  .menu-card:hover .card-price-inline {
+    color: rgba(249, 112, 21, 0.9); /* Cor da marca com 90% de opacidade */
+    /* opacity: 1; continua implícito ou pode ser reafirmado se necessário */
+  }
 }
 
-/* Estilos de hover base para sombra (aplica-se a todos) */
+/* Estilos de hover base para sombra (aplica-se a todos os cards) */
 .menu-card:hover {
   box-shadow: 0 0.375rem 1rem rgba(0, 0, 0, 0.12);
 }
@@ -188,46 +189,37 @@ section.category-section-with-bg .menu-card {
   flex-direction: column;
   justify-content: center;
   position: relative;
-  z-index: 1; /* Abaixo do z-index do conteúdo da seção para o ::after da seção não cobrir */
+  z-index: 1; 
 }
 
 .card-header {
   display: flex;
-  justify-content: space-between;
-  align-items: baseline;
+  justify-content: space-between; 
+  align-items: baseline; 
   margin-bottom: 0.4rem;
-  gap: 0.5rem;
-}
-
-.item-identifier {
-  display: flex;
-  align-items: baseline;
-  flex-grow: 1;
-  margin-right: 0.5rem;
-  overflow: hidden;
-}
-
-.item-id-number {
-  font-size: 1rem;
-  font-weight: var(--fw-semibold);
-  color: var(--brand-color);
-  margin-right: 0.4em;
-  white-space: nowrap;
+  gap: 0.5rem; 
 }
 
 .card-title {
   font-size: 1.05rem;
   font-weight: var(--fw-semibold);
   color: #2c3e50;
-  margin-bottom: 0;
-  white-space: normal;
+  margin-bottom: 0; 
+  white-space: normal; 
+  flex-grow: 1; 
+  margin-right: 0.5rem; 
+  opacity: 1; 
 }
 
 .card-price-inline {
   font-weight: var(--fw-bold);
-  color: var(--brand-color);
+  /* Cor base do preço (desktop): laranja da marca com 75% de opacidade */
+  color: rgba(249, 112, 21, 0.75); 
+  opacity: 1; /* Anula a opacidade de 0.6 do span genérico */
   font-size: 1rem;
-  white-space: nowrap;
+  white-space: nowrap; 
+  text-align: right; 
+  transition: color 0.3s ease; 
 }
 
 .card-description {
@@ -235,6 +227,7 @@ section.category-section-with-bg .menu-card {
   color: #555e68;
   line-height: 1.45;
   margin-bottom: 0;
+  opacity: 1; 
 }
 
 /* Estilos específicos para o card destacado */
@@ -247,7 +240,7 @@ section.category-section-with-bg .menu-card.item-destacado {
 }
 
 .menu-card.item-destacado::before {
-  content: "Destaque!";
+  content: attr(data-selo-texto); 
   position: absolute;
   top: 0;
   left: 50%;
@@ -255,10 +248,10 @@ section.category-section-with-bg .menu-card.item-destacado {
   background-color: var(--brand-color);
   color: white;
   padding: 0.25rem 0.8rem;
-  border-radius: 0.9375rem;
-  font-size: 0.7rem;
+  border-radius: 0.9375rem; 
+  font-size: 0.7rem; 
   font-weight: bold;
-  z-index: 5; /* Selo acima de tudo no card */
+  z-index: 5; 
   box-shadow: 0 2px 4px rgba(0,0,0,0.2);
   transform-origin: center center;
   white-space: nowrap;
@@ -266,7 +259,7 @@ section.category-section-with-bg .menu-card.item-destacado {
 
 
 /* Responsividade */
-@media (max-width: 768px) {
+@media (max-width: 768px) { /* Inclui tablets e celulares */
   .grid-container {
      grid-template-columns: 1fr;
   }
@@ -282,14 +275,14 @@ section.category-section-with-bg .menu-card.item-destacado {
   .card-details {
     padding: 0.6rem 0.8rem;
   }
-  .item-id-number {
-    font-size: 0.95rem;
-  }
   .card-title {
     font-size: 1rem;
   }
   .card-price-inline {
     font-size: 0.95rem;
+    /* Cor do preço para mobile: cor da marca com 90% de opacidade */
+    color: rgba(249, 112, 21, 0.9); 
+    opacity: 1; /* Garante opacidade total do elemento no mobile */
   }
   .menu-card.item-destacado::before {
     font-size: 0.65rem;
@@ -297,13 +290,13 @@ section.category-section-with-bg .menu-card.item-destacado {
   }
 }
 
-@media (max-width: 425px) {
+@media (max-width: 425px) { /* Ajustes finos para celulares menores */
   section.category-section-with-bg {
-    padding: 2rem 1rem; /* Padding original da seção */
-    padding-bottom: 80px; /* Padding inferior ajustado para o gradiente no mobile */
+    padding: 2rem 1rem; 
+    padding-bottom: 80px; 
   }
   section.category-section-with-bg::after {
-    height: 80px; /* Altura do gradiente no mobile */
+    height: 80px; 
   }
   section:not(.category-section-with-bg) {
     padding: 1.5rem 0.5rem;
@@ -321,14 +314,13 @@ section.category-section-with-bg .menu-card.item-destacado {
   .card-details {
     padding: 0.5rem 0.75rem;
   }
-  .item-id-number {
-    font-size: 0.85rem;
-  }
   .card-title {
     font-size: 0.9rem;
   }
   .card-price-inline {
     font-size: 0.85rem;
+    /* A cor e opacidade já foram definidas (0.9 e 1, respectivamente) 
+       na media query de 768px, então serão herdadas aqui. */
   }
   .card-description {
     font-size: 0.75rem;
