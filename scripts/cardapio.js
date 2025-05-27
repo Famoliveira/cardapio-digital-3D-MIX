@@ -69,7 +69,7 @@ const cardapio = {
               { id: 4, nome: 'Pastel de Carne com Ovo, Azeitona e Catupiry', descricao: 'Carne, ovo, azeitona e catupiry cremoso.', preco: 8.90, destaque: false },
               { id: 5, nome: 'Pastel de Carne com Banana e Queijo', descricao: 'Carne com banana caramelizada e mussarela.', preco: 8.90, destaque: false },
               { id: 6, nome: 'Pastel de Carne com Azeitona e Provolone', descricao: 'Carne com azeitonas e provolone derretido.', preco: 8.90, destaque: false },
-              { id: 7, nome: 'Pastel de Carne com Ovo e Queijo', descricao: 'Carne, ovo e mussarela.', preco: 8.90, destaque: false },
+              { id: 7, nome: 'Pastel de Carne com Ovo e Queijo', descricao: 'Carne, ovo e mussarela.', preco: 8.90, destaque: true },
               { id: 8, nome: 'Pastel de Carne com Ovo, Azeitona e Queijo', descricao: 'Carne, ovo, azeitonas e mussarela.', preco: 8.90, destaque: false },
               { id: 9, nome: 'Pastel de Carne com Provolone', descricao: 'Carne com provolone cremoso.', preco: 8.90, destaque: false },
               { id: 10, nome: 'Pastel de Carne com Napolitano', descricao: 'Carne com queijo, presunto, tomate e orégano.', preco: 8.90, destaque: false },
@@ -92,7 +92,7 @@ const cardapio = {
               { id: 22, nome: 'Pastel de Frango com Provolone', descricao: 'Frango com provolone derretido.', preco: 8.90, destaque: false },
               { id: 23, nome: 'Pastel de Frango com Queijo', descricao: 'Frango desfiado com mussarela.', preco: 8.90, destaque: false },
               { id: 24, nome: 'Pastel de Frango com Ovo', descricao: 'Frango com ovo cozido.', preco: 8.90, destaque: false },
-              { id: 25, nome: 'Pastel de Frango com Queijo e Ovo', descricao: 'Frango, mussarela e ovo.', preco: 8.90, destaque: false },
+              { id: 25, nome: 'Pastel de Frango com Queijo e Ovo', descricao: 'Frango, mussarela e ovo.', preco: 8.90, destaque: true },
               { id: 26, nome: 'Pastel de Frango com Azeitona', descricao: 'Frango com azeitonas fatiadas.', preco: 8.90, destaque: false },
               { id: 27, nome: 'Pastel de Frango com Azeitona e Ovo', descricao: 'Frango, azeitonas e ovo.', preco: 8.90, destaque: false },
               { id: 28, nome: 'Pastel de Frango com Presunto', descricao: 'Frango com presunto fatiado.', preco: 8.90, destaque: false }
@@ -102,7 +102,7 @@ const cardapio = {
             nomeGrupo: 'Bacon',
             itens: [
               { id: 29, nome: 'Pastel de Bacon', descricao: 'Bacon crocante.', preco: 8.90, destaque: false },
-              { id: 30, nome: 'Pastel de Bacon com Queijo', descricao: 'Bacon com mussarela.', preco: 8.90, destaque: false },
+              { id: 30, nome: 'Pastel de Bacon com Queijo', descricao: 'Bacon com mussarela.', preco: 8.90, destaque: true },
               { id: 31, nome: 'Pastel de Bacon com Queijo e Palmito', descricao: 'Bacon, mussarela e palmito.', preco: 8.90, destaque: false },
               { id: 32, nome: 'Pastel de Bacon com Catupiry', descricao: 'Bacon com catupiry cremoso.', preco: 8.90, destaque: false },
               { id: 33, nome: 'Pastel de Bacon com Frango', descricao: 'Bacon com frango desfiado.', preco: 8.90, destaque: false },
@@ -117,7 +117,7 @@ const cardapio = {
             nomeGrupo: 'Calabresa',
             itens: [
               { id: 39, nome: 'Pastel de Calabresa', descricao: 'Calabresa fatiada.', preco: 8.90, destaque: false },
-              { id: 40, nome: 'Pastel de Calabresa com Queijo', descricao: 'Calabresa e mussarela.', preco: 8.90, destaque: false },
+              { id: 40, nome: 'Pastel de Calabresa com Queijo', descricao: 'Calabresa e mussarela.', preco: 8.90, destaque: true },
               { id: 41, nome: 'Pastel de Calabresa com Queijo e Palmito', descricao: 'Calabresa, mussarela e palmito.', preco: 8.90, destaque: false },
               { id: 42, nome: 'Pastel de Calabresa com Catupiry', descricao: 'Calabresa com catupiry.', preco: 8.90, destaque: false },
               { id: 43, nome: 'Pastel de Calabresa com Presunto', descricao: 'Calabresa e presunto.', preco: 8.90, destaque: false },
@@ -154,13 +154,13 @@ const cardapio = {
             nomeGrupo: 'Peito de Peru',
             itens: [
               { id: 61, nome: 'Pastel de Peito de Peru', descricao: 'Peito de peru defumado.', preco: 8.90, destaque: false },
-              { id: 62, nome: 'Pastel de Peito de Peru com Tomate, Cebola e Orégano', descricao: 'Peito de peru com tomate, cebola e orégano.', preco: 8.90, destaque: false },
+              { id: 62, nome: 'Pastel de Peito de Peru com Tomate, Cebola e Orégano', descricao: 'Peito de peru com tomate, cebola e orégano.', preco: 8.90, destaque: true },
               { id: 63, nome: 'Pastel de Peito de Peru com Queijo', descricao: 'Peito de peru com mussarela.', preco: 8.90, destaque: false },
               { id: 64, nome: 'Pastel de Peito de Peru com Provolone', descricao: 'Peito de peru com provolone.', preco: 8.90, destaque: false },
               { id: 65, nome: 'Pastel de Peito de Peru com Frango', descricao: 'Mix de peru e frango.', preco: 8.90, destaque: false },
               { id: 66, nome: 'Pastel de Peito de Peru com Catupiry e Orégano', descricao: 'Peru com catupiry e orégano.', preco: 8.90, destaque: false },
               { id: 67, nome: 'Pastel de Peito de Peru com Azeitona e Orégano', descricao: 'Peru com azeitonas e orégano.', preco: 8.90, destaque: false },
-              { id: 68, nome: 'Pastel de Peito de Peru com Palmito e Orégano', descricao: 'Peru com palmito e orégano.', preco: 8.90, destaque: false },
+              { id: 68, nome: 'Pastel de Peito de Peru com Palmito e Orégano', descricao: 'Peru com palmito e orégano.', preco: 8.90, destaque: true },
               { id: 69, nome: 'Pastel de Peito de Peru com Catupiry e Palmito', descricao: 'Peru com catupiry e palmito.', preco: 8.90, destaque: false },
               { id: 70, nome: 'Pastel de Peito de Peru com Cheddar', descricao: 'Peru com cheddar cremoso.', preco: 8.90, destaque: false }
             ]
@@ -194,7 +194,7 @@ const cardapio = {
           {
             nomeGrupo: 'Doce de Leite',
             itens: [
-              { id: 81, nome: 'Pastel de Doce de Leite Tradicional', descricao: 'Doce de leite cremoso.', preco: 8.90, destaque: false },
+              { id: 81, nome: 'Pastel de Doce de Leite Tradicional', descricao: 'Doce de leite cremoso.', preco: 8.90, destaque: true },
               { id: 82, nome: 'Pastel de Doce de Leite com Coco', descricao: 'Doce de leite com coco ralado.', preco: 8.90, destaque: false },
               { id: 83, nome: 'Pastel de Doce de Leite, Chocolate, Banana e Queijo', descricao: 'Combinação de doce de leite, chocolate, banana e mussarela.', preco: 8.90, destaque: false },
               { id: 84, nome: 'Pastel de Doce de Leite, Banana, Queijo e Ameixa', descricao: 'Doce de leite com banana, mussarela e ameixa.', preco: 8.90, destaque: false },
@@ -225,7 +225,7 @@ const cardapio = {
             nomeGrupo: 'Carne',
             itens: [
               { id: 1, nome: 'Esfiha de Carne', descricao: 'Tradicional recheio de carne moída.', preco: 8.49, destaque: false },
-              { id: 2, nome: 'Esfiha de Carne com Queijo e Orégano', descricao: 'Carne moída com mussarela e toque de orégano.', preco: 8.49, destaque: false },
+              { id: 2, nome: 'Esfiha de Carne com Queijo e Orégano', descricao: 'Carne moída com mussarela e toque de orégano.', preco: 8.49, destaque: true },
               { id: 3, nome: 'Esfiha de Carne com Ovo e Azeitona', descricao: 'Carne moída com ovo cozido e azeitonas fatiadas.', preco: 8.49, destaque: false },
               { id: 4, nome: 'Esfiha de Carne com Ovo, Azeitona e Catupiry', descricao: 'Carne, ovo, azeitona e catupiry cremoso.', preco: 8.49, destaque: false },
               { id: 5, nome: 'Esfiha de Carne com Banana e Queijo', descricao: 'Carne com banana caramelizada e mussarela.', preco: 8.49, destaque: false },
@@ -246,7 +246,7 @@ const cardapio = {
             itens: [
               { id: 16, nome: 'Esfiha de Frango', descricao: 'Recheio clássico de frango desfiado.', preco: 8.49, destaque: false },
               { id: 17, nome: 'Esfiha de Frango com Cheddar', descricao: 'Frango desfiado com cheddar cremoso.', preco: 8.49, destaque: false },
-              { id: 18, nome: 'Esfiha de Frango com Catupiry', descricao: 'Frango com catupiry autêntico.', preco: 8.49, destaque: false },
+              { id: 18, nome: 'Esfiha de Frango com Catupiry', descricao: 'Frango com catupiry autêntico.', preco: 8.49, destaque: true },
               { id: 19, nome: 'Esfiha de Frango com Palmito', descricao: 'Frango desfiado com palmito.', preco: 8.49, destaque: false },
               { id: 20, nome: 'Esfiha de Frango com Napolitano', descricao: 'Frango com queijo, presunto, tomate e orégano.', preco: 8.49, destaque: false },
               { id: 21, nome: 'Esfiha de Frango com Catupiry e Palmito', descricao: 'Frango, catupiry e palmito.', preco: 8.49, destaque: false },
@@ -348,14 +348,14 @@ const cardapio = {
               { id: 76, nome: 'Esfiha de Chocolate Branco e Preto', descricao: 'Mix de chocolate branco e preto derretidos.', preco: 8.49, destaque: false },
               { id: 77, nome: 'Esfiha de Chocolate Preto', descricao: 'Chocolate meio amargo.', preco: 8.49, destaque: false },
               { id: 78, nome: 'Esfiha de Chocolate Branco', descricao: 'Suave chocolate branco.', preco: 8.49, destaque: false },
-              { id: 79, nome: 'Esfiha de Chocolate Preto com Banana e Canela', descricao: 'Chocolate meio amargo com banana e toque de canela.', preco: 8.49, destaque: false },
+              { id: 79, nome: 'Esfiha de Chocolate Preto com Banana e Canela', descricao: 'Chocolate meio amargo com banana e toque de canela.', preco: 8.49, destaque: true },
               { id: 80, nome: 'Esfiha de Prestígio', descricao: 'Chocolate com coco ralado.', preco: 8.49, destaque: false }
             ]
           },
           {
             nomeGrupo: 'Doce de Leite',
             itens: [
-              { id: 81, nome: 'Esfiha de Doce de Leite Tradicional', descricao: 'Doce de leite cremoso.', preco: 8.49, destaque: false },
+              { id: 81, nome: 'Esfiha de Doce de Leite Tradicional', descricao: 'Doce de leite cremoso.', preco: 8.49, destaque: true },
               { id: 82, nome: 'Esfiha de Doce de Leite com Coco', descricao: 'Doce de leite com coco ralado.', preco: 8.49, destaque: false },
               { id: 83, nome: 'Esfiha de Doce de Leite, Chocolate, Banana e Queijo', descricao: 'Combinação de doce de leite, chocolate, banana e mussarela.', preco: 8.49, destaque: false },
               { id: 84, nome: 'Esfiha de Doce de Leite, Banana, Queijo e Ameixa', descricao: 'Doce de leite com banana, mussarela e ameixa.', preco: 8.49, destaque: false },
@@ -366,7 +366,7 @@ const cardapio = {
           {
             nomeGrupo: 'Outros Doces',
             itens: [
-              { id: 87, nome: 'Esfiha de Romeu e Julieta', descricao: 'Goiabada com queijo.', preco: 8.49, destaque: false },
+              { id: 87, nome: 'Esfiha de Romeu e Julieta', descricao: 'Goiabada com queijo.', preco: 8.49, destaque: true },
               { id: 88, nome: 'Esfiha de Banana com Canela e Açúcar', descricao: 'Banana fatiada com canela e açúcar.', preco: 8.49, destaque: false },
               { id: 89, nome: 'Esfiha de Banana, Queijo e Canela', descricao: 'Banana, mussarela e toque de canela.', preco: 8.49, destaque: false }
             ]
@@ -387,16 +387,16 @@ const cardapio = {
           {
             nomeGrupo: 'Latas e Individuais',
             itens: [
-              { id: 1, nome: 'Coca-Cola Lata', descricao: 'Lata 350ml', preco: 8.00, destaque: false },
+              { id: 1, nome: 'Coca-Cola Lata', descricao: 'Lata 350ml', preco: 8.00, destaque: true },
               { id: 2, nome: 'Refrigerante Lata (Sabores Diversos)', descricao: 'Lata 350ml', preco: 8.00, destaque: false },
-              { id: 3, nome: 'H2OH!', descricao: 'Limão ou outros sabores - Garrafa 500ml', preco: 8.00, destaque: false },
+              { id: 3, nome: 'H2OH!', descricao: 'Limão ou outros sabores - Garrafa 500ml', preco: 8.00, destaque: true },
               { id: 4, nome: 'Refrigerante Mini', descricao: 'Ideal para consumo individual', preco: 0.00, destaque: false }
             ]
           },
           {
             nomeGrupo: 'Garrafas 2 Litros',
             itens: [
-              { id: 5, nome: 'Refrigerante 2L Coca-Cola', descricao: 'Garrafa 2 Litros', preco: 15.00, destaque: false },
+              { id: 5, nome: 'Refrigerante 2L Coca-Cola', descricao: 'Garrafa 2 Litros', preco: 15.00, destaque: true },
               { id: 6, nome: 'Refrigerante 2L (Outros Sabores)', descricao: 'Garrafa 2 Litros', preco: 10.00, destaque: false }
             ]
           }
@@ -423,7 +423,7 @@ const cardapio = {
             nomeGrupo: 'Variedades',
             itens: [
               { id: 9, nome: 'Suco em Lata', descricao: 'Sabores diversos - Lata 350ml', preco: 8.50, destaque: false },
-              { id: 10, nome: 'Guaravita', descricao: 'Guaraná natural em copo 290ml', preco: 3.00, destaque: false },
+              { id: 10, nome: 'Guaravita', descricao: 'Guaraná natural em copo 290ml', preco: 3.00, destaque: true },
               { id: 11, nome: 'Guaraviton', descricao: 'Bebida energética à base de guaraná', preco: 8.00, destaque: false },
               { id: 12, nome: 'Ice Tea (Chá Gelado)', descricao: 'Sabores diversos', preco: 6.50, destaque: false }
             ]

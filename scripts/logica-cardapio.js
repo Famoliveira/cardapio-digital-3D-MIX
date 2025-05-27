@@ -163,7 +163,6 @@ function criarCardItem(item, categoriaOriginalIdParaSeloEImagem, categoriaIdAtua
 
   const precoFormatado = item.preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   
-  // --- LÓGICA DE IMAGEM REVERTIDA PARA SOMENTE .JPG ---
   const imagemItemSrc = `assets/sections/${categoriaOriginalIdParaSeloEImagem}/${item.id}.jpg`; 
   const fallbackImageSrc = 'assets/logo-square.png';
 
@@ -184,7 +183,6 @@ function criarCardItem(item, categoriaOriginalIdParaSeloEImagem, categoriaIdAtua
       <p class="card-description">${item.descricao}</p>
     </div>
   `;
-  // --- FIM DA LÓGICA DE IMAGEM REVERTIDA ---
   
   return card;
 }
@@ -193,8 +191,6 @@ function criarCardItem(item, categoriaOriginalIdParaSeloEImagem, categoriaIdAtua
 function gerarSecaoCardapio(categoriaIdParaExibir) {
   const categoriaInfo = categorias.find(cat => cat.id === categoriaIdParaExibir);
   if (!categoriaInfo) return null;
-
-  const dadosDaCategoria = cardapio[categoriaIdParaExibir];
 
   const section = document.createElement('section');
   section.classList.add('category-content-section'); 
@@ -208,53 +204,59 @@ function gerarSecaoCardapio(categoriaIdParaExibir) {
   section.appendChild(tituloPrincipalSecao);
 
   if (categoriaIdParaExibir === 'destaques') {
-    const gridContainer = document.createElement('div');
-    gridContainer.className = 'grid-container';
-    let destaquesEncontrados = 0;
-    const todosOsDestaques = [];
+    let destaquesEncontradosGeral = 0;
 
-    categorias.forEach(cat => { 
-      if (cat.id === 'destaques') return; 
+    categorias.forEach(categoriaOriginalInfo => {
+      if (categoriaOriginalInfo.id === 'destaques') return; 
 
-      const dadosCatAtual = cardapio[cat.id];
-      if (!dadosCatAtual) return;
+      const dadosCategoriaOriginal = cardapio[categoriaOriginalInfo.id];
+      if (!dadosCategoriaOriginal) return; 
 
-      if (Array.isArray(dadosCatAtual)) { 
-        dadosCatAtual.forEach(item => {
+      const destaquesDestaCategoriaOriginal = [];
+
+      if (Array.isArray(dadosCategoriaOriginal)) { 
+        dadosCategoriaOriginal.forEach(item => {
           if (item.destaque) {
-            todosOsDestaques.push({ ...item, originalCategoriaId: cat.id }); 
+            destaquesDestaCategoriaOriginal.push({ ...item, originalCategoriaId: categoriaOriginalInfo.id });
           }
         });
-      } else if (typeof dadosCatAtual === 'object' && dadosCatAtual.tipoEstrutura === 'hierarquica') { 
-        dadosCatAtual.subsecoes.forEach(subsecao => {
+      } else if (typeof dadosCategoriaOriginal === 'object' && dadosCategoriaOriginal.tipoEstrutura === 'hierarquica') { 
+        dadosCategoriaOriginal.subsecoes.forEach(subsecao => {
           subsecao.grupos.forEach(grupo => {
             grupo.itens.forEach(item => {
               if (item.destaque) {
-                todosOsDestaques.push({ ...item, originalCategoriaId: cat.id });
+                destaquesDestaCategoriaOriginal.push({ ...item, originalCategoriaId: categoriaOriginalInfo.id });
               }
             });
           });
         });
       }
+
+      if (destaquesDestaCategoriaOriginal.length > 0) {
+        destaquesEncontradosGeral++;
+
+        // MODIFICAÇÃO AQUI: Alterado o formato do título da subcategoria
+        const tituloSubCategoriaDestaques = criarTituloEstilizado(
+          `${categoriaOriginalInfo.nome} em Destaque`, // Formato alterado
+          'h3', 
+          'titulo-grupo-sabor' 
+        );
+        section.appendChild(tituloSubCategoriaDestaques);
+
+        const gridContainer = document.createElement('div');
+        gridContainer.className = 'grid-container';
+        
+        destaquesDestaCategoriaOriginal.sort((a, b) => parseInt(a.id) - parseInt(b.id));
+
+        destaquesDestaCategoriaOriginal.forEach(itemDestaque => {
+          const card = criarCardItem(itemDestaque, itemDestaque.originalCategoriaId, categoriaIdParaExibir);
+          gridContainer.appendChild(card);
+        });
+        section.appendChild(gridContainer);
+      }
     });
     
-     todosOsDestaques.sort((a,b) => { 
-        const indexA = categorias.findIndex(c => c.id === a.originalCategoriaId);
-        const indexB = categorias.findIndex(c => c.id === b.originalCategoriaId);
-        if (indexA !== indexB) {
-            return indexA - indexB;
-        }
-        return parseInt(a.id) - parseInt(b.id);
-    });
-
-
-    todosOsDestaques.forEach(itemDestaque => {
-        const card = criarCardItem(itemDestaque, itemDestaque.originalCategoriaId, categoriaIdParaExibir); 
-        gridContainer.appendChild(card);
-        destaquesEncontrados++;
-    });
-    
-    if (destaquesEncontrados === 0) {
+    if (destaquesEncontradosGeral === 0) {
         const noHighlightsMessage = document.createElement('p');
         noHighlightsMessage.textContent = 'Nenhum item em destaque no momento.';
         noHighlightsMessage.style.textAlign = 'center';
@@ -262,108 +264,110 @@ function gerarSecaoCardapio(categoriaIdParaExibir) {
         if (section.classList.contains('category-section-with-bg')) {
             noHighlightsMessage.style.color = 'white'; 
         }
-        gridContainer.appendChild(noHighlightsMessage);
+        section.appendChild(noHighlightsMessage);
     }
-    section.appendChild(gridContainer);
 
-  } else if (dadosDaCategoria && dadosDaCategoria.tipoEstrutura === 'hierarquica') { 
-    if (!dadosDaCategoria.subsecoes || dadosDaCategoria.subsecoes.length === 0) {
-      const noItemsMessage = document.createElement('p');
-      noItemsMessage.textContent = 'Nenhum item disponível nesta categoria no momento.';
-      noItemsMessage.style.textAlign = 'center';
-      noItemsMessage.style.padding = '1rem';
-      if (section.classList.contains('category-section-with-bg')) {
-        noItemsMessage.style.color = 'white';
-      }
-      section.appendChild(noItemsMessage);
-    } else {
-      dadosDaCategoria.subsecoes.forEach(subsecao => {
-        if (subsecao.tituloSubsecao) {
-          const tituloSub = criarTituloEstilizado(subsecao.tituloSubsecao, 'h3', 'titulo-grupo-sabor');
-          section.appendChild(tituloSub);
-        }
-
-        if (subsecao.grupos && subsecao.grupos.length > 0) {
-          subsecao.grupos.forEach(grupo => {
-            if (grupo.nomeGrupo && grupo.itens && grupo.itens.length > 0) {
-              const tituloGrupoEl = criarTituloEstilizado(grupo.nomeGrupo, 'h4', 'titulo-variacao-sabor');
-              section.appendChild(tituloGrupoEl);
-            }
-
-            if (grupo.itens && grupo.itens.length > 0) {
-              const gridContainer = document.createElement('div');
-              gridContainer.className = 'grid-container';
-              
-              grupo.itens.sort((a, b) => { 
-                if (a.destaque && !b.destaque) return -1;
-                if (!a.destaque && b.destaque) return 1;
-                return parseInt(a.id) - parseInt(b.id);
-              });
-
-              grupo.itens.forEach(item => {
-                const card = criarCardItem(item, categoriaIdParaExibir, categoriaIdParaExibir);
-                gridContainer.appendChild(card);
-              });
-              section.appendChild(gridContainer);
-            } else if (grupo.nomeGrupo) { 
-                const noItemsMessage = document.createElement('p');
-                noItemsMessage.textContent = `Nenhum item disponível em ${grupo.nomeGrupo} no momento.`;
-                noItemsMessage.style.textAlign = 'center';
-                noItemsMessage.style.padding = '1rem 0';
-                if (section.classList.contains('category-section-with-bg')) {
-                    noItemsMessage.style.color = 'white';
-                }
-                section.appendChild(noItemsMessage);
-            }
-          });
-        } else if (subsecao.tituloSubsecao && (!subsecao.grupos || subsecao.grupos.length === 0)) {
-            const noItemsMessage = document.createElement('p');
-            noItemsMessage.textContent = `Nenhum item disponível em ${subsecao.tituloSubsecao} no momento.`;
-            noItemsMessage.style.textAlign = 'center';
-            noItemsMessage.style.padding = '1rem 0';
-            if (section.classList.contains('category-section-with-bg')) {
-                noItemsMessage.style.color = 'white';
-            }
-            section.appendChild(noItemsMessage);
-        }
-      });
-    }
-  } else if (dadosDaCategoria && Array.isArray(dadosDaCategoria)) { // Estrutura antiga
-    const itensDaSecao = dadosDaCategoria;
-    if (itensDaSecao.length === 0) {
+  } else { 
+    const dadosDaCategoria = cardapio[categoriaIdParaExibir];
+    if (dadosDaCategoria && dadosDaCategoria.tipoEstrutura === 'hierarquica') { 
+      if (!dadosDaCategoria.subsecoes || dadosDaCategoria.subsecoes.length === 0) {
         const noItemsMessage = document.createElement('p');
         noItemsMessage.textContent = 'Nenhum item disponível nesta categoria no momento.';
         noItemsMessage.style.textAlign = 'center';
         noItemsMessage.style.padding = '1rem';
-         if (section.classList.contains('category-section-with-bg')) {
-            noItemsMessage.style.color = 'white';
+        if (section.classList.contains('category-section-with-bg')) {
+          noItemsMessage.style.color = 'white';
         }
         section.appendChild(noItemsMessage);
-    } else {
-        const gridContainer = document.createElement('div');
-        gridContainer.className = 'grid-container';
+      } else {
+        dadosDaCategoria.subsecoes.forEach(subsecao => {
+          if (subsecao.tituloSubsecao) {
+            const tituloSub = criarTituloEstilizado(subsecao.tituloSubsecao, 'h3', 'titulo-grupo-sabor');
+            section.appendChild(tituloSub);
+          }
 
-        itensDaSecao.sort((a, b) => { 
-          if (a.destaque && !b.destaque) return -1;
-          if (!a.destaque && b.destaque) return 1;
-          return parseInt(a.id) - parseInt(b.id);
-        });
+          if (subsecao.grupos && subsecao.grupos.length > 0) {
+            subsecao.grupos.forEach(grupo => {
+              if (grupo.nomeGrupo && grupo.itens && grupo.itens.length > 0) {
+                const tituloGrupoEl = criarTituloEstilizado(grupo.nomeGrupo, 'h4', 'titulo-variacao-sabor');
+                section.appendChild(tituloGrupoEl);
+              }
 
-        itensDaSecao.forEach(item => {
-          const card = criarCardItem(item, categoriaIdParaExibir, categoriaIdParaExibir);
-          gridContainer.appendChild(card);
+              if (grupo.itens && grupo.itens.length > 0) {
+                const gridContainer = document.createElement('div');
+                gridContainer.className = 'grid-container';
+                
+                grupo.itens.sort((a, b) => { 
+                  if (a.destaque && !b.destaque) return -1;
+                  if (!a.destaque && b.destaque) return 1;
+                  return parseInt(a.id) - parseInt(b.id);
+                });
+
+                grupo.itens.forEach(item => {
+                  const card = criarCardItem(item, categoriaIdParaExibir, categoriaIdParaExibir);
+                  gridContainer.appendChild(card);
+                });
+                section.appendChild(gridContainer);
+              } else if (grupo.nomeGrupo) { 
+                  const noItemsMessage = document.createElement('p');
+                  noItemsMessage.textContent = `Nenhum item disponível em ${grupo.nomeGrupo} no momento.`;
+                  noItemsMessage.style.textAlign = 'center';
+                  noItemsMessage.style.padding = '1rem 0';
+                  if (section.classList.contains('category-section-with-bg')) {
+                      noItemsMessage.style.color = 'white';
+                  }
+                  section.appendChild(noItemsMessage);
+              }
+            });
+          } else if (subsecao.tituloSubsecao && (!subsecao.grupos || subsecao.grupos.length === 0)) {
+              const noItemsMessage = document.createElement('p');
+              noItemsMessage.textContent = `Nenhum item disponível em ${subsecao.tituloSubsecao} no momento.`;
+              noItemsMessage.style.textAlign = 'center';
+              noItemsMessage.style.padding = '1rem 0';
+              if (section.classList.contains('category-section-with-bg')) {
+                  noItemsMessage.style.color = 'white';
+              }
+              section.appendChild(noItemsMessage);
+          }
         });
-        section.appendChild(gridContainer);
+      }
+    } else if (dadosDaCategoria && Array.isArray(dadosDaCategoria)) { 
+      const itensDaSecao = dadosDaCategoria;
+      if (itensDaSecao.length === 0) {
+          const noItemsMessage = document.createElement('p');
+          noItemsMessage.textContent = 'Nenhum item disponível nesta categoria no momento.';
+          noItemsMessage.style.textAlign = 'center';
+          noItemsMessage.style.padding = '1rem';
+           if (section.classList.contains('category-section-with-bg')) {
+              noItemsMessage.style.color = 'white';
+          }
+          section.appendChild(noItemsMessage);
+      } else {
+          const gridContainer = document.createElement('div');
+          gridContainer.className = 'grid-container';
+
+          itensDaSecao.sort((a, b) => { 
+            if (a.destaque && !b.destaque) return -1;
+            if (!a.destaque && b.destaque) return 1;
+            return parseInt(a.id) - parseInt(b.id);
+          });
+
+          itensDaSecao.forEach(item => {
+            const card = criarCardItem(item, categoriaIdParaExibir, categoriaIdParaExibir);
+            gridContainer.appendChild(card);
+          });
+          section.appendChild(gridContainer);
+      }
+    } else if (categoriaIdParaExibir !== 'destaques') { 
+      const errorMessage = document.createElement('p');
+      errorMessage.textContent = 'Nenhum item encontrado nesta categoria.';
+      errorMessage.style.textAlign = 'center';
+      errorMessage.style.padding = '1rem';
+       if (section.classList.contains('category-section-with-bg')) {
+          errorMessage.style.color = 'white';
+      }
+      section.appendChild(errorMessage);
     }
-  } else if (categoriaIdParaExibir !== 'destaques') { 
-    const errorMessage = document.createElement('p');
-    errorMessage.textContent = 'Nenhum item encontrado nesta categoria.';
-    errorMessage.style.textAlign = 'center';
-    errorMessage.style.padding = '1rem';
-     if (section.classList.contains('category-section-with-bg')) {
-        errorMessage.style.color = 'white';
-    }
-    section.appendChild(errorMessage);
   }
   return section;
 }
@@ -389,19 +393,33 @@ document.addEventListener('DOMContentLoaded', () => {
   gerarNavegacao(); 
   
   let categoriaInicial = 'destaques';
+  const temItensEmDestaqueGeral = Object.values(cardapio).some(catData => { 
+      if (Array.isArray(catData)) return catData.some(item => item.destaque);
+      if (catData.tipoEstrutura === 'hierarquica') { 
+          return catData.subsecoes.some(sub => sub.grupos.some(g => g.itens.some(item => item.destaque)));
+      }
+      return false;
+  });
+
+  if (!temItensEmDestaqueGeral && categorias.length > 1) {
+      const primeiraCategoriaValida = categorias.find(cat => cat.id !== 'destaques' && cardapio[cat.id] && ( (Array.isArray(cardapio[cat.id]) && cardapio[cat.id].length > 0) || (cardapio[cat.id].tipoEstrutura === 'hierarquica' && cardapio[cat.id].subsecoes.some(s => s.grupos.some(g => g.itens.length > 0))) ) );
+      if (primeiraCategoriaValida) {
+          categoriaInicial = primeiraCategoriaValida.id;
+      } else if (categorias.length > 0 && categorias[0].id !== 'destaques') { 
+          categoriaInicial = categorias[0].id;
+      } else if (categorias.length > 1) {
+           categoriaInicial = categorias[1].id; 
+      }
+  }
+
+
   if (window.location.hash) {
     const hashCategory = window.location.hash.substring(1); 
     const categoriaValidaNoHash = categorias.find(cat => cat.id === hashCategory);
     
     let temItensNaCategoriaDoHash = false;
     if (hashCategory === 'destaques') {
-        temItensNaCategoriaDoHash = Object.values(cardapio).some(catData => { 
-            if (Array.isArray(catData)) return catData.some(item => item.destaque);
-            if (catData.tipoEstrutura === 'hierarquica') { 
-                return catData.subsecoes.some(sub => sub.grupos.some(g => g.itens.some(item => item.destaque)));
-            }
-            return false;
-        });
+        temItensNaCategoriaDoHash = temItensEmDestaqueGeral;
     } else {
         const dadosCatHash = cardapio[hashCategory];
         if (dadosCatHash) {
@@ -415,10 +433,10 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (categoriaValidaNoHash && temItensNaCategoriaDoHash ) {
       categoriaInicial = hashCategory;
-    } else if (categoriaValidaNoHash && hashCategory !== 'destaques' && !temItensNaCategoriaDoHash) {
-        // Lógica para lidar com hash de categoria válida mas vazia (mantém destaques ou primeira válida)
+    } else if (categoriaValidaNoHash && !temItensNaCategoriaDoHash && hashCategory !== 'destaques') {
+        // Mantém categoriaInicial
     } else if (!categoriaValidaNoHash) {
-        // Lógica para lidar com hash de categoria inválida (mantém destaques ou primeira válida)
+        // Mantém categoriaInicial
     }
   }
   
