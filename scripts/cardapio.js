@@ -92,11 +92,11 @@ const cardapio = {
           {
             nomeGrupo: 'Sabores Doces',
             itens: [
-              { id: 15, nome: 'Chocolate', descricao: 'Chocolate em calda e mussarela.', precos: { media: { texto: 'Média (4/8 fatias)', valor: 29.80 }, grande: { texto: 'Grande (8 fatias)', valor: 39.60 } }, destaque: false },
-              { id: 16, nome: 'Chocolate c/ Banana', descricao: 'Chocolate em calda, fatias de banana e mussarela.', precos: { media: { texto: 'Média (4/8 fatias)', valor: 29.80 }, grande: { texto: 'Grande (8 fatias)', valor: 39.60 } }, destaque: true },
-              { id: 17, nome: 'Brigadeiro', descricao: 'Chocolate em calda, granulado e mussarela.', precos: { media: { texto: 'Média (4/8 fatias)', valor: 29.80 }, grande: { texto: 'Grande (8 fatias)', valor: 39.60 } }, destaque: false },
-              { id: 18, nome: 'Prestígio', descricao: 'Chocolate em calda, coco ralado e mussarela.', precos: { media: { texto: 'Média (4/8 fatias)', valor: 29.80 }, grande: { texto: 'Grande (8 fatias)', valor: 39.60 } }, destaque: false },
-              { id: 19, nome: 'Banana c/ Canela', descricao: 'Mussarela, banana, canela e açúcar.', precos: { media: { texto: 'Média (4/8 fatias)', valor: 29.80 }, grande: { texto: 'Grande (8 fatias)', valor: 39.60 } }, destaque: false }
+              { id: 15, nome: 'Chocolate', descricao: 'Chocolate em calda e mussarela.', precos: { media: { texto: 'Média (4 ou 8 fatias)', valor: 29.80 }, grande: { texto: 'Grande (8 fatias)', valor: 39.60 } }, destaque: false },
+              { id: 16, nome: 'Chocolate c/ Banana', descricao: 'Chocolate em calda, fatias de banana e mussarela.', precos: { media: { texto: 'Média (4 ou 8 fatias)', valor: 29.80 }, grande: { texto: 'Grande (8 fatias)', valor: 39.60 } }, destaque: true },
+              { id: 17, nome: 'Brigadeiro', descricao: 'Chocolate em calda, granulado e mussarela.', precos: { media: { texto: 'Média (4 ou 8 fatias)', valor: 29.80 }, grande: { texto: 'Grande (8 fatias)', valor: 39.60 } }, destaque: false },
+              { id: 18, nome: 'Prestígio', descricao: 'Chocolate em calda, coco ralado e mussarela.', precos: { media: { texto: 'Média (4 ou 8 fatias)', valor: 29.80 }, grande: { texto: 'Grande (8 fatias)', valor: 39.60 } }, destaque: false },
+              { id: 19, nome: 'Banana c/ Canela', descricao: 'Mussarela, banana, canela e açúcar.', precos: { media: { texto: 'Média (4 ou 8 fatias)', valor: 29.80 }, grande: { texto: 'Grande (8 fatias)', valor: 39.60 } }, destaque: false }
             ]
           }
         ]
@@ -106,7 +106,7 @@ const cardapio = {
 
   lanches: [ /* Seus lanches aqui, se houver. Ex: { id: 1, nome: 'X-Burger', descricao: 'Pão, carne, queijo', preco: 15.00, destaque: false } */ ],
 
-  pasteis: { // Conteúdo de pastéis conforme fornecido anteriormente
+  pasteis: {
     tipoEstrutura: 'hierarquica',
     subsecoes: [
       {
@@ -267,8 +267,11 @@ const cardapio = {
       }
     ]
   },
-  esfihas: { // Conteúdo de esfihas conforme fornecido anteriormente
+  esfihas: {
     tipoEstrutura: 'hierarquica',
+    observacoesGerais: [
+      "PROMOÇÃO: Compre 5 esfihas e GANHE +1!"
+    ],
     subsecoes: [
       {
         tituloSubsecao: 'Esfihas Salgadas',
@@ -443,7 +446,7 @@ const cardapio = {
               { id: 1, nome: 'Coca-Cola Lata', descricao: 'Lata 350ml', preco: 8.00, destaque: true },
               { id: 2, nome: 'Refrigerante Lata (Sabores Diversos)', descricao: 'Lata 350ml', preco: 8.00, destaque: false },
               { id: 3, nome: 'H2OH!', descricao: 'Limão ou outros sabores - Garrafa 500ml', preco: 8.00, destaque: true },
-              { id: 4, nome: 'Refrigerante Mini', descricao: 'Ideal para consumo individual', preco: 0.00, destaque: false } // Preço 0.00 parece um placeholder, verifique.
+              { id: 4, nome: 'Refrigerante Mini', descricao: 'Ideal para consumo individual', preco: 0.00, destaque: false }
             ]
           },
           {
