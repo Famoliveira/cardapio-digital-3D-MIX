@@ -51,7 +51,166 @@ const categorias = [
 
 // Dados do cardápio
 const cardapio = {
-  combos: [ /* Seus combos aqui, se houver. Ex: { id: 1, nome: 'Combo Super', descricao: 'X-Tudo + Batata + Refri', preco: 25.00, destaque: true } */ ],
+  combos: {
+    tipoEstrutura: 'hierarquica', 
+    observacoesGerais: [
+      "Pizza de bacon não entra no combo.",
+      "Borda recheada: Catupiry, Cheddar, Chocolate ou Queijo – R$ 10,00",
+      "Consulte nossos refrigerantes disponíveis para os combos.",
+      "Sabor das pizzas para combo: exceto a opção 3D MIX.",
+      "Pizzas pedidas para serem embaladas terão um acréscimo de apenas R$ 1,00 por embalagem."
+    ],
+    subsecoes: [
+      {
+        tituloSubsecao: 'Combos de Pizza',
+        idSubsecao: 'combos-pizza',
+        grupos: [
+          {
+            // nomeGrupo: 'Opções de Pizza Combo', // Opcional
+            itens: [
+              { 
+                id: 1, 
+                nome: 'Combo 1', 
+                descricao: 'Pizza Grande (35 cm) + Pizza Grande (35 cm) + Pizza Pequena Doce', 
+                preco: 94.90, 
+                destaque: true 
+              },
+              { 
+                id: 2, 
+                nome: 'Combo 2', 
+                descricao: 'Pizza Grande (35 cm) + Pizza Pequena (doce ou salgada) + Refrigerante', 
+                preco: 77.00, 
+                destaque: false 
+              },
+              { 
+                id: 3, 
+                nome: 'Combo 3', 
+                descricao: 'Pizza Família (40 cm) + Pizza Grande (35 cm)', 
+                preco: 91.90, 
+                destaque: false 
+              },
+              { 
+                id: 4, 
+                nome: 'Combo 4', 
+                descricao: 'Pizza Família (40 cm) + Pizza Família (40 cm) + Pizza Grande (35 cm) (doce ou salgada)', 
+                preco: 119.90, 
+                destaque: true 
+              },
+              { 
+                id: 5, 
+                nome: 'Combo 5', 
+                descricao: '3 Pizzas Grandes (35 cm)', 
+                preco: 105.90, 
+                destaque: false 
+              },
+              { 
+                id: 6, 
+                nome: 'Combo 6', 
+                descricao: 'Pizza Média (30 cm) + Refrigerante', 
+                preco: 41.90, 
+                destaque: false 
+              },
+              { 
+                id: 7, 
+                nome: 'Combo 7', 
+                descricao: 'Na compra de uma Pizza Grande, você ganha um Refrigerante', 
+                preco: 74.90, 
+                destaque: false 
+              }
+            ]
+          }
+        ]
+      },
+      {
+        tituloSubsecao: 'Combos de Lanche', 
+        idSubsecao: 'combos-lanche',
+        grupos: [
+          {
+            // nomeGrupo: 'Opções de Lanche Combo', // Opcional
+            itens: [
+              {
+                id: 8, 
+                nome: 'Trio 19',
+                descricao: 'X-tudo + Batata pequena + 1 Guaravita',
+                preco: 32.00,
+                destaque: false
+              },
+              {
+                id: 9,
+                nome: 'Combo Mix',
+                descricao: 'X-tudo + 1 Milk Shake (300 ml)',
+                preco: 29.90,
+                destaque: true 
+              },
+              {
+                id: 10,
+                nome: 'Combo X-Egg',
+                descricao: '5 Egg Burguer + leve 1 Refrigerante',
+                preco: 59.90,
+                destaque: false
+              },
+              {
+                id: 11,
+                nome: 'Combo Bom de Boca',
+                descricao: '2 lanches + 1 porção de batata + leve 2 Guaravitas grátis',
+                preco: 45.00,
+                destaque: false
+              },
+              {
+                id: 12,
+                nome: 'Super Combo (Egg Burguer)', // Renomeado para evitar conflito com o novo Super Combo
+                descricao: '3 Egg Burguer + 1 Refrigerante + 1 Batata Grande',
+                preco: 49.90,
+                destaque: true
+              },
+              {
+                id: 13, // Novo ID
+                nome: 'Mega Combo',
+                descricao: '3 × Egg Bacon + 3 porções de batata + 1 refrigerante',
+                preco: 79.90,
+                destaque: false
+              },
+              {
+                id: 14, // Novo ID
+                nome: 'Dia do X-Bacon',
+                descricao: '3 × X-Bacon + 3 porções de batata + 1 refrigerante (ganhe o refri!)',
+                preco: 73.00,
+                destaque: true
+              },
+              {
+                id: 15, // Novo ID
+                nome: 'Combo Top',
+                descricao: '3 × Egg Burguer + 3 porções de batata + 1 refrigerante',
+                preco: 59.90,
+                destaque: false
+              },
+              {
+                id: 16, // Novo ID
+                nome: 'Super Combo (X-Tudo)', // Este é o novo Super Combo da lista
+                descricao: '3 × X-Tudo + porções de batata + 1 refrigerante',
+                preco: 94.50,
+                destaque: true
+              },
+              {
+                id: 17, // Novo ID
+                nome: 'Trio 04',
+                descricao: '1 × X-Egg Burguer + batata pequena + 1 Guaravita',
+                preco: 21.00,
+                destaque: false
+              },
+              {
+                id: 18, // Novo ID
+                nome: 'Trio 28',
+                descricao: '1 × X-Grill (com carne de picanha) + batata pequena + 1 Guaravita',
+                preco: 24.50,
+                destaque: false
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
   
   pizzas: {
     tipoEstrutura: 'hierarquica',
@@ -92,11 +251,11 @@ const cardapio = {
           {
             nomeGrupo: 'Sabores Doces',
             itens: [
-              { id: 15, nome: 'Chocolate', descricao: 'Chocolate em calda e mussarela.', precos: { media: { texto: 'Média (4 ou 8 fatias)', valor: 29.80 }, grande: { texto: 'Grande (8 fatias)', valor: 39.60 } }, destaque: false },
-              { id: 16, nome: 'Chocolate c/ Banana', descricao: 'Chocolate em calda, fatias de banana e mussarela.', precos: { media: { texto: 'Média (4 ou 8 fatias)', valor: 29.80 }, grande: { texto: 'Grande (8 fatias)', valor: 39.60 } }, destaque: true },
-              { id: 17, nome: 'Brigadeiro', descricao: 'Chocolate em calda, granulado e mussarela.', precos: { media: { texto: 'Média (4 ou 8 fatias)', valor: 29.80 }, grande: { texto: 'Grande (8 fatias)', valor: 39.60 } }, destaque: false },
-              { id: 18, nome: 'Prestígio', descricao: 'Chocolate em calda, coco ralado e mussarela.', precos: { media: { texto: 'Média (4 ou 8 fatias)', valor: 29.80 }, grande: { texto: 'Grande (8 fatias)', valor: 39.60 } }, destaque: false },
-              { id: 19, nome: 'Banana c/ Canela', descricao: 'Mussarela, banana, canela e açúcar.', precos: { media: { texto: 'Média (4 ou 8 fatias)', valor: 29.80 }, grande: { texto: 'Grande (8 fatias)', valor: 39.60 } }, destaque: false }
+              { id: 15, nome: 'Chocolate', descricao: 'Chocolate em calda e mussarela.', precos: { media: { texto: 'Média (4/8 fatias)', valor: 29.80 }, grande: { texto: 'Grande (8 fatias)', valor: 39.60 } }, destaque: false },
+              { id: 16, nome: 'Chocolate c/ Banana', descricao: 'Chocolate em calda, fatias de banana e mussarela.', precos: { media: { texto: 'Média (4/8 fatias)', valor: 29.80 }, grande: { texto: 'Grande (8 fatias)', valor: 39.60 } }, destaque: true },
+              { id: 17, nome: 'Brigadeiro', descricao: 'Chocolate em calda, granulado e mussarela.', precos: { media: { texto: 'Média (4/8 fatias)', valor: 29.80 }, grande: { texto: 'Grande (8 fatias)', valor: 39.60 } }, destaque: false },
+              { id: 18, nome: 'Prestígio', descricao: 'Chocolate em calda, coco ralado e mussarela.', precos: { media: { texto: 'Média (4/8 fatias)', valor: 29.80 }, grande: { texto: 'Grande (8 fatias)', valor: 39.60 } }, destaque: false },
+              { id: 19, nome: 'Banana c/ Canela', descricao: 'Mussarela, banana, canela e açúcar.', precos: { media: { texto: 'Média (4/8 fatias)', valor: 29.80 }, grande: { texto: 'Grande (8 fatias)', valor: 39.60 } }, destaque: false }
             ]
           }
         ]
