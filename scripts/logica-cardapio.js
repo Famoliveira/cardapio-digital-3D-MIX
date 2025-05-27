@@ -152,13 +152,10 @@ function criarCardItem(item, categoriaOriginalIdParaSeloEImagem, categoriaIdAtua
     card.classList.add('item-destacado');
     let textoSelo;
     
-    // Para o selo na seção 'Destaques', usamos a categoria original do item.
-    // Se o item já tiver 'originalCategoriaId' (coletado para a seção destaques), use-o.
-    // Caso contrário, use categoriaOriginalIdParaSeloEImagem.
     const categoriaBaseParaSelo = item.originalCategoriaId || categoriaOriginalIdParaSeloEImagem;
 
     if (categoriaIdAtualSendoExibida === 'destaques') {
-      const nomeSingular = singularMap[categoriaBaseParaSelo] || categoriaBaseParaSelo.slice(0, -1);
+      const nomeSingular = singularMap[categoriaBaseParaSelo] || categoriaBaseParaSelo.slice(0, -1); //
       textoSelo = nomeSingular.charAt(0).toUpperCase() + nomeSingular.slice(1); 
     } else {
       textoSelo = "Destaque!";
@@ -168,9 +165,8 @@ function criarCardItem(item, categoriaOriginalIdParaSeloEImagem, categoriaIdAtua
 
   const precoFormatado = item.preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   
-  // Path da imagem usa a categoria original do item
-  const nomeSingularCategoriaRaiz = singularMap[categoriaOriginalIdParaSeloEImagem] || categoriaOriginalIdParaSeloEImagem.slice(0, -1);
-  const imagemItemSrc = `assets/sections/${categoriaOriginalIdParaSeloEImagem}/${nomeSingularCategoriaRaiz}-${item.id}.jpg`; 
+  // MODIFICAÇÃO AQUI: Path da imagem usa a categoria original e apenas o ID do item.
+  const imagemItemSrc = `assets/sections/${categoriaOriginalIdParaSeloEImagem}/${item.id}.jpg`; 
   const fallbackImageSrc = 'assets/logo-square.png';
 
   card.innerHTML = `
@@ -198,8 +194,6 @@ function gerarSecaoCardapio(categoriaIdParaExibir) {
   if (!categoriaInfo) return null;
 
   const dadosDaCategoria = cardapio[categoriaIdParaExibir];
-  // Não retorna null se dadosDaCategoria for undefined, pois a seção de destaques é construída dinamicamente
-  // e não tem uma entrada direta em `cardapio.destaques`.
 
   const section = document.createElement('section');
   section.classList.add('category-content-section'); 
@@ -218,22 +212,19 @@ function gerarSecaoCardapio(categoriaIdParaExibir) {
     let destaquesEncontrados = 0;
     const todosOsDestaques = [];
 
-    // Itera sobre todas as categorias principais definidas em `categorias`
-    // para encontrar itens de destaque, exceto a própria categoria 'destaques'.
-    categorias.forEach(cat => {
-      if (cat.id === 'destaques') return; // Pula a categoria de destaques em si
+    categorias.forEach(cat => { //
+      if (cat.id === 'destaques') return; 
 
       const dadosCatAtual = cardapio[cat.id];
       if (!dadosCatAtual) return;
 
-      if (Array.isArray(dadosCatAtual)) { // Estrutura antiga de itens
+      if (Array.isArray(dadosCatAtual)) { 
         dadosCatAtual.forEach(item => {
           if (item.destaque) {
-            // Adiciona o originalCategoriaId para saber de onde veio para o selo
             todosOsDestaques.push({ ...item, originalCategoriaId: cat.id }); 
           }
         });
-      } else if (typeof dadosCatAtual === 'object' && dadosCatAtual.tipoEstrutura === 'hierarquica') { // Nova estrutura
+      } else if (typeof dadosCatAtual === 'object' && dadosCatAtual.tipoEstrutura === 'hierarquica') { //
         dadosCatAtual.subsecoes.forEach(subsecao => {
           subsecao.grupos.forEach(grupo => {
             grupo.itens.forEach(item => {
@@ -246,9 +237,7 @@ function gerarSecaoCardapio(categoriaIdParaExibir) {
       }
     });
     
-    // Ordenar destaques: pode ser pela ordem das categorias e depois pelo ID do item, ou como preferir.
-    // Exemplo: Ordena por ID da categoria original, depois pelo ID do item
-     todosOsDestaques.sort((a,b) => {
+     todosOsDestaques.sort((a,b) => { //
         const indexA = categorias.findIndex(c => c.id === a.originalCategoriaId);
         const indexB = categorias.findIndex(c => c.id === b.originalCategoriaId);
         if (indexA !== indexB) {
@@ -259,8 +248,6 @@ function gerarSecaoCardapio(categoriaIdParaExibir) {
 
 
     todosOsDestaques.forEach(itemDestaque => {
-        // Para criarCardItem, o segundo argumento é a categoria original do item para o selo e path da imagem
-        // O terceiro argumento é a categoria atual sendo exibida ('destaques')
         const card = criarCardItem(itemDestaque, itemDestaque.originalCategoriaId, categoriaIdParaExibir); 
         gridContainer.appendChild(card);
         destaquesEncontrados++;
@@ -278,7 +265,7 @@ function gerarSecaoCardapio(categoriaIdParaExibir) {
     }
     section.appendChild(gridContainer);
 
-  } else if (dadosDaCategoria && dadosDaCategoria.tipoEstrutura === 'hierarquica') {
+  } else if (dadosDaCategoria && dadosDaCategoria.tipoEstrutura === 'hierarquica') { //
     if (!dadosDaCategoria.subsecoes || dadosDaCategoria.subsecoes.length === 0) {
       const noItemsMessage = document.createElement('p');
       noItemsMessage.textContent = 'Nenhum item disponível nesta categoria no momento.';
@@ -306,7 +293,7 @@ function gerarSecaoCardapio(categoriaIdParaExibir) {
               const gridContainer = document.createElement('div');
               gridContainer.className = 'grid-container';
               
-              grupo.itens.sort((a, b) => {
+              grupo.itens.sort((a, b) => { //
                 if (a.destaque && !b.destaque) return -1;
                 if (!a.destaque && b.destaque) return 1;
                 return parseInt(a.id) - parseInt(b.id);
@@ -329,7 +316,6 @@ function gerarSecaoCardapio(categoriaIdParaExibir) {
             }
           });
         } else if (subsecao.tituloSubsecao && (!subsecao.grupos || subsecao.grupos.length === 0)) {
-            // Caso a subseção tenha título mas nenhum grupo ou itens dentro dos grupos
             const noItemsMessage = document.createElement('p');
             noItemsMessage.textContent = `Nenhum item disponível em ${subsecao.tituloSubsecao} no momento.`;
             noItemsMessage.style.textAlign = 'center';
@@ -356,7 +342,7 @@ function gerarSecaoCardapio(categoriaIdParaExibir) {
         const gridContainer = document.createElement('div');
         gridContainer.className = 'grid-container';
 
-        itensDaSecao.sort((a, b) => {
+        itensDaSecao.sort((a, b) => { //
           if (a.destaque && !b.destaque) return -1;
           if (!a.destaque && b.destaque) return 1;
           return parseInt(a.id) - parseInt(b.id);
@@ -368,7 +354,7 @@ function gerarSecaoCardapio(categoriaIdParaExibir) {
         });
         section.appendChild(gridContainer);
     }
-  } else if (categoriaIdParaExibir !== 'destaques') { // Se não for destaques e não encontrar dados
+  } else if (categoriaIdParaExibir !== 'destaques') { 
     const errorMessage = document.createElement('p');
     errorMessage.textContent = 'Nenhum item encontrado nesta categoria.';
     errorMessage.style.textAlign = 'center';
@@ -408,10 +394,9 @@ document.addEventListener('DOMContentLoaded', () => {
     
     let temItensNaCategoriaDoHash = false;
     if (hashCategory === 'destaques') {
-        // Verifica se há algum item de destaque em todo o cardápio
-        temItensNaCategoriaDoHash = Object.values(cardapio).some(catData => {
+        temItensNaCategoriaDoHash = Object.values(cardapio).some(catData => { //
             if (Array.isArray(catData)) return catData.some(item => item.destaque);
-            if (catData.tipoEstrutura === 'hierarquica') {
+            if (catData.tipoEstrutura === 'hierarquica') { //
                 return catData.subsecoes.some(sub => sub.grupos.some(g => g.itens.some(item => item.destaque)));
             }
             return false;
@@ -421,7 +406,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (dadosCatHash) {
             if (Array.isArray(dadosCatHash) && dadosCatHash.length > 0) {
                 temItensNaCategoriaDoHash = true;
-            } else if (typeof dadosCatHash === 'object' && dadosCatHash.tipoEstrutura === 'hierarquica' && dadosCatHash.subsecoes) {
+            } else if (typeof dadosCatHash === 'object' && dadosCatHash.tipoEstrutura === 'hierarquica' && dadosCatHash.subsecoes) { //
                 temItensNaCategoriaDoHash = dadosCatHash.subsecoes.some(sub => sub.grupos.some(g => g.itens && g.itens.length > 0));
             }
         }
@@ -430,12 +415,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (categoriaValidaNoHash && temItensNaCategoriaDoHash ) {
       categoriaInicial = hashCategory;
     } else if (categoriaValidaNoHash && hashCategory !== 'destaques' && !temItensNaCategoriaDoHash) {
-        // Se o hash é para uma categoria válida mas vazia (e não é 'destaques'),
-        // talvez seja melhor não mudar para ela, ou mostrar uma mensagem de categoria vazia.
-        // Por ora, manterá 'destaques' como inicial se o hash for inválido ou para categoria vazia.
-        // Se o hash FOR 'destaques' e não houver destaques, cairá no comportamento padrão.
+        // Lógica para lidar com hash de categoria válida mas vazia
     } else if (!categoriaValidaNoHash) {
-        // Se o hash não for uma categoria válida, manter 'destaques'.
+        // Lógica para lidar com hash de categoria inválida
     }
   }
   
