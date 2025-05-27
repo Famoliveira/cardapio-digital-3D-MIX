@@ -5,13 +5,13 @@ section.category-section-with-bg {
   padding: 3rem 1.5rem;
   max-width: 100%;
   margin: 0 auto;
-  padding-bottom: 100px; 
+  padding-bottom: 100px;
   position: relative;
   background-size: cover;
   background-position: center center;
   border-radius: 0;
   overflow: hidden;
-  color: white;
+  color: white; /* Cor base do texto para esta seção */
 }
 
 section.category-section-with-bg::before {
@@ -21,7 +21,7 @@ section.category-section-with-bg::before {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.55);
+  background-color: rgba(0, 0, 0, 0.55); /* Overlay escuro */
   z-index: 1;
 }
 
@@ -31,58 +31,109 @@ section.category-section-with-bg::after {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 100px; 
+  height: 100px;
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.65) 50%, #131313 100%);
-  z-index: 1; 
+  z-index: 1;
 }
 
-section.category-section-with-bg > h2,
-section.category-section-with-bg > .grid-container {
+section.category-section-with-bg .titulo-cardapio,
+section.category-section-with-bg .grid-container {
   position: relative;
-  z-index: 2; 
+  z-index: 2; /* Para garantir que fiquem acima do overlay e do gradiente */
   max-width: 85rem;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
 }
 
-section.category-section-with-bg > h2 {
-  color: white;
-  border-bottom: 0.25rem solid var(--brand-color);
-  padding-bottom: 0.5rem;
-  margin-bottom: 2.5rem;
-  text-align: center;
-  display: block;
-}
-
-/* Estilos para seções normais */
+/* Estilos para seções normais (sem imagem de fundo) */
 section:not(.category-section-with-bg) {
   padding: 2rem 1rem;
   max-width: 85rem;
   margin: 0 auto;
 }
 
-section:not(.category-section-with-bg) > h2 {
-  text-align: center;
-  display: block;
-  color: black;
-  border-bottom: 0.25rem solid var(--brand-color);
-  padding-bottom: 0.3rem;
-  margin-bottom: 1.5rem;
-}
-
 .category-content-section {
-  /* Estilos adicionais para as seções carregadas dinamicamente, se necessário */
+  /* Estilos para o container da seção de categoria ativa */
 }
 
+/* --- ESTILOS PARA OS TÍTULOS DO CARDÁPIO --- */
+.titulo-cardapio { /* Classe base para todos os títulos */
+  display: block;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  text-transform: capitalize;
+  margin-left: auto;
+  margin-right: auto;
+  color: white; /* TODOS OS TÍTULOS SERÃO BRANCOS */
+  /* Sombra padrão para texto branco (pode ser ajustada se o fundo da seção normal for muito claro) */
+  text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.30);
+  letter-spacing: 0.03em; /* Um leve espaçamento para legibilidade */
+  transition: text-shadow 0.3s ease;
+}
 
-/* Estilos para a grid de cards das seções */
+.category-content-section > .titulo-cardapio:first-of-type {
+    margin-top: 0 !important;
+}
+
+/* Título Principal da Categoria (H2 - ex: "Pastéis") */
+.titulo-categoria-principal {
+  font-size: 1.8rem; /* */
+  font-weight: var(--fw-bold); /* */
+  margin-bottom: 2rem; /* */
+  border-bottom: 0.25rem solid var(--brand-color); /* A borda inferior permanece com a cor da marca */
+  padding-bottom: 0.5rem; /* */
+}
+
+/* Títulos de Subseção (H3 - ex: "Pastéis Salgados") */
+.titulo-grupo-sabor {
+  font-size: 1.5rem;
+  font-weight: var(--fw-semibold);
+  margin-top: 2.5rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  position: relative;
+}
+
+.titulo-grupo-sabor::before,
+.titulo-grupo-sabor::after {
+  content: ""; /* Conteúdo vazio, a forma virá do background */
+  display: inline-block;
+  width: 1.5em;  /* Largura do "hífen" */
+  height: 0.12em; /* Altura/espessura do "hífen", proporcional ao tamanho da fonte */
+  background-color: var(--brand-color); /* "Hífens" com a cor da marca */
+  border-radius: 3px; /* Bordas levemente arredondadas para os "hífens" */
+  margin-inline: 0.75em; /* Espaçamento entre o "hífen" e o texto do título */
+}
+
+/* Títulos de Variação (H4 - ex: "Chocolate") */
+.titulo-variacao-sabor {
+  font-size: 1.3rem; /* */
+  font-weight: var(--fw-medium); /* */
+  margin-top: 2rem; /* */
+  margin-bottom: 1.25rem; /* Ajustado */
+}
+
+/* Estilos específicos para títulos dentro de seções com imagem de fundo */
+section.category-section-with-bg .titulo-cardapio {
+  /* A cor branca já é padrão e é ideal para fundos com imagem escura */
+  text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.7); /* Sombra mais pronunciada para melhor leitura sobre imagens */
+}
+
+/* Os estilos de ::before e ::after do .titulo-grupo-sabor (hífens) já usarão var(--brand-color) */
+/* e o texto já será branco, o que deve contrastar bem com o overlay escuro. */
+
+/* --- FIM DOS ESTILOS PARA OS NOVOS TÍTULOS --- */
+
+
 .grid-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
   gap: 1.5rem;
   width: 100%;
+  margin-bottom: 2.5rem;
 }
 
 /* Keyframes */
@@ -118,7 +169,6 @@ section:not(.category-section-with-bg) > h2 {
   min-height: 130px;
 }
 
-/* Efeito de hover para desktop apenas */
 @media (hover: hover) and (min-width: 769px) {
   .menu-card {
     transition: transform 0.25s ease, box-shadow 0.25s ease;
@@ -139,14 +189,11 @@ section:not(.category-section-with-bg) > h2 {
     animation: seloDestaqueAnimacaoHover 1.2s infinite ease-in-out;
   }
 
-  /* Preço com opacidade ajustada no hover do card em desktop */
   .menu-card:hover .card-price-inline {
-    color: rgba(249, 112, 21, 0.9); /* Cor da marca com 90% de opacidade */
-    /* opacity: 1; continua implícito ou pode ser reafirmado se necessário */
+    color: rgba(249, 112, 21, 0.9);
   }
 }
 
-/* Estilos de hover base para sombra (aplica-se a todos os cards) */
 .menu-card:hover {
   box-shadow: 0 0.375rem 1rem rgba(0, 0, 0, 0.12);
 }
@@ -189,48 +236,46 @@ section.category-section-with-bg .menu-card {
   flex-direction: column;
   justify-content: center;
   position: relative;
-  z-index: 1; 
+  z-index: 1;
 }
 
 .card-header {
   display: flex;
-  justify-content: space-between; 
-  align-items: baseline; 
+  justify-content: space-between;
+  align-items: baseline;
   margin-bottom: 0.4rem;
-  gap: 0.5rem; 
+  gap: 0.5rem;
 }
 
 .card-title {
   font-size: 1.05rem;
   font-weight: var(--fw-semibold);
-  color: #2c3e50;
-  margin-bottom: 0; 
-  white-space: normal; 
-  flex-grow: 1; 
-  margin-right: 0.5rem; 
-  opacity: 1; 
+  color: #2c3e50; /* Cor do título do card, não afetado pela mudança dos títulos de seção */
+  margin-bottom: 0;
+  white-space: normal;
+  flex-grow: 1;
+  margin-right: 0.5rem;
+  opacity: 1;
 }
 
 .card-price-inline {
   font-weight: var(--fw-bold);
-  /* Cor base do preço (desktop): laranja da marca com 75% de opacidade */
-  color: rgba(249, 112, 21, 0.75); 
-  opacity: 1; /* Anula a opacidade de 0.6 do span genérico */
+  color: rgba(249, 112, 21, 0.75);
+  opacity: 1;
   font-size: 1rem;
-  white-space: nowrap; 
-  text-align: right; 
-  transition: color 0.3s ease; 
+  white-space: nowrap;
+  text-align: right;
+  transition: color 0.3s ease;
 }
 
 .card-description {
   font-size: 0.825rem;
-  color: #555e68;
+  color: #555e68; /* Cor da descrição do card */
   line-height: 1.45;
   margin-bottom: 0;
-  opacity: 1; 
+  opacity: 1;
 }
 
-/* Estilos específicos para o card destacado */
 .menu-card.item-destacado {
   border-left: 4px solid var(--brand-color);
 }
@@ -240,7 +285,7 @@ section.category-section-with-bg .menu-card.item-destacado {
 }
 
 .menu-card.item-destacado::before {
-  content: attr(data-selo-texto); 
+  content: attr(data-selo-texto);
   position: absolute;
   top: 0;
   left: 50%;
@@ -248,10 +293,10 @@ section.category-section-with-bg .menu-card.item-destacado {
   background-color: var(--brand-color);
   color: white;
   padding: 0.25rem 0.8rem;
-  border-radius: 0.9375rem; 
-  font-size: 0.7rem; 
+  border-radius: 0.9375rem;
+  font-size: 0.7rem;
   font-weight: bold;
-  z-index: 5; 
+  z-index: 5;
   box-shadow: 0 2px 4px rgba(0,0,0,0.2);
   transform-origin: center center;
   white-space: nowrap;
@@ -259,13 +304,21 @@ section.category-section-with-bg .menu-card.item-destacado {
 
 
 /* Responsividade */
-@media (max-width: 768px) { /* Inclui tablets e celulares */
+@media (max-width: 768px) {
   .grid-container {
      grid-template-columns: 1fr;
   }
-   section.category-section-with-bg > h2 {
-    font-size: 1.8rem;
+
+  .titulo-categoria-principal {
+    font-size: 1.6rem;
   }
+  .titulo-grupo-sabor { /* H3 */
+    font-size: 1.3rem;
+  }
+  .titulo-variacao-sabor { /* H4 */
+    font-size: 1.15rem;
+  }
+
   .menu-card {
     min-height: 130px;
   }
@@ -280,9 +333,8 @@ section.category-section-with-bg .menu-card.item-destacado {
   }
   .card-price-inline {
     font-size: 0.95rem;
-    /* Cor do preço para mobile: cor da marca com 90% de opacidade */
-    color: rgba(249, 112, 21, 0.9); 
-    opacity: 1; /* Garante opacidade total do elemento no mobile */
+    color: rgba(249, 112, 21, 0.9);
+    opacity: 1;
   }
   .menu-card.item-destacado::before {
     font-size: 0.65rem;
@@ -290,13 +342,13 @@ section.category-section-with-bg .menu-card.item-destacado {
   }
 }
 
-@media (max-width: 425px) { /* Ajustes finos para celulares menores */
+@media (max-width: 425px) {
   section.category-section-with-bg {
-    padding: 2rem 1rem; 
-    padding-bottom: 80px; 
+    padding: 2rem 1rem;
+    padding-bottom: 80px;
   }
   section.category-section-with-bg::after {
-    height: 80px; 
+    height: 80px;
   }
   section:not(.category-section-with-bg) {
     padding: 1.5rem 0.5rem;
@@ -305,6 +357,17 @@ section.category-section-with-bg .menu-card.item-destacado {
     gap: 1rem;
     grid-template-columns: 1fr;
   }
+
+  .titulo-categoria-principal {
+    font-size: 1.5rem;
+  }
+  .titulo-grupo-sabor { /* H3 */
+    font-size: 1.2rem;
+  }
+   .titulo-variacao-sabor { /* H4 */
+    font-size: 1.1rem;
+  }
+
   .menu-card {
     min-height: 120px;
   }
@@ -319,8 +382,6 @@ section.category-section-with-bg .menu-card.item-destacado {
   }
   .card-price-inline {
     font-size: 0.85rem;
-    /* A cor e opacidade já foram definidas (0.9 e 1, respectivamente) 
-       na media query de 768px, então serão herdadas aqui. */
   }
   .card-description {
     font-size: 0.75rem;

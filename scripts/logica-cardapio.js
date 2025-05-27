@@ -1,5 +1,5 @@
 // scripts/logica-cardapio.js
-import { cardapio, categorias } from './cardapio.js'; //
+import { cardapio, categorias } from './cardapio.js';
 
 const singularMap = {
   combos: 'combo',
@@ -10,135 +10,168 @@ const singularMap = {
   crepes: 'crepe',
   batatas: 'batata',
   bebidas: 'bebida'
-}; //
+};
 
-const activeCategoryContentContainer = document.getElementById('active-category-content'); //
-const navListElement = document.querySelector('.category-nav nav ul'); //
+const activeCategoryContentContainer = document.getElementById('active-category-content');
+const navListElement = document.querySelector('.category-nav nav ul');
 
-// Função para exibir a categoria selecionada
+function criarTituloEstilizado(texto, tipoElemento = 'h2', classeCss = '') {
+  const titulo = document.createElement(tipoElemento);
+  titulo.classList.add('titulo-cardapio'); // Classe base para todos os títulos
+  if (classeCss) {
+    titulo.classList.add(classeCss);
+  }
+  titulo.textContent = texto;
+  return titulo;
+}
+
 function exibirCategoria(categoryId) {
   if (!activeCategoryContentContainer) {
     console.error('Container para categoria ativa não encontrado!');
     return;
-  } //
+  }
 
-  activeCategoryContentContainer.innerHTML = ''; // Limpa o conteúdo anterior //
-  const secao = gerarSecaoCardapio(categoryId); // Gera o HTML da nova seção //
+  activeCategoryContentContainer.innerHTML = '';
+  const secao = gerarSecaoCardapio(categoryId);
 
   if (secao) {
-    activeCategoryContentContainer.appendChild(secao); //
+    activeCategoryContentContainer.appendChild(secao);
     
-    const navHeight = document.querySelector('.category-nav')?.offsetHeight || 80; //
-    let finalScrollPosition = activeCategoryContentContainer.offsetTop - navHeight - 10;  //
+    const navHeight = document.querySelector('.category-nav')?.offsetHeight || 80;
+    let finalScrollPosition = activeCategoryContentContainer.offsetTop - navHeight - 10; 
 
-    const boasVindasElement = document.querySelector('.boas-vindas'); //
+    const boasVindasElement = document.querySelector('.boas-vindas');
     if (boasVindasElement && categoryId === 'destaques') {
-        const boasVindasBottom = boasVindasElement.getBoundingClientRect().bottom; //
+        const boasVindasBottom = boasVindasElement.getBoundingClientRect().bottom;
         if (boasVindasBottom > navHeight) { 
             if (activeCategoryContentContainer.getBoundingClientRect().top > window.innerHeight) {
-                 window.scrollTo({ top: finalScrollPosition > 0 ? finalScrollPosition : 0, behavior: 'smooth'}); //
+                 window.scrollTo({ top: finalScrollPosition > 0 ? finalScrollPosition : 0, behavior: 'smooth'});
             }
         } else {
-            window.scrollTo({ top: finalScrollPosition > 0 ? finalScrollPosition : 0, behavior: 'smooth'}); //
+            window.scrollTo({ top: finalScrollPosition > 0 ? finalScrollPosition : 0, behavior: 'smooth'});
         }
     } else {
-         window.scrollTo({ top: finalScrollPosition > 0 ? finalScrollPosition : 0, behavior: 'smooth'}); //
+         window.scrollTo({ top: finalScrollPosition > 0 ? finalScrollPosition : 0, behavior: 'smooth'});
     }
 
   } else {
-    activeCategoryContentContainer.innerHTML = '<p style="text-align:center; padding: 2rem;">Categoria não encontrada ou vazia.</p>'; //
-    console.warn(`Seção para categoria "${categoryId}" não pôde ser gerada.`); //
+    activeCategoryContentContainer.innerHTML = '<p style="text-align:center; padding: 2rem;">Categoria não encontrada ou vazia.</p>';
+    console.warn(`Seção para categoria "${categoryId}" não pôde ser gerada.`);
   }
 
   document.querySelectorAll('.category-nav nav ul li a.active').forEach(activeLink => {
-    activeLink.classList.remove('active'); //
+    activeLink.classList.remove('active');
   });
-  const newActiveLink = document.querySelector(`.category-nav nav ul li a[data-category-id="${categoryId}"]`); //
+  const newActiveLink = document.querySelector(`.category-nav nav ul li a[data-category-id="${categoryId}"]`);
   if (newActiveLink) {
-    newActiveLink.classList.add('active'); //
+    newActiveLink.classList.add('active');
 
     if (navListElement && newActiveLink.parentElement) {
-        const navRect = navListElement.getBoundingClientRect(); //
-        const itemRect = newActiveLink.parentElement.getBoundingClientRect(); //
+        const navRect = navListElement.getBoundingClientRect();
+        const itemRect = newActiveLink.parentElement.getBoundingClientRect();
         
         const scrollLeftTarget = newActiveLink.parentElement.offsetLeft - 
                                  navListElement.offsetLeft - 
                                  (navRect.width / 2) + 
-                                 (itemRect.width / 2); //
+                                 (itemRect.width / 2);
 
         navListElement.scrollTo({
             left: scrollLeftTarget,
             behavior: 'smooth'
-        }); //
+        });
     }
   }
 }
 
 function gerarNavegacao() {
-  if (!navListElement) return; //
-  navListElement.innerHTML = ''; //
+  if (!navListElement) return;
+  navListElement.innerHTML = '';
 
-  const temItensEmDestaqueGeral = Object.values(cardapio).flat().some(item => item.destaque); //
+  // Verifica se há itens em destaque em qualquer categoria
+  const temItensEmDestaqueGeral = Object.values(cardapio).some(categoriaData => {
+    if (Array.isArray(categoriaData)) { // Estrutura antiga (array de itens)
+      return categoriaData.some(item => item.destaque);
+    } else if (typeof categoriaData === 'object' && categoriaData.tipoEstrutura === 'hierarquica') { // Nova estrutura
+      return categoriaData.subsecoes.some(subsecao =>
+        subsecao.grupos.some(grupo =>
+          grupo.itens.some(item => item.destaque)
+        )
+      );
+    }
+    return false;
+  });
 
   categorias.forEach(categoria => {
-    let deveExibirCategoria = false; //
+    let deveExibirCategoria = false;
     if (categoria.id === 'destaques') {
-      if (temItensEmDestaqueGeral) deveExibirCategoria = true; //
+      if (temItensEmDestaqueGeral) deveExibirCategoria = true;
     } else {
-      if (cardapio[categoria.id] && cardapio[categoria.id].length > 0) deveExibirCategoria = true; //
+      const categoriaData = cardapio[categoria.id];
+      if (categoriaData) {
+        if (Array.isArray(categoriaData) && categoriaData.length > 0) {
+          deveExibirCategoria = true;
+        } else if (typeof categoriaData === 'object' && categoriaData.tipoEstrutura === 'hierarquica' && categoriaData.subsecoes && categoriaData.subsecoes.length > 0) {
+          // Para estrutura hierárquica, verifica se há pelo menos um item em algum grupo
+          deveExibirCategoria = categoriaData.subsecoes.some(sub => sub.grupos.some(g => g.itens && g.itens.length > 0));
+        }
+      }
     }
 
     if (deveExibirCategoria) {
-      const li = document.createElement('li'); //
-      const a = document.createElement('a'); //
-      a.href = `#${categoria.id}`;  //
-      a.dataset.categoryId = categoria.id;  //
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = `#${categoria.id}`; 
+      a.dataset.categoryId = categoria.id; 
       a.innerHTML = `
         <img src="${categoria.icon || 'assets/icons/burguer.png'}" alt="${categoria.nome}">
         <span class="nav-span">${categoria.nome}</span>
-      `; //
+      `;
       
       a.addEventListener('click', (event) => {
-        event.preventDefault();  //
-        const categoryIdToDisplay = a.dataset.categoryId; //
-        exibirCategoria(categoryIdToDisplay); //
+        event.preventDefault(); 
+        const categoryIdToDisplay = a.dataset.categoryId;
+        exibirCategoria(categoryIdToDisplay);
         
         if (history.pushState) {
-            history.pushState(null, null, `#${categoryIdToDisplay}`); //
+            history.pushState(null, null, `#${categoryIdToDisplay}`);
         } else {
-            location.hash = `#${categoryIdToDisplay}`; //
+            location.hash = `#${categoryIdToDisplay}`;
         }
       });
-      li.appendChild(a); //
-      navListElement.appendChild(li); //
+      li.appendChild(a);
+      navListElement.appendChild(li);
     }
   });
 }
 
-// Função para criar um card de item do cardápio
-function criarCardItem(item, categoriaOriginalId, categoriaIdAtualSendoExibida) {
-  const card = document.createElement('div'); //
-  card.className = 'menu-card'; //
+function criarCardItem(item, categoriaOriginalIdParaSeloEImagem, categoriaIdAtualSendoExibida) {
+  const card = document.createElement('div');
+  card.className = 'menu-card';
 
   if (item.destaque) {
-    card.classList.add('item-destacado'); //
-    let textoSelo; //
+    card.classList.add('item-destacado');
+    let textoSelo;
     
+    // Para o selo na seção 'Destaques', usamos a categoria original do item.
+    // Se o item já tiver 'originalCategoriaId' (coletado para a seção destaques), use-o.
+    // Caso contrário, use categoriaOriginalIdParaSeloEImagem.
+    const categoriaBaseParaSelo = item.originalCategoriaId || categoriaOriginalIdParaSeloEImagem;
+
     if (categoriaIdAtualSendoExibida === 'destaques') {
-      // Na seção 'Destaques', mostrar nome da categoria original (singular, capitalizado, SEM '!')
-      const nomeSingular = singularMap[item.originalCategoriaId] || item.originalCategoriaId.slice(0, -1); //
-      textoSelo = nomeSingular.charAt(0).toUpperCase() + nomeSingular.slice(1);  //
+      const nomeSingular = singularMap[categoriaBaseParaSelo] || categoriaBaseParaSelo.slice(0, -1);
+      textoSelo = nomeSingular.charAt(0).toUpperCase() + nomeSingular.slice(1); 
     } else {
-      // Em outras seções, se o item for destaque, mostrar "Destaque!" (COM '!')
-      textoSelo = "Destaque!"; //
+      textoSelo = "Destaque!";
     }
-    card.setAttribute('data-selo-texto', textoSelo); //
+    card.setAttribute('data-selo-texto', textoSelo);
   }
 
-  const precoFormatado = item.preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }); //
-  const nomeSingularCategoria = singularMap[categoriaOriginalId] || categoriaOriginalId.slice(0, -1); //
-  const imagemItemSrc = `assets/sections/${categoriaOriginalId}/${nomeSingularCategoria}-${item.id}.jpg`;  //
-  const fallbackImageSrc = 'assets/logo-square.png'; //
+  const precoFormatado = item.preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+  
+  // Path da imagem usa a categoria original do item
+  const nomeSingularCategoriaRaiz = singularMap[categoriaOriginalIdParaSeloEImagem] || categoriaOriginalIdParaSeloEImagem.slice(0, -1);
+  const imagemItemSrc = `assets/sections/${categoriaOriginalIdParaSeloEImagem}/${nomeSingularCategoriaRaiz}-${item.id}.jpg`; 
+  const fallbackImageSrc = 'assets/logo-square.png';
 
   card.innerHTML = `
     <div class="card-image-wrapper">
@@ -156,123 +189,256 @@ function criarCardItem(item, categoriaOriginalId, categoriaIdAtualSendoExibida) 
       </div>
       <p class="card-description">${item.descricao}</p>
     </div>
-  `; //
-  return card; //
+  `;
+  return card;
 }
 
-// Função para gerar o HTML de uma única seção do cardápio
 function gerarSecaoCardapio(categoriaIdParaExibir) {
-  const categoriaInfo = categorias.find(cat => cat.id === categoriaIdParaExibir); //
-  if (!categoriaInfo) return null; //
+  const categoriaInfo = categorias.find(cat => cat.id === categoriaIdParaExibir);
+  if (!categoriaInfo) return null;
 
-  const section = document.createElement('section'); //
-  section.classList.add('category-content-section');  //
+  const dadosDaCategoria = cardapio[categoriaIdParaExibir];
+  // Não retorna null se dadosDaCategoria for undefined, pois a seção de destaques é construída dinamicamente
+  // e não tem uma entrada direta em `cardapio.destaques`.
+
+  const section = document.createElement('section');
+  section.classList.add('category-content-section'); 
 
   if (categoriaInfo.imagemFundo) { 
-    section.classList.add('category-section-with-bg'); //
-    section.style.backgroundImage = `url('${categoriaInfo.imagemFundo}')`; //
+    section.classList.add('category-section-with-bg');
+    section.style.backgroundImage = `url('${categoriaInfo.imagemFundo}')`;
   }
 
-  const h2 = document.createElement('h2'); //
-  h2.textContent = categoriaInfo.nome; //
-  section.appendChild(h2); //
-
-  const gridContainer = document.createElement('div'); //
-  gridContainer.className = 'grid-container'; //
+  const tituloPrincipalSecao = criarTituloEstilizado(categoriaInfo.nome, 'h2', 'titulo-categoria-principal');
+  section.appendChild(tituloPrincipalSecao);
 
   if (categoriaIdParaExibir === 'destaques') {
-    let destaquesEncontrados = 0; //
-    const todosOsDestaques = []; //
-    Object.entries(cardapio).forEach(([originalCategoriaId, itensDaCategoria]) => {
-      if (Array.isArray(itensDaCategoria) && categorias.find(c => c.id === originalCategoriaId)) { //
-        itensDaCategoria.forEach(item => {
+    const gridContainer = document.createElement('div');
+    gridContainer.className = 'grid-container';
+    let destaquesEncontrados = 0;
+    const todosOsDestaques = [];
+
+    // Itera sobre todas as categorias principais definidas em `categorias`
+    // para encontrar itens de destaque, exceto a própria categoria 'destaques'.
+    categorias.forEach(cat => {
+      if (cat.id === 'destaques') return; // Pula a categoria de destaques em si
+
+      const dadosCatAtual = cardapio[cat.id];
+      if (!dadosCatAtual) return;
+
+      if (Array.isArray(dadosCatAtual)) { // Estrutura antiga de itens
+        dadosCatAtual.forEach(item => {
           if (item.destaque) {
-            todosOsDestaques.push({ ...item, originalCategoriaId });  //
+            // Adiciona o originalCategoriaId para saber de onde veio para o selo
+            todosOsDestaques.push({ ...item, originalCategoriaId: cat.id }); 
           }
+        });
+      } else if (typeof dadosCatAtual === 'object' && dadosCatAtual.tipoEstrutura === 'hierarquica') { // Nova estrutura
+        dadosCatAtual.subsecoes.forEach(subsecao => {
+          subsecao.grupos.forEach(grupo => {
+            grupo.itens.forEach(item => {
+              if (item.destaque) {
+                todosOsDestaques.push({ ...item, originalCategoriaId: cat.id });
+              }
+            });
+          });
         });
       }
     });
+    
+    // Ordenar destaques: pode ser pela ordem das categorias e depois pelo ID do item, ou como preferir.
+    // Exemplo: Ordena por ID da categoria original, depois pelo ID do item
+     todosOsDestaques.sort((a,b) => {
+        const indexA = categorias.findIndex(c => c.id === a.originalCategoriaId);
+        const indexB = categorias.findIndex(c => c.id === b.originalCategoriaId);
+        if (indexA !== indexB) {
+            return indexA - indexB;
+        }
+        return parseInt(a.id) - parseInt(b.id);
+    });
+
 
     todosOsDestaques.forEach(itemDestaque => {
-        const card = criarCardItem(itemDestaque, itemDestaque.originalCategoriaId, categoriaIdParaExibir);  //
-        gridContainer.appendChild(card); //
-        destaquesEncontrados++; //
+        // Para criarCardItem, o segundo argumento é a categoria original do item para o selo e path da imagem
+        // O terceiro argumento é a categoria atual sendo exibida ('destaques')
+        const card = criarCardItem(itemDestaque, itemDestaque.originalCategoriaId, categoriaIdParaExibir); 
+        gridContainer.appendChild(card);
+        destaquesEncontrados++;
     });
     
     if (destaquesEncontrados === 0) {
-        const noHighlightsMessage = document.createElement('p'); //
-        noHighlightsMessage.textContent = 'Nenhum item em destaque no momento.'; //
-        noHighlightsMessage.style.textAlign = 'center'; //
-        noHighlightsMessage.style.padding = '1rem'; //
+        const noHighlightsMessage = document.createElement('p');
+        noHighlightsMessage.textContent = 'Nenhum item em destaque no momento.';
+        noHighlightsMessage.style.textAlign = 'center';
+        noHighlightsMessage.style.padding = '1rem';
         if (section.classList.contains('category-section-with-bg')) {
-            noHighlightsMessage.style.color = 'white';  //
+            noHighlightsMessage.style.color = 'white'; 
         }
-        gridContainer.appendChild(noHighlightsMessage); //
+        gridContainer.appendChild(noHighlightsMessage);
     }
-  } else {
-    const itensDaSecao = cardapio[categoriaIdParaExibir] || []; //
-    if (itensDaSecao.length === 0) {
-        const noItemsMessage = document.createElement('p'); //
-        noItemsMessage.textContent = 'Nenhum item disponível nesta categoria no momento.'; //
-        noItemsMessage.style.textAlign = 'center'; //
-        noItemsMessage.style.padding = '1rem'; //
-         if (section.classList.contains('category-section-with-bg')) {
-            noItemsMessage.style.color = 'white'; //
-        }
-        gridContainer.appendChild(noItemsMessage); //
+    section.appendChild(gridContainer);
+
+  } else if (dadosDaCategoria && dadosDaCategoria.tipoEstrutura === 'hierarquica') {
+    if (!dadosDaCategoria.subsecoes || dadosDaCategoria.subsecoes.length === 0) {
+      const noItemsMessage = document.createElement('p');
+      noItemsMessage.textContent = 'Nenhum item disponível nesta categoria no momento.';
+      noItemsMessage.style.textAlign = 'center';
+      noItemsMessage.style.padding = '1rem';
+      if (section.classList.contains('category-section-with-bg')) {
+        noItemsMessage.style.color = 'white';
+      }
+      section.appendChild(noItemsMessage);
     } else {
-        // NOVA LÓGICA DE ORDENAÇÃO AQUI:
+      dadosDaCategoria.subsecoes.forEach(subsecao => {
+        if (subsecao.tituloSubsecao) {
+          const tituloSub = criarTituloEstilizado(subsecao.tituloSubsecao, 'h3', 'titulo-grupo-sabor');
+          section.appendChild(tituloSub);
+        }
+
+        if (subsecao.grupos && subsecao.grupos.length > 0) {
+          subsecao.grupos.forEach(grupo => {
+            if (grupo.nomeGrupo && grupo.itens && grupo.itens.length > 0) {
+              const tituloGrupoEl = criarTituloEstilizado(grupo.nomeGrupo, 'h4', 'titulo-variacao-sabor');
+              section.appendChild(tituloGrupoEl);
+            }
+
+            if (grupo.itens && grupo.itens.length > 0) {
+              const gridContainer = document.createElement('div');
+              gridContainer.className = 'grid-container';
+              
+              grupo.itens.sort((a, b) => {
+                if (a.destaque && !b.destaque) return -1;
+                if (!a.destaque && b.destaque) return 1;
+                return parseInt(a.id) - parseInt(b.id);
+              });
+
+              grupo.itens.forEach(item => {
+                const card = criarCardItem(item, categoriaIdParaExibir, categoriaIdParaExibir);
+                gridContainer.appendChild(card);
+              });
+              section.appendChild(gridContainer);
+            } else if (grupo.nomeGrupo) { 
+                const noItemsMessage = document.createElement('p');
+                noItemsMessage.textContent = `Nenhum item disponível em ${grupo.nomeGrupo} no momento.`;
+                noItemsMessage.style.textAlign = 'center';
+                noItemsMessage.style.padding = '1rem 0';
+                if (section.classList.contains('category-section-with-bg')) {
+                    noItemsMessage.style.color = 'white';
+                }
+                section.appendChild(noItemsMessage);
+            }
+          });
+        } else if (subsecao.tituloSubsecao && (!subsecao.grupos || subsecao.grupos.length === 0)) {
+            // Caso a subseção tenha título mas nenhum grupo ou itens dentro dos grupos
+            const noItemsMessage = document.createElement('p');
+            noItemsMessage.textContent = `Nenhum item disponível em ${subsecao.tituloSubsecao} no momento.`;
+            noItemsMessage.style.textAlign = 'center';
+            noItemsMessage.style.padding = '1rem 0';
+            if (section.classList.contains('category-section-with-bg')) {
+                noItemsMessage.style.color = 'white';
+            }
+            section.appendChild(noItemsMessage);
+        }
+      });
+    }
+  } else if (dadosDaCategoria && Array.isArray(dadosDaCategoria)) { // Estrutura antiga
+    const itensDaSecao = dadosDaCategoria;
+    if (itensDaSecao.length === 0) {
+        const noItemsMessage = document.createElement('p');
+        noItemsMessage.textContent = 'Nenhum item disponível nesta categoria no momento.';
+        noItemsMessage.style.textAlign = 'center';
+        noItemsMessage.style.padding = '1rem';
+         if (section.classList.contains('category-section-with-bg')) {
+            noItemsMessage.style.color = 'white';
+        }
+        section.appendChild(noItemsMessage);
+    } else {
+        const gridContainer = document.createElement('div');
+        gridContainer.className = 'grid-container';
+
         itensDaSecao.sort((a, b) => {
-          // Se 'a' é destaque e 'b' não é, 'a' vem primeiro
           if (a.destaque && !b.destaque) return -1;
-          // Se 'b' é destaque e 'a' não é, 'b' vem primeiro
           if (!a.destaque && b.destaque) return 1;
-          // Se ambos são destaques ou ambos não são, ordena pelo id
-          return parseInt(a.id) - parseInt(b.id); //
+          return parseInt(a.id) - parseInt(b.id);
         });
 
         itensDaSecao.forEach(item => {
-          const card = criarCardItem(item, categoriaIdParaExibir, categoriaIdParaExibir); //
-          gridContainer.appendChild(card); //
+          const card = criarCardItem(item, categoriaIdParaExibir, categoriaIdParaExibir);
+          gridContainer.appendChild(card);
         });
+        section.appendChild(gridContainer);
     }
+  } else if (categoriaIdParaExibir !== 'destaques') { // Se não for destaques e não encontrar dados
+    const errorMessage = document.createElement('p');
+    errorMessage.textContent = 'Nenhum item encontrado nesta categoria.';
+    errorMessage.style.textAlign = 'center';
+    errorMessage.style.padding = '1rem';
+     if (section.classList.contains('category-section-with-bg')) {
+        errorMessage.style.color = 'white';
+    }
+    section.appendChild(errorMessage);
   }
-  section.appendChild(gridContainer); //
-  return section; //
+  return section;
 }
 
 function atualizarLinkWhatsapp() {
-  const whatsappLink = document.getElementById('whatsapp-order-link'); //
+  const whatsappLink = document.getElementById('whatsapp-order-link');
   if (!whatsappLink) {
-    console.warn('AVISO: Elemento do link do WhatsApp com ID "whatsapp-order-link" não foi encontrado no HTML.'); //
+    console.warn('AVISO: Elemento do link do WhatsApp com ID "whatsapp-order-link" não foi encontrado no HTML.');
     return;
   }
-  const numeroWhatsapp = "5522999964529"; //
-  const agora = new Date(); //
-  const hora = agora.getHours(); //
-  let saudacao; //
-  if (hora >= 5 && hora < 12) saudacao = "Olá, bom dia!"; //
-  else if (hora >= 12 && hora < 18) saudacao = "Olá, boa tarde!"; //
-  else saudacao = "Olá, boa noite!"; //
-  const mensagemCompleta = saudacao + " Vim do cardápio digital e gostaria de fazer um pedido."; //
-  whatsappLink.href = `https://wa.me/${numeroWhatsapp}?text=${encodeURIComponent(mensagemCompleta)}`; //
+  const numeroWhatsapp = "5522999964529";
+  const agora = new Date();
+  const hora = agora.getHours();
+  let saudacao;
+  if (hora >= 5 && hora < 12) saudacao = "Olá, bom dia!";
+  else if (hora >= 12 && hora < 18) saudacao = "Olá, boa tarde!";
+  else saudacao = "Olá, boa noite!";
+  const mensagemCompleta = saudacao + " Vim do cardápio digital e gostaria de fazer um pedido.";
+  whatsappLink.href = `https://wa.me/${numeroWhatsapp}?text=${encodeURIComponent(mensagemCompleta)}`;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  gerarNavegacao();  //
+  gerarNavegacao(); 
   
-  let categoriaInicial = 'destaques'; //
+  let categoriaInicial = 'destaques';
   if (window.location.hash) {
-    const hashCategory = window.location.hash.substring(1);  //
-    const categoriaValidaNoHash = categorias.find(cat => cat.id === hashCategory); //
-    const temItensNaCategoriaDoHash = cardapio[hashCategory] && cardapio[hashCategory].length > 0; //
-    const temDestaquesGlobais = Object.values(cardapio).flat().some(item => item.destaque); //
-
-    if (categoriaValidaNoHash && (hashCategory === 'destaques' ? temDestaquesGlobais : temItensNaCategoriaDoHash) ) { //
-      categoriaInicial = hashCategory; //
+    const hashCategory = window.location.hash.substring(1); 
+    const categoriaValidaNoHash = categorias.find(cat => cat.id === hashCategory);
+    
+    let temItensNaCategoriaDoHash = false;
+    if (hashCategory === 'destaques') {
+        // Verifica se há algum item de destaque em todo o cardápio
+        temItensNaCategoriaDoHash = Object.values(cardapio).some(catData => {
+            if (Array.isArray(catData)) return catData.some(item => item.destaque);
+            if (catData.tipoEstrutura === 'hierarquica') {
+                return catData.subsecoes.some(sub => sub.grupos.some(g => g.itens.some(item => item.destaque)));
+            }
+            return false;
+        });
+    } else {
+        const dadosCatHash = cardapio[hashCategory];
+        if (dadosCatHash) {
+            if (Array.isArray(dadosCatHash) && dadosCatHash.length > 0) {
+                temItensNaCategoriaDoHash = true;
+            } else if (typeof dadosCatHash === 'object' && dadosCatHash.tipoEstrutura === 'hierarquica' && dadosCatHash.subsecoes) {
+                temItensNaCategoriaDoHash = dadosCatHash.subsecoes.some(sub => sub.grupos.some(g => g.itens && g.itens.length > 0));
+            }
+        }
+    }
+    
+    if (categoriaValidaNoHash && temItensNaCategoriaDoHash ) {
+      categoriaInicial = hashCategory;
+    } else if (categoriaValidaNoHash && hashCategory !== 'destaques' && !temItensNaCategoriaDoHash) {
+        // Se o hash é para uma categoria válida mas vazia (e não é 'destaques'),
+        // talvez seja melhor não mudar para ela, ou mostrar uma mensagem de categoria vazia.
+        // Por ora, manterá 'destaques' como inicial se o hash for inválido ou para categoria vazia.
+        // Se o hash FOR 'destaques' e não houver destaques, cairá no comportamento padrão.
+    } else if (!categoriaValidaNoHash) {
+        // Se o hash não for uma categoria válida, manter 'destaques'.
     }
   }
   
-  exibirCategoria(categoriaInicial);  //
-  atualizarLinkWhatsapp(); //
+  exibirCategoria(categoriaInicial); 
+  atualizarLinkWhatsapp();
 });

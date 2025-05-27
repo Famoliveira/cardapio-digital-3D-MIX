@@ -31,37 +31,32 @@ body {
   background-color: var(--bg-color);
 }
 
-h1, h2 {
+h1 { /* Mantém o estilo original de h1 */
   font-weight: var(--fw-bold);
-}
-
-h1 {
   font-size: var(--fs-title);
 }
 
-h2 {
-  display: inline-block;
-  font-size: 1.5rem;
-  margin-bottom: 1.5rem;
-  text-align: center;
-  color: black;
-  text-transform: capitalize;
-
-  border-bottom: 0.25rem solid var(--brand-color); /* 4px */
-  padding-bottom: 0.3rem;
-  transition: letter-spacing 0.3s ease;
-  letter-spacing: 0.03em;
-
-  &:hover {
-    letter-spacing: 0.1em;
-  }
-}
+/* Estilos de h2 foram movidos para classes em section.css */
 
 span {
   font-weight: var(--fw-regular);
   font-size: var(--fw-medium);
-  opacity: 0.6;
+  opacity: 0.6; /* Opacidade geral para spans, mas será sobrescrita onde necessário */
 }
+
+/* Spans específicos com opacidade controlada em seus respectivos arquivos CSS ou regras mais específicas */
+.boas-vindas span { /* Já definido em header.css */
+  opacity: 0.9; 
+}
+nav ul li a span { /* Já definido em nav.css */
+    opacity: 0.6; 
+}
+nav ul li a:hover span,
+nav ul li a.active span { /* Já definido em nav.css */
+  opacity: 0.9; 
+}
+/* Para os spans dentro dos cards, a opacidade é controlada em section.css (opacity: 1 para .card-title, .card-price-inline, .card-description) */
+
 
 section {
   padding: 2rem 1rem;
