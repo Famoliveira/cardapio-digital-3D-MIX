@@ -87,11 +87,10 @@ function gerarNavegacao() {
   if (!navListElement) return;
   navListElement.innerHTML = '';
 
-  // Verifica se há itens em destaque em qualquer categoria
   const temItensEmDestaqueGeral = Object.values(cardapio).some(categoriaData => {
-    if (Array.isArray(categoriaData)) { // Estrutura antiga (array de itens)
+    if (Array.isArray(categoriaData)) { 
       return categoriaData.some(item => item.destaque);
-    } else if (typeof categoriaData === 'object' && categoriaData.tipoEstrutura === 'hierarquica') { // Nova estrutura
+    } else if (typeof categoriaData === 'object' && categoriaData.tipoEstrutura === 'hierarquica') { 
       return categoriaData.subsecoes.some(subsecao =>
         subsecao.grupos.some(grupo =>
           grupo.itens.some(item => item.destaque)
@@ -111,7 +110,6 @@ function gerarNavegacao() {
         if (Array.isArray(categoriaData) && categoriaData.length > 0) {
           deveExibirCategoria = true;
         } else if (typeof categoriaData === 'object' && categoriaData.tipoEstrutura === 'hierarquica' && categoriaData.subsecoes && categoriaData.subsecoes.length > 0) {
-          // Para estrutura hierárquica, verifica se há pelo menos um item em algum grupo
           deveExibirCategoria = categoriaData.subsecoes.some(sub => sub.grupos.some(g => g.itens && g.itens.length > 0));
         }
       }
@@ -155,7 +153,7 @@ function criarCardItem(item, categoriaOriginalIdParaSeloEImagem, categoriaIdAtua
     const categoriaBaseParaSelo = item.originalCategoriaId || categoriaOriginalIdParaSeloEImagem;
 
     if (categoriaIdAtualSendoExibida === 'destaques') {
-      const nomeSingular = singularMap[categoriaBaseParaSelo] || categoriaBaseParaSelo.slice(0, -1); //
+      const nomeSingular = singularMap[categoriaBaseParaSelo] || categoriaBaseParaSelo.slice(0, -1); 
       textoSelo = nomeSingular.charAt(0).toUpperCase() + nomeSingular.slice(1); 
     } else {
       textoSelo = "Destaque!";
@@ -165,29 +163,61 @@ function criarCardItem(item, categoriaOriginalIdParaSeloEImagem, categoriaIdAtua
 
   const precoFormatado = item.preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   
-  // MODIFICAÇÃO AQUI: Path da imagem usa a categoria original e apenas o ID do item.
-  const imagemItemSrc = `assets/sections/${categoriaOriginalIdParaSeloEImagem}/${item.id}.jpg`; 
+  // --- INÍCIO DA LÓGICA DE IMAGEM ATUALIZADA ---
   const fallbackImageSrc = 'assets/logo-square.png';
+  // Adicionada a extensão 'jpeg' à lista de prioridades
+  const extensoesPrioritarias = ['webp', 'jpg', 'jpeg', 'png']; // Ordem de preferência
+  const basePathImagem = `assets/sections/${categoriaOriginalIdParaSeloEImagem}/${item.id}`; // Sem extensão
 
-  card.innerHTML = `
-    <div class="card-image-wrapper">
-      <img 
-        src="${imagemItemSrc}" 
-        alt="${item.nome}" 
-        class="item-image" 
-        onerror="this.onerror=null; this.src='${fallbackImageSrc}'; this.classList.add('fallback-image');"
-      >
+  const cardImageWrapper = document.createElement('div');
+  cardImageWrapper.className = 'card-image-wrapper';
+
+  const itemImage = document.createElement('img');
+  itemImage.alt = item.nome;
+  itemImage.className = 'item-image';
+  
+  let currentExtensionIndex = 0;
+
+  // Tenta carregar a imagem com a extensão atual da lista
+  function tentarCarregarImagemAtual() {
+    if (currentExtensionIndex < extensoesPrioritarias.length) {
+      itemImage.src = `${basePathImagem}.${extensoesPrioritarias[currentExtensionIndex]}`;
+    } else {
+      // Todas as extensões prioritárias falharam, usar fallback
+      itemImage.src = fallbackImageSrc;
+      itemImage.classList.add('fallback-image'); //
+      itemImage.onerror = null; // Remover o handler para evitar loops se o fallback também falhar
+    }
+  }
+
+  // Handler de erro: se a imagem não carregar, tenta a próxima extensão
+  itemImage.onerror = () => {
+    currentExtensionIndex++; // Avança para a próxima extensão
+    tentarCarregarImagemAtual(); // Tenta carregar com o novo índice/extensão
+  };
+  
+  // Inicia a primeira tentativa de carregamento
+  tentarCarregarImagemAtual(); 
+  // --- FIM DA LÓGICA DE IMAGEM ATUALIZADA ---
+
+  cardImageWrapper.appendChild(itemImage);
+
+  const cardDetails = document.createElement('div');
+  cardDetails.className = 'card-details';
+  cardDetails.innerHTML = `
+    <div class="card-header">
+      <h3 class="card-title">${item.nome}</h3> 
+      <span class="card-price-inline">${precoFormatado}</span>
     </div>
-    <div class="card-details">
-      <div class="card-header">
-        <h3 class="card-title">${item.nome}</h3> 
-        <span class="card-price-inline">${precoFormatado}</span>
-      </div>
-      <p class="card-description">${item.descricao}</p>
-    </div>
+    <p class="card-description">${item.descricao}</p>
   `;
+
+  card.appendChild(cardImageWrapper);
+  card.appendChild(cardDetails);
+  
   return card;
 }
+
 
 function gerarSecaoCardapio(categoriaIdParaExibir) {
   const categoriaInfo = categorias.find(cat => cat.id === categoriaIdParaExibir);
@@ -212,7 +242,7 @@ function gerarSecaoCardapio(categoriaIdParaExibir) {
     let destaquesEncontrados = 0;
     const todosOsDestaques = [];
 
-    categorias.forEach(cat => { //
+    categorias.forEach(cat => { 
       if (cat.id === 'destaques') return; 
 
       const dadosCatAtual = cardapio[cat.id];
@@ -224,7 +254,7 @@ function gerarSecaoCardapio(categoriaIdParaExibir) {
             todosOsDestaques.push({ ...item, originalCategoriaId: cat.id }); 
           }
         });
-      } else if (typeof dadosCatAtual === 'object' && dadosCatAtual.tipoEstrutura === 'hierarquica') { //
+      } else if (typeof dadosCatAtual === 'object' && dadosCatAtual.tipoEstrutura === 'hierarquica') { 
         dadosCatAtual.subsecoes.forEach(subsecao => {
           subsecao.grupos.forEach(grupo => {
             grupo.itens.forEach(item => {
@@ -237,7 +267,7 @@ function gerarSecaoCardapio(categoriaIdParaExibir) {
       }
     });
     
-     todosOsDestaques.sort((a,b) => { //
+     todosOsDestaques.sort((a,b) => { 
         const indexA = categorias.findIndex(c => c.id === a.originalCategoriaId);
         const indexB = categorias.findIndex(c => c.id === b.originalCategoriaId);
         if (indexA !== indexB) {
@@ -265,7 +295,7 @@ function gerarSecaoCardapio(categoriaIdParaExibir) {
     }
     section.appendChild(gridContainer);
 
-  } else if (dadosDaCategoria && dadosDaCategoria.tipoEstrutura === 'hierarquica') { //
+  } else if (dadosDaCategoria && dadosDaCategoria.tipoEstrutura === 'hierarquica') { 
     if (!dadosDaCategoria.subsecoes || dadosDaCategoria.subsecoes.length === 0) {
       const noItemsMessage = document.createElement('p');
       noItemsMessage.textContent = 'Nenhum item disponível nesta categoria no momento.';
@@ -293,7 +323,7 @@ function gerarSecaoCardapio(categoriaIdParaExibir) {
               const gridContainer = document.createElement('div');
               gridContainer.className = 'grid-container';
               
-              grupo.itens.sort((a, b) => { //
+              grupo.itens.sort((a, b) => { 
                 if (a.destaque && !b.destaque) return -1;
                 if (!a.destaque && b.destaque) return 1;
                 return parseInt(a.id) - parseInt(b.id);
@@ -342,7 +372,7 @@ function gerarSecaoCardapio(categoriaIdParaExibir) {
         const gridContainer = document.createElement('div');
         gridContainer.className = 'grid-container';
 
-        itensDaSecao.sort((a, b) => { //
+        itensDaSecao.sort((a, b) => { 
           if (a.destaque && !b.destaque) return -1;
           if (!a.destaque && b.destaque) return 1;
           return parseInt(a.id) - parseInt(b.id);
@@ -394,9 +424,9 @@ document.addEventListener('DOMContentLoaded', () => {
     
     let temItensNaCategoriaDoHash = false;
     if (hashCategory === 'destaques') {
-        temItensNaCategoriaDoHash = Object.values(cardapio).some(catData => { //
+        temItensNaCategoriaDoHash = Object.values(cardapio).some(catData => { 
             if (Array.isArray(catData)) return catData.some(item => item.destaque);
-            if (catData.tipoEstrutura === 'hierarquica') { //
+            if (catData.tipoEstrutura === 'hierarquica') { 
                 return catData.subsecoes.some(sub => sub.grupos.some(g => g.itens.some(item => item.destaque)));
             }
             return false;
@@ -406,7 +436,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (dadosCatHash) {
             if (Array.isArray(dadosCatHash) && dadosCatHash.length > 0) {
                 temItensNaCategoriaDoHash = true;
-            } else if (typeof dadosCatHash === 'object' && dadosCatHash.tipoEstrutura === 'hierarquica' && dadosCatHash.subsecoes) { //
+            } else if (typeof dadosCatHash === 'object' && dadosCatHash.tipoEstrutura === 'hierarquica' && dadosCatHash.subsecoes) { 
                 temItensNaCategoriaDoHash = dadosCatHash.subsecoes.some(sub => sub.grupos.some(g => g.itens && g.itens.length > 0));
             }
         }
@@ -415,9 +445,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (categoriaValidaNoHash && temItensNaCategoriaDoHash ) {
       categoriaInicial = hashCategory;
     } else if (categoriaValidaNoHash && hashCategory !== 'destaques' && !temItensNaCategoriaDoHash) {
-        // Lógica para lidar com hash de categoria válida mas vazia
+        // Lógica para lidar com hash de categoria válida mas vazia (mantém destaques ou primeira válida)
     } else if (!categoriaValidaNoHash) {
-        // Lógica para lidar com hash de categoria inválida
+        // Lógica para lidar com hash de categoria inválida (mantém destaques ou primeira válida)
     }
   }
   
