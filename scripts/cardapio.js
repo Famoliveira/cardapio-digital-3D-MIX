@@ -51,8 +51,61 @@ const categorias = [
 
 // Dados do cardápio
 const cardapio = {
-  combos: [ /* ... */ ],
-  pizzas: [ /* ... */ ],
+  combos: [ /* Seus combos aqui, se houver. Ex: { id: 1, nome: 'Combo Super', descricao: 'X-Tudo + Batata + Refri', preco: 25.00, destaque: true } */ ],
+  
+  pizzas: {
+    tipoEstrutura: 'hierarquica',
+    observacoesGerais: [
+      "Borda recheada: Catupiry, Cheddar, Chocolate ou Queijo – R$ 10,00",
+      "Pizzas pedidas para serem embaladas terão um acréscimo de apenas R$ 1,00 por embalagem."
+    ],
+    subsecoes: [
+      {
+        tituloSubsecao: 'Pizzas Salgadas',
+        idSubsecao: 'pizzas-salgadas',
+        grupos: [
+          {
+            nomeGrupo: 'Sabores Salgados',
+            itens: [
+              { id: 1, nome: 'Calabresa', descricao: 'Molho especial, mussarela, orégano e calabresa.', precos: { grande: { texto: 'Grande (8 fatias)', valor: 43.00 }, familia: { texto: 'Família (12 fatias)', valor: 52.00 }, gigante: { texto: 'Gigante (16 fatias)', valor: 69.90 } }, destaque: false },
+              { id: 2, nome: 'Toscana', descricao: 'Molho especial, mussarela, orégano, calabresa, azeitonas pretas e cebola.', precos: { grande: { texto: 'Grande (8 fatias)', valor: 43.00 }, familia: { texto: 'Família (12 fatias)', valor: 52.00 }, gigante: { texto: 'Gigante (16 fatias)', valor: 69.90 } }, destaque: false },
+              { id: 3, nome: 'Portuguesa', descricao: 'Molho especial, mussarela, orégano, calabresa, azeitona, presunto, tomate, cebola, pimentão e ovos cozidos.', precos: { grande: { texto: 'Grande (8 fatias)', valor: 43.00 }, familia: { texto: 'Família (12 fatias)', valor: 52.00 }, gigante: { texto: 'Gigante (16 fatias)', valor: 69.00 } }, destaque: false },
+              { id: 4, nome: 'Americana', descricao: 'Molho especial, mussarela, orégano, azeitona, ovos cozidos e bacon.', precos: { grande: { texto: 'Grande (8 fatias)', valor: 45.00 }, familia: { texto: 'Família (12 fatias)', valor: 55.00 }, gigante: { texto: 'Gigante (16 fatias)', valor: 69.90 } }, destaque: false },
+              { id: 5, nome: '4 Queijos', descricao: 'Molho especial, mussarela, orégano, gorgonzola e parmesão.', precos: { grande: { texto: 'Grande (8 fatias)', valor: 43.00 }, familia: { texto: 'Família (12 fatias)', valor: 52.00 }, gigante: { texto: 'Gigante (16 fatias)', valor: 69.90 } }, destaque: true },
+              { id: 6, nome: 'Ao Alho', descricao: 'Molho especial, mussarela, orégano e alho torrado.', precos: { grande: { texto: 'Grande (8 fatias)', valor: 43.00 }, familia: { texto: 'Família (12 fatias)', valor: 52.00 }, gigante: { texto: 'Gigante (16 fatias)', valor: 69.90 } }, destaque: false },
+              { id: 7, nome: 'Marguerita', descricao: 'Molho especial, mussarela, orégano, tomate e manjericão.', precos: { grande: { texto: 'Grande (8 fatias)', valor: 43.00 }, familia: { texto: 'Família (12 fatias)', valor: 52.00 }, gigante: { texto: 'Gigante (16 fatias)', valor: 69.90 } }, destaque: false },
+              { id: 8, nome: 'Frango', descricao: 'Molho especial, mussarela, orégano e frango desfiado.', precos: { grande: { texto: 'Grande (8 fatias)', valor: 45.00 }, familia: { texto: 'Família (12 fatias)', valor: 55.00 }, gigante: { texto: 'Gigante (16 fatias)', valor: 69.90 } }, destaque: false },
+              { id: 9, nome: 'Frango c/ Catupiry', descricao: 'Molho especial, mussarela, orégano, frango desfiado e Catupiry.', precos: { grande: { texto: 'Grande (8 fatias)', valor: 45.00 }, familia: { texto: 'Família (12 fatias)', valor: 55.00 }, gigante: { texto: 'Gigante (16 fatias)', valor: 69.90 } }, destaque: true },
+              { id: 10, nome: 'Frango c/ Catupiry e Palmito', descricao: 'Molho especial, mussarela, orégano, frango desfiado, Catupiry e palmito.', precos: { grande: { texto: 'Grande (8 fatias)', valor: 45.00 }, familia: { texto: 'Família (12 fatias)', valor: 55.00 }, gigante: { texto: 'Gigante (16 fatias)', valor: 69.90 } }, destaque: false },
+              { id: 11, nome: 'Frango c/ Catupiry e Champignon', descricao: 'Molho especial, mussarela, orégano, frango desfiado, Catupiry e champignon.', precos: { grande: { texto: 'Grande (8 fatias)', valor: 45.00 }, familia: { texto: 'Família (12 fatias)', valor: 55.00 }, gigante: { texto: 'Gigante (16 fatias)', valor: 69.90 } }, destaque: false },
+              { id: 12, nome: 'Peito de Peru', descricao: 'Molho especial, mussarela, orégano e peito de peru desfiado.', precos: { grande: { texto: 'Grande (8 fatias)', valor: 43.00 }, familia: { texto: 'Família (12 fatias)', valor: 52.00 }, gigante: { texto: 'Gigante (16 fatias)', valor: 69.90 } }, destaque: false },
+              { id: 13, nome: 'Três Porquinhos', descricao: 'Molho especial, mussarela, bacon, presunto, calabresa e orégano.', precos: { grande: { texto: 'Grande (8 fatias)', valor: 45.00 }, familia: { texto: 'Família (12 fatias)', valor: 55.00 }, gigante: { texto: 'Gigante (16 fatias)', valor: 69.90 } }, destaque: false },
+              { id: 14, nome: '3D Mix (Monte a sua)', descricao: 'Monte sua pizza com até 4 sabores (Consulte sabores participantes).', precos: { grande: { texto: 'Grande (8 fatias)', valor: 45.00 }, familia: { texto: 'Família (12 fatias)', valor: 55.00 }, gigante: { texto: 'Gigante (16 fatias)', valor: 69.90 } }, destaque: true }
+            ]
+          }
+        ]
+      },
+      {
+        tituloSubsecao: 'Pizzas Doces',
+        idSubsecao: 'pizzas-doces',
+        grupos: [
+          {
+            nomeGrupo: 'Sabores Doces',
+            itens: [
+              { id: 15, nome: 'Chocolate', descricao: 'Chocolate em calda e mussarela.', precos: { media: { texto: 'Média (4/8 fatias)', valor: 29.80 }, grande: { texto: 'Grande (8 fatias)', valor: 39.60 } }, destaque: false },
+              { id: 16, nome: 'Chocolate c/ Banana', descricao: 'Chocolate em calda, fatias de banana e mussarela.', precos: { media: { texto: 'Média (4/8 fatias)', valor: 29.80 }, grande: { texto: 'Grande (8 fatias)', valor: 39.60 } }, destaque: true },
+              { id: 17, nome: 'Brigadeiro', descricao: 'Chocolate em calda, granulado e mussarela.', precos: { media: { texto: 'Média (4/8 fatias)', valor: 29.80 }, grande: { texto: 'Grande (8 fatias)', valor: 39.60 } }, destaque: false },
+              { id: 18, nome: 'Prestígio', descricao: 'Chocolate em calda, coco ralado e mussarela.', precos: { media: { texto: 'Média (4/8 fatias)', valor: 29.80 }, grande: { texto: 'Grande (8 fatias)', valor: 39.60 } }, destaque: false },
+              { id: 19, nome: 'Banana c/ Canela', descricao: 'Mussarela, banana, canela e açúcar.', precos: { media: { texto: 'Média (4/8 fatias)', valor: 29.80 }, grande: { texto: 'Grande (8 fatias)', valor: 39.60 } }, destaque: false }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+
+  lanches: [ /* Seus lanches aqui, se houver. Ex: { id: 1, nome: 'X-Burger', descricao: 'Pão, carne, queijo', preco: 15.00, destaque: false } */ ],
+
   pasteis: { // Conteúdo de pastéis conforme fornecido anteriormente
     tipoEstrutura: 'hierarquica',
     subsecoes: [
@@ -375,8 +428,8 @@ const cardapio = {
       }
     ]
   },
-  crepes: [ /* ... */ ],
-  batatas: [ /* ... */ ],
+  crepes: [ /* Seus crepes aqui, se houver */ ],
+  batatas: [ /* Suas batatas aqui, se houver */ ],
   bebidas: {
     tipoEstrutura: 'hierarquica',
     subsecoes: [
@@ -390,7 +443,7 @@ const cardapio = {
               { id: 1, nome: 'Coca-Cola Lata', descricao: 'Lata 350ml', preco: 8.00, destaque: true },
               { id: 2, nome: 'Refrigerante Lata (Sabores Diversos)', descricao: 'Lata 350ml', preco: 8.00, destaque: false },
               { id: 3, nome: 'H2OH!', descricao: 'Limão ou outros sabores - Garrafa 500ml', preco: 8.00, destaque: true },
-              { id: 4, nome: 'Refrigerante Mini', descricao: 'Ideal para consumo individual', preco: 0.00, destaque: false }
+              { id: 4, nome: 'Refrigerante Mini', descricao: 'Ideal para consumo individual', preco: 0.00, destaque: false } // Preço 0.00 parece um placeholder, verifique.
             ]
           },
           {

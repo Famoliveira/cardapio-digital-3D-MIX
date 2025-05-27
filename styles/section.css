@@ -3,17 +3,18 @@
 /* Estilos para seções com imagem de fundo */
 section.category-section-with-bg {
   padding: 3rem 1.5rem;
-  max-width: 100%;
+  max-width: 100%; /* Ocupa toda a largura */
   margin: 0 auto;
-  padding-bottom: 100px;
+  padding-bottom: 100px; /* Espaço para o gradiente no rodapé da imagem */
   position: relative;
   background-size: cover;
   background-position: center center;
-  border-radius: 0;
-  overflow: hidden;
+  border-radius: 0; /* Remove bordas arredondadas se houver */
+  overflow: hidden; /* Para conter o overlay e gradiente */
   color: white; /* Cor base do texto para esta seção */
 }
 
+/* Overlay escuro para melhor contraste do texto sobre a imagem de fundo */
 section.category-section-with-bg::before {
   content: "";
   position: absolute;
@@ -21,26 +22,29 @@ section.category-section-with-bg::before {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.55); /* Overlay escuro */
-  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.55); /* Ajuste a opacidade conforme necessário */
+  z-index: 1; /* Abaixo do conteúdo, mas acima do bg-image */
 }
 
+/* Gradiente na parte inferior da imagem de fundo para suavizar a transição */
 section.category-section-with-bg::after {
   content: "";
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 100px;
+  height: 100px; /* Altura do gradiente */
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.65) 50%, #131313 100%);
-  z-index: 1;
+  z-index: 1; /* Mesmo z-index do overlay ou um acima se precisar */
 }
 
+/* Garante que o conteúdo da seção fique acima do overlay e do gradiente */
 section.category-section-with-bg .titulo-cardapio,
-section.category-section-with-bg .grid-container {
+section.category-section-with-bg .grid-container,
+section.category-section-with-bg .category-observacoes { /* Inclui observações aqui */
   position: relative;
-  z-index: 2; /* Para garantir que fiquem acima do overlay e do gradiente */
-  max-width: 85rem;
+  z-index: 2;
+  max-width: 85rem; /* Limita a largura do conteúdo interno */
   margin-left: auto;
   margin-right: auto;
 }
@@ -48,12 +52,12 @@ section.category-section-with-bg .grid-container {
 /* Estilos para seções normais (sem imagem de fundo) */
 section:not(.category-section-with-bg) {
   padding: 2rem 1rem;
-  max-width: 85rem;
+  max-width: 85rem; /* 1360px */
   margin: 0 auto;
 }
 
 .category-content-section {
-  /* Estilos para o container da seção de categoria ativa */
+  /* Estilos para o container da seção de categoria ativa, se necessário */
 }
 
 /* --- ESTILOS PARA OS TÍTULOS DO CARDÁPIO --- */
@@ -64,24 +68,25 @@ section:not(.category-section-with-bg) {
   text-transform: capitalize;
   margin-left: auto;
   margin-right: auto;
-  color: white; /* TODOS OS TÍTULOS SERÃO BRANCOS */
-  /* Sombra padrão para texto branco (pode ser ajustada se o fundo da seção normal for muito claro) */
-  text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.30);
-  letter-spacing: 0.03em; /* Um leve espaçamento para legibilidade */
+  color: #2c3e50; /* Cor padrão para títulos em seções normais */
+  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
+  letter-spacing: 0.03em;
   transition: text-shadow 0.3s ease;
 }
 
+/* Garante que o primeiro título da seção não tenha margem superior excessiva */
 .category-content-section > .titulo-cardapio:first-of-type {
     margin-top: 0 !important;
 }
 
 /* Título Principal da Categoria (H2 - ex: "Pastéis") */
 .titulo-categoria-principal {
-  font-size: 1.8rem; /* */
-  font-weight: var(--fw-bold); /* */
-  margin-bottom: 2rem; /* */
-  border-bottom: 0.25rem solid var(--brand-color); /* A borda inferior permanece com a cor da marca */
-  padding-bottom: 0.5rem; /* */
+  font-size: 1.8rem;
+  font-weight: var(--fw-bold);
+  margin-bottom: 2rem;
+  border-bottom: 0.25rem solid var(--brand-color);
+  padding-bottom: 0.5rem;
+  color: inherit; /* Herda a cor da seção (branco para bg-image, escuro para normal) */
 }
 
 /* Títulos de Subseção (H3 - ex: "Pastéis Salgados") */
@@ -93,37 +98,40 @@ section:not(.category-section-with-bg) {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: fit-content;
-  position: relative;
+  width: fit-content; /* Ajusta a largura ao conteúdo */
+  position: relative; /* Para posicionar os pseudo-elementos */
+  color: inherit;
 }
 
 .titulo-grupo-sabor::before,
 .titulo-grupo-sabor::after {
-  content: ""; /* Conteúdo vazio, a forma virá do background */
+  content: "";
   display: inline-block;
   width: 1.5em;  /* Largura do "hífen" */
-  height: 0.12em; /* Altura/espessura do "hífen", proporcional ao tamanho da fonte */
+  height: 0.12em; /* Altura/espessura do "hífen" */
   background-color: var(--brand-color); /* "Hífens" com a cor da marca */
-  border-radius: 3px; /* Bordas levemente arredondadas para os "hífens" */
-  margin-inline: 0.75em; /* Espaçamento entre o "hífen" e o texto do título */
+  border-radius: 3px;
+  margin-inline: 0.75em; /* Espaçamento entre o "hífen" e o texto */
 }
 
 /* Títulos de Variação (H4 - ex: "Chocolate") */
 .titulo-variacao-sabor {
-  font-size: 1.3rem; /* */
-  font-weight: var(--fw-medium); /* */
-  margin-top: 2rem; /* */
-  margin-bottom: 1.25rem; /* Ajustado */
+  font-size: 1.3rem;
+  font-weight: var(--fw-medium);
+  margin-top: 2rem;
+  margin-bottom: 1.25rem;
+  color: inherit;
 }
 
 /* Estilos específicos para títulos dentro de seções com imagem de fundo */
-section.category-section-with-bg .titulo-cardapio {
-  /* A cor branca já é padrão e é ideal para fundos com imagem escura */
-  text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.7); /* Sombra mais pronunciada para melhor leitura sobre imagens */
+section.category-section-with-bg .titulo-cardapio,
+section.category-section-with-bg .titulo-categoria-principal,
+section.category-section-with-bg .titulo-grupo-sabor,
+section.category-section-with-bg .titulo-variacao-sabor {
+  color: white; /* Garante que todos os títulos sejam brancos */
+  text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.7); /* Sombra mais pronunciada */
 }
-
-/* Os estilos de ::before e ::after do .titulo-grupo-sabor (hífens) já usarão var(--brand-color) */
-/* e o texto já será branco, o que deve contrastar bem com o overlay escuro. */
+/* Os "hífens" do .titulo-grupo-sabor já usam var(--brand-color) */
 
 /* --- FIM DOS ESTILOS PARA OS NOVOS TÍTULOS --- */
 
@@ -133,7 +141,7 @@ section.category-section-with-bg .titulo-cardapio {
   grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
   gap: 1.5rem;
   width: 100%;
-  margin-bottom: 2.5rem;
+  margin-bottom: 2.5rem; /* Espaço após o último grid */
 }
 
 /* Keyframes */
@@ -144,9 +152,9 @@ section.category-section-with-bg .titulo-cardapio {
 }
 
 @keyframes cardDestaqueBoxShadowHover {
-  0% { box-shadow: 0 0 0.625rem rgba(249, 112, 21, 0.5); }
-  50% { box-shadow: 0 0 0.8rem rgba(249, 112, 21, 0.65); }
-  100% { box-shadow: 0 0 0.625rem rgba(249, 112, 21, 0.5); }
+  0% { box-shadow: 0 0 0.625rem rgba(249, 112, 21, 0.5); } /* 0 0 10px */
+  50% { box-shadow: 0 0 0.8rem rgba(249, 112, 21, 0.65); }  /* 0 0 13px */
+  100% { box-shadow: 0 0 0.625rem rgba(249, 112, 21, 0.5); } /* 0 0 10px */
 }
 
 @keyframes seloDestaqueAnimacaoHover {
@@ -160,182 +168,267 @@ section.category-section-with-bg .titulo-cardapio {
 /* Card dos itens do cardápio */
 .menu-card {
   display: flex;
-  flex-direction: row;
+  flex-direction: row; /* Imagem à esquerda, detalhes à direita */
   background-color: white;
-  border-radius: 0.5rem;
-  box-shadow: 0 0.2rem 0.6rem rgba(0, 0, 0, 0.08);
+  border-radius: 0.5rem; /* 8px */
+  box-shadow: 0 0.2rem 0.6rem rgba(0, 0, 0, 0.08); /* Sombra sutil */
   transition: box-shadow 0.25s ease;
-  position: relative;
-  min-height: 130px;
+  position: relative; /* Para o selo de destaque e badge de ID */
+  min-height: 130px; /* Altura mínima para consistência */
 }
 
+/* Efeitos de hover para desktop */
 @media (hover: hover) and (min-width: 769px) {
   .menu-card {
     transition: transform 0.25s ease, box-shadow 0.25s ease;
   }
   .menu-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 0.375rem 1rem rgba(0, 0, 0, 0.12);
-    animation: subtleJumpEffect 0.6s ease-out forwards;
+    transform: translateY(-5px); /* Leve elevação no hover */
+    box-shadow: 0 0.375rem 1rem rgba(0, 0, 0, 0.12); /* Sombra mais pronunciada */
+    /* animation: subtleJumpEffect 0.6s ease-out forwards; Descomente se quiser a animação de pulo contínuo */
   }
 
   .menu-card.item-destacado:hover {
-    animation: cardDestaqueBoxShadowHover 1.8s infinite ease-in-out,
-               subtleJumpEffect 0.6s ease-out forwards;
-    box-shadow: 0 0.4rem 1.2rem rgba(249, 112, 21, 0.25);
+    /* Mantém a sombra do destaque, mas adiciona a elevação */
+    box-shadow: 0 0.4rem 1.2rem rgba(249, 112, 21, 0.25); /* Sombra de destaque mais forte */
+    /* animation: cardDestaqueBoxShadowHover 1.8s infinite ease-in-out,
+               subtleJumpEffect 0.6s ease-out forwards; */ /* Combina animações se desejado */
   }
 
-  .menu-card.item-destacado:hover::before {
+  .menu-card.item-destacado:hover::before { /* Animação do selo no hover do card destacado */
     animation: seloDestaqueAnimacaoHover 1.2s infinite ease-in-out;
   }
 
-  .menu-card:hover .card-price-inline {
+  .menu-card:hover .card-price-inline { /* Cor do preço único no hover */
     color: rgba(249, 112, 21, 0.9);
   }
 }
 
-.menu-card:hover {
+/* Fallback para hover em dispositivos que não suportam :hover (ou para simplificar) */
+.menu-card:hover { /* Aplica a sombra mais pronunciada para todos os hovers */
   box-shadow: 0 0.375rem 1rem rgba(0, 0, 0, 0.12);
 }
-.menu-card.item-destacado:hover {
+.menu-card.item-destacado:hover { /* Garante a sombra do destaque no hover */
   box-shadow: 0 0.4rem 1.2rem rgba(249, 112, 21, 0.25);
 }
 
 
 section.category-section-with-bg .menu-card {
-  background-color: rgba(255, 255, 255, 0.94);
-  box-shadow: 0 0.2rem 0.8rem rgba(0, 0, 0, 0.12);
+  background-color: rgba(255, 255, 255, 0.94); /* Fundo levemente translúcido para cards sobre bg-image */
+  box-shadow: 0 0.2rem 0.8rem rgba(0, 0, 0, 0.12); /* Sombra um pouco mais escura */
 }
 
 .card-image-wrapper {
-  flex-shrink: 0;
-  width: 120px;
-  background-color: #e9ecef;
-  border-top-left-radius: 0.5rem;
-  border-bottom-left-radius: 0.5rem;
-  overflow: hidden;
+  flex-shrink: 0; /* Impede que a imagem encolha */
+  width: 120px; /* Largura fixa para a imagem */
+  background-color: #e9ecef; /* Cor de fundo para a área da imagem */
+  border-top-left-radius: 0.5rem; /* Arredonda canto superior esquerdo */
+  border-bottom-left-radius: 0.5rem; /* Arredonda canto inferior esquerdo */
+  overflow: hidden; /* Garante que a imagem não ultrapasse as bordas */
   display: flex;
-  align-items: stretch;
-  position: relative; /* Adicionado para posicionar o item-id-badge */
+  align-items: stretch; /* Faz a imagem preencher a altura */
+  position: relative; /* Para o item-id-badge */
 }
 
 /* Estilo para o ID do item (normal) */
 .item-id-badge {
   position: absolute;
-  top: 0.4rem; /* Ajuste fino da posição */
-  left: 0.4rem; /* Ajuste fino da posição */
-  width: 1.6rem; /* Tamanho do círculo */
-  height: 1.6rem; /* Tamanho do círculo */
+  top: 0.4rem; /* 6.4px */
+  left: 0.4rem;  /* 6.4px */
+  width: 1.6rem; /* 25.6px - Tamanho do círculo */
+  height: 1.6rem;/* 25.6px */
   background-color: rgba(0, 0, 0, 0.65); /* Fundo preto semi-transparente */
   color: white; /* Cor do texto (número) */
   border-radius: 50%; /* Para formar o círculo */
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.7rem; /* Tamanho da fonte do número */
+  font-size: 0.7rem; /* 11.2px - Tamanho da fonte do número */
   font-weight: var(--fw-bold);
-  z-index: 3; /* Para garantir que fique sobre a imagem */
-  box-shadow: 0 1px 2px rgba(0,0,0,0.2); /* Sombra sutil para destaque */
-  line-height: 1; /* Garante melhor centralização vertical do texto */
-  pointer-events: none; /* Para não interferir com cliques na imagem, se houver */
+  z-index: 3; /* Acima da imagem */
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  line-height: 1; /* Melhor centralização vertical */
+  pointer-events: none; /* Não interfere com cliques na imagem */
 }
 
 /* Estilo para o ID do item (quando o card é destacado) */
 .menu-card.item-destacado .item-id-badge {
-  background-color: var(--brand-color); /* Cor da marca para o fundo do badge em itens destacados */
-  /* text-shadow: 0 0 2px rgba(0,0,0,0.5); /* Opcional: sombra no texto para melhor contraste se necessário */
+  background-color: var(--brand-color); /* Cor da marca para o badge em itens destacados */
 }
 
 
 .item-image {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: cover; /* Cobre a área sem distorcer, cortando se necessário */
   display: block;
 }
-.item-image.fallback-image {
-  object-fit: contain;
-  padding: 0.5rem;
+.item-image.fallback-image { /* Para a imagem de fallback */
+  object-fit: contain; /* Mostra a imagem inteira, pode deixar espaços */
+  padding: 0.5rem; /* Espaçamento interno para o logo */
 }
 
 .card-details {
-  flex-grow: 1;
-  padding: 0.75rem 1rem;
+  flex-grow: 1; /* Ocupa o espaço restante no card */
+  padding: 0.75rem 1rem; /* Espaçamento interno */
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: center; /* Centraliza verticalmente o conteúdo se houver espaço */
   position: relative;
-  z-index: 1;
+  z-index: 1; /* Para garantir que fique acima de fundos de card, se houver */
 }
 
 .card-header {
   display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 0.4rem;
-  gap: 0.5rem;
+  justify-content: space-between; /* Título à esquerda, preço à direita */
+  align-items: flex-start; /* Alinha ao topo para consistência */
+  margin-bottom: 0.4rem; /* Espaço abaixo do cabeçalho */
+  gap: 0.5rem; /* Espaço entre título e preço */
 }
 
 .card-title {
-  font-size: 1.05rem;
+  font-size: 1.05rem; /* Tamanho do título do item */
   font-weight: var(--fw-semibold);
-  color: #2c3e50; /* Cor do título do card, não afetado pela mudança dos títulos de seção */
-  margin-bottom: 0;
-  white-space: normal;
-  flex-grow: 1;
-  margin-right: 0.5rem;
-  opacity: 1;
+  color: #2c3e50; /* Cor do título */
+  margin-bottom: 0; /* Remove margem padrão de h3 */
+  white-space: normal; /* Permite quebra de linha no título */
+  flex-grow: 1; /* Permite que o título ocupe espaço */
+  margin-right: 0.5rem; /* Espaço à direita do título, antes do preço (se houver) */
+  opacity: 1; /* Garante opacidade total */
+  padding-top: 0.1rem; /* Ajuste fino para alinhamento visual */
 }
 
-.card-price-inline {
+.card-price-inline { /* Para preço único no cabeçalho */
   font-weight: var(--fw-bold);
-  color: rgba(249, 112, 21, 0.75);
+  color: rgba(249, 112, 21, 0.75); /* Cor laranja da marca com opacidade */
   opacity: 1;
   font-size: 1rem;
-  white-space: nowrap;
+  white-space: nowrap; /* Impede quebra de linha no preço */
   text-align: right;
   transition: color 0.3s ease;
 }
 
 .card-description {
-  font-size: 0.825rem;
-  color: #555e68; /* Cor da descrição do card */
+  font-size: 0.825rem; /* Tamanho da descrição */
+  color: #555e68; /* Cor da descrição */
   line-height: 1.45;
-  margin-bottom: 0;
+  margin-bottom: 0; /* Remove margem padrão de p */
   opacity: 1;
 }
 
+/* Estilos para item destacado */
 .menu-card.item-destacado {
-  border-left: 4px solid var(--brand-color);
+  border-left: 4px solid var(--brand-color); /* Borda laranja à esquerda */
 }
 
 section.category-section-with-bg .menu-card.item-destacado {
-    background-color: rgba(255, 255, 255, 0.98);
+    background-color: rgba(255, 255, 255, 0.98); /* Quase opaco para melhor leitura */
 }
 
+/* Selo de "Destaque" ou nome da categoria */
 .menu-card.item-destacado::before {
-  content: attr(data-selo-texto);
+  content: attr(data-selo-texto); /* Pega o texto do atributo data */
   position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: var(--brand-color);
-  color: white;
-  padding: 0.25rem 0.8rem;
-  border-radius: 0.9375rem;
-  font-size: 0.7rem;
+  top: 0; /* Alinha ao topo do card */
+  left: 50%; /* Centraliza horizontalmente */
+  transform: translate(-50%, -50%); /* Ajusta para centralização exata e eleva um pouco */
+  background-color: var(--brand-color); /* Fundo laranja */
+  color: white; /* Texto branco */
+  padding: 0.25rem 0.8rem; /* Espaçamento interno do selo */
+  border-radius: 0.9375rem; /* Bordas arredondadas para o selo (15px) */
+  font-size: 0.7rem; /* Tamanho da fonte do selo */
   font-weight: bold;
-  z-index: 5;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-  transform-origin: center center;
-  white-space: nowrap;
+  z-index: 5; /* Acima de outros elementos do card */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Sombra para o selo */
+  transform-origin: center center; /* Para a animação de rotação */
+  white-space: nowrap; /* Impede quebra de linha no selo */
+}
+
+
+/* Estilos para múltiplos preços no card (PIZZAS) */
+.card-prices-multisize {
+  margin-top: 0.75rem; /* Espaçamento acima da lista de preços */
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem; /* Espaçamento entre cada linha de preço */
+  padding-left: 0.1rem;
+}
+
+.card-prices-multisize span {
+  font-size: 0.9rem;
+  color: #485460;
+  font-weight: var(--fw-medium);
+  line-height: 1.4;
+  opacity: 1;
+  text-align: left;
+}
+
+/* Estilos para a seção de Observações Gerais da Categoria */
+.category-observacoes {
+  margin-top: 3rem;
+  padding: 1.5rem;
+  background-color: #fdfcfb;
+  border-radius: 0.375rem; /* 6px */
+  border: 1px solid #e7e7e7;
+  max-width: 40rem; /* 640px */
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+section.category-section-with-bg .category-observacoes {
+  background-color: rgba(15, 15, 15, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  /* color: #f0f0f0;  Será herdado pelos filhos, ou definido neles */
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.titulo-observacoes-categoria.titulo-cardapio { /* Estilo para o H4 "Observações Gerais" */
+  font-size: 1.2rem;
+  font-weight: var(--fw-semibold);
+  text-align: left;
+  margin-bottom: 1rem;
+  color: #333; /* Cor padrão para seções normais */
+  border-bottom: 2px solid var(--brand-color);
+  padding-bottom: 0.4rem;
+  display: block;
+  width: 100%;
+  text-shadow: none;
+  text-transform: none; /* Observações não precisam de capitalize */
+}
+
+section.category-section-with-bg .titulo-observacoes-categoria.titulo-cardapio {
+  color: #ffffff; /* Branco para seções com bg-image */
+  border-bottom: 2px solid rgba(255,255,255,0.5);
+}
+
+
+.category-observacoes ul {
+  list-style-position: inside;
+  list-style-type: disc;
+  padding-left: 0.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.category-observacoes ul li {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #555e68; /* Cor padrão para texto de observação */
+  display: list-item;
+  text-align: left;
+}
+
+section.category-section-with-bg .category-observacoes ul li {
+    color: #e0e0e0; /* Cor mais clara para seções com bg-image */
 }
 
 
 /* Responsividade */
 @media (max-width: 768px) {
   .grid-container {
-     grid-template-columns: 1fr;
+     grid-template-columns: 1fr; /* Uma coluna em telas menores */
   }
 
   .titulo-categoria-principal {
@@ -349,49 +442,62 @@ section.category-section-with-bg .menu-card.item-destacado {
   }
 
   .menu-card {
-    min-height: 130px;
+    min-height: 130px; /* Mantém altura mínima razoável */
   }
   .card-image-wrapper {
-    width: 115px;
+    width: 115px; /* Reduz um pouco a imagem */
   }
-  .item-id-badge { /* Ajuste para telas menores */
-    width: 1.5rem;
-    height: 1.5rem;
-    font-size: 0.65rem;
-    top: 0.3rem;
-    left: 0.3rem;
+  .item-id-badge {
+    width: 1.5rem; /* 24px */
+    height: 1.5rem; /* 24px */
+    font-size: 0.65rem; /* 10.4px */
+    top: 0.3rem; /* 4.8px */
+    left: 0.3rem; /* 4.8px */
   }
   .card-details {
-    padding: 0.6rem 0.8rem;
+    padding: 0.6rem 0.8rem; /* Reduz padding interno */
   }
   .card-title {
-    font-size: 1rem;
+    font-size: 1rem; /* Reduz título do item */
   }
-  .card-price-inline {
+  .card-price-inline { /* Preço único no header */
     font-size: 0.95rem;
-    color: rgba(249, 112, 21, 0.9);
+    color: rgba(249, 112, 21, 0.9); /* Mais opaco em telas menores */
     opacity: 1;
   }
-  .menu-card.item-destacado::before {
+  .card-prices-multisize span { /* Preços múltiplos */
+    font-size: 0.85rem;
+  }
+  .menu-card.item-destacado::before { /* Selo de destaque */
     font-size: 0.65rem;
     padding: 0.2rem 0.6rem;
+  }
+
+  .category-observacoes {
+    padding: 1.25rem;
+    margin-top: 2.5rem;
+  }
+  .titulo-observacoes-categoria.titulo-cardapio {
+    font-size: 1.1rem;
+  }
+  .category-observacoes ul li {
+    font-size: 0.85rem;
   }
 }
 
 @media (max-width: 425px) {
   section.category-section-with-bg {
-    padding: 2rem 1rem;
-    padding-bottom: 80px;
+    padding: 2rem 1rem; /* Reduz padding da seção com bg */
+    padding-bottom: 80px; /* Ajusta para o gradiente menor */
   }
   section.category-section-with-bg::after {
-    height: 80px;
+    height: 80px; /* Gradiente menor */
   }
   section:not(.category-section-with-bg) {
-    padding: 1.5rem 0.5rem;
+    padding: 1.5rem 0.5rem; /* Reduz padding de seções normais */
   }
   .grid-container {
-    gap: 1rem;
-    grid-template-columns: 1fr;
+    gap: 1rem; /* Reduz gap do grid */
   }
 
   .titulo-categoria-principal {
@@ -405,17 +511,17 @@ section.category-section-with-bg .menu-card.item-destacado {
   }
 
   .menu-card {
-    min-height: 120px;
+    min-height: 120px; /* Reduz altura mínima do card */
   }
   .card-image-wrapper {
-    width: 100px;
+    width: 100px; /* Imagem ainda menor */
   }
-  .item-id-badge { /* Ajuste para telas muito pequenas */
-    width: 1.4rem;
-    height: 1.4rem;
-    font-size: 0.6rem;
-    top: 0.25rem;
-    left: 0.25rem;
+  .item-id-badge {
+    width: 1.4rem; /* 22.4px */
+    height: 1.4rem; /* 22.4px */
+    font-size: 0.6rem; /* 9.6px */
+    top: 0.25rem; /* 4px */
+    left: 0.25rem; /* 4px */
   }
   .card-details {
     padding: 0.5rem 0.75rem;
@@ -423,14 +529,28 @@ section.category-section-with-bg .menu-card.item-destacado {
   .card-title {
     font-size: 0.9rem;
   }
-  .card-price-inline {
+  .card-price-inline { /* Preço único no header */
     font-size: 0.85rem;
   }
-  .card-description {
-    font-size: 0.75rem;
+  .card-prices-multisize span { /* Preços múltiplos */
+    font-size: 0.8rem;
   }
-  .menu-card.item-destacado::before {
+  .card-description {
+    font-size: 0.75rem; /* Descrição menor */
+  }
+  .menu-card.item-destacado::before { /* Selo de destaque */
     font-size: 0.6rem;
     padding: 0.15rem 0.5rem;
+  }
+
+  .category-observacoes {
+    padding: 1rem;
+    margin-top: 2rem;
+  }
+  .titulo-observacoes-categoria.titulo-cardapio {
+    font-size: 1rem;
+  }
+  .category-observacoes ul li {
+    font-size: 0.8rem;
   }
 }
