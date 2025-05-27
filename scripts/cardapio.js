@@ -219,50 +219,50 @@ const cardapio = {
             itens: [
               {
                 id: 19, // ID continua a partir do último combo de lanche
-                nome: 'Hambúrguer + Guaranita',
-                descricao: '1 Hambúrguer simples acompanhado de 1 Guaranita.',
+                nome: 'Hambúrguer + Guaravita',
+                descricao: '1 Hambúrguer simples acompanhado de 1 Guaravita.',
                 preco: 13.00,
                 destaque: false // Defina como true se quiser destacar
               },
               {
                 id: 20,
-                nome: 'X Burguer Duplo + Guaranita',
-                descricao: '2 X Burguer acompanhados de 1 Guaranita.',
+                nome: 'X Burguer Duplo + Guaravita',
+                descricao: '2 X Burguer acompanhados de 1 Guaravita.',
                 preco: 19.80,
                 destaque: false 
               },
               {
                 id: 21,
-                nome: 'X Egg Burguer Duplo + Guaranita',
-                descricao: '2 X Egg Burguer acompanhados de 1 Guaranita.',
+                nome: 'X Egg Burguer Duplo + Guaravita',
+                descricao: '2 X Egg Burguer acompanhados de 1 Guaravita.',
                 preco: 24.90,
                 destaque: false
               },
               {
                 id: 22,
-                nome: 'X Frango Duplo + Guaranita',
-                descricao: '2 X Frango acompanhados de 1 Guaranita.',
+                nome: 'X Frango Duplo + Guaravita',
+                descricao: '2 X Frango acompanhados de 1 Guaravita.',
                 preco: 32.90,
                 destaque: false
               },
               {
                 id: 23,
-                nome: 'X Egg Frango Duplo + Guaranita',
-                descricao: '2 X Egg Frango acompanhados de 1 Guaranita.',
+                nome: 'X Egg Frango Duplo + Guaravita',
+                descricao: '2 X Egg Frango acompanhados de 1 Guaravita.',
                 preco: 34.90,
                 destaque: false
               },
               {
                 id: 24,
-                nome: 'X Bacon Duplo + Guaranita',
-                descricao: '2 X Bacon acompanhados de 1 Guaranita.',
+                nome: 'X Bacon Duplo + Guaravita',
+                descricao: '2 X Bacon acompanhados de 1 Guaravita.',
                 preco: 32.90,
                 destaque: false
               },
               {
                 id: 25,
-                nome: 'X Egg Bacon Duplo + Guaranita',
-                descricao: '2 X Egg Bacon acompanhados de 1 Guaranita.',
+                nome: 'X Egg Bacon Duplo + Guaravita',
+                descricao: '2 X Egg Bacon acompanhados de 1 Guaravita.',
                 preco: 35.90,
                 destaque: false
               }
