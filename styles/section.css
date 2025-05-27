@@ -1,184 +1,393 @@
-section {
-  margin-bottom: 2rem;
+/* styles/section.css */
 
-  & > h2 {
-    text-align: center;
-  }
+/* Estilos para seções com imagem de fundo */
+section.category-section-with-bg {
+  padding: 3rem 1.5rem;
+  max-width: 100%;
+  margin: 0 auto;
+  padding-bottom: 100px;
+  position: relative;
+  background-size: cover;
+  background-position: center center;
+  border-radius: 0;
+  overflow: hidden;
+  color: white; /* Cor base do texto para esta seção */
 }
 
-/* Estilos para a grid de cards das seções */
+section.category-section-with-bg::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.55); /* Overlay escuro */
+  z-index: 1;
+}
+
+section.category-section-with-bg::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.65) 50%, #131313 100%);
+  z-index: 1;
+}
+
+section.category-section-with-bg .titulo-cardapio,
+section.category-section-with-bg .grid-container {
+  position: relative;
+  z-index: 2; /* Para garantir que fiquem acima do overlay e do gradiente */
+  max-width: 85rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Estilos para seções normais (sem imagem de fundo) */
+section:not(.category-section-with-bg) {
+  padding: 2rem 1rem;
+  max-width: 85rem;
+  margin: 0 auto;
+}
+
+.category-content-section {
+  /* Estilos para o container da seção de categoria ativa */
+}
+
+/* --- ESTILOS PARA OS TÍTULOS DO CARDÁPIO --- */
+.titulo-cardapio { /* Classe base para todos os títulos */
+  display: block;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  text-transform: capitalize;
+  margin-left: auto;
+  margin-right: auto;
+  color: white; /* TODOS OS TÍTULOS SERÃO BRANCOS */
+  /* Sombra padrão para texto branco (pode ser ajustada se o fundo da seção normal for muito claro) */
+  text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.30);
+  letter-spacing: 0.03em; /* Um leve espaçamento para legibilidade */
+  transition: text-shadow 0.3s ease;
+}
+
+.category-content-section > .titulo-cardapio:first-of-type {
+    margin-top: 0 !important;
+}
+
+/* Título Principal da Categoria (H2 - ex: "Pastéis") */
+.titulo-categoria-principal {
+  font-size: 1.8rem; /* */
+  font-weight: var(--fw-bold); /* */
+  margin-bottom: 2rem; /* */
+  border-bottom: 0.25rem solid var(--brand-color); /* A borda inferior permanece com a cor da marca */
+  padding-bottom: 0.5rem; /* */
+}
+
+/* Títulos de Subseção (H3 - ex: "Pastéis Salgados") */
+.titulo-grupo-sabor {
+  font-size: 1.5rem;
+  font-weight: var(--fw-semibold);
+  margin-top: 2.5rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  position: relative;
+}
+
+.titulo-grupo-sabor::before,
+.titulo-grupo-sabor::after {
+  content: ""; /* Conteúdo vazio, a forma virá do background */
+  display: inline-block;
+  width: 1.5em;  /* Largura do "hífen" */
+  height: 0.12em; /* Altura/espessura do "hífen", proporcional ao tamanho da fonte */
+  background-color: var(--brand-color); /* "Hífens" com a cor da marca */
+  border-radius: 3px; /* Bordas levemente arredondadas para os "hífens" */
+  margin-inline: 0.75em; /* Espaçamento entre o "hífen" e o texto do título */
+}
+
+/* Títulos de Variação (H4 - ex: "Chocolate") */
+.titulo-variacao-sabor {
+  font-size: 1.3rem; /* */
+  font-weight: var(--fw-medium); /* */
+  margin-top: 2rem; /* */
+  margin-bottom: 1.25rem; /* Ajustado */
+}
+
+/* Estilos específicos para títulos dentro de seções com imagem de fundo */
+section.category-section-with-bg .titulo-cardapio {
+  /* A cor branca já é padrão e é ideal para fundos com imagem escura */
+  text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.7); /* Sombra mais pronunciada para melhor leitura sobre imagens */
+}
+
+/* Os estilos de ::before e ::after do .titulo-grupo-sabor (hífens) já usarão var(--brand-color) */
+/* e o texto já será branco, o que deve contrastar bem com o overlay escuro. */
+
+/* --- FIM DOS ESTILOS PARA OS NOVOS TÍTULOS --- */
+
+
 .grid-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(18.75rem, 1fr)); /* 300px */
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
   gap: 1.5rem;
   width: 100%;
+  margin-bottom: 2.5rem;
 }
 
-/* Keyframes para a animação de "saltinho" no hover (para todos os cards) */
+/* Keyframes */
 @keyframes subtleJumpEffect {
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-0.20rem); /* -4px */
-  }
-  100% {
-    transform: translateY(0);
-  }
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+  100% { transform: translateY(0); }
 }
 
-/* Keyframes para a animação da BOX-SHADOW do CARD DESTACADO no hover */
 @keyframes cardDestaqueBoxShadowHover {
-  0% {
-    box-shadow: 0 0 0.625rem rgba(249, 112, 21, 0.5); /* Sombra base do destaque */
-  }
-  50% {
-    box-shadow: 0 0 0.8rem rgba(249, 112, 21, 0.65); /* Sombra um pouco mais intensa e espalhada */
-  }
-  100% {
-    box-shadow: 0 0 0.625rem rgba(249, 112, 21, 0.5);
-  }
+  0% { box-shadow: 0 0 0.625rem rgba(249, 112, 21, 0.5); }
+  50% { box-shadow: 0 0 0.8rem rgba(249, 112, 21, 0.65); }
+  100% { box-shadow: 0 0 0.625rem rgba(249, 112, 21, 0.5); }
 }
 
-/* Keyframes para a animação do SELO "Destaque!" no hover do card destacado */
 @keyframes seloDestaqueAnimacaoHover {
-  0% {
-    transform: scale(1) rotate(0deg);
-  }
-  25% {
-    transform: scale(1.03) rotate(-0.75deg); /* Shake e pulse sutis */
-  }
-  50% {
-    transform: scale(0.97) rotate(0.75deg);
-  }
-  75% {
-    transform: scale(1.03) rotate(0deg);
-  }
-  100% {
-    transform: scale(1) rotate(0deg);
-  }
+  0%   { transform: translate(-50%, -50%) scale(1)    rotate(0deg); }
+  25%  { transform: translate(-50%, -50%) scale(1.05) rotate(-3deg); }
+  50%  { transform: translate(-50%, -50%) scale(0.95) rotate(3deg); }
+  75%  { transform: translate(-50%, -50%) scale(1.05) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) scale(1)    rotate(0deg); }
 }
 
 /* Card dos itens do cardápio */
 .menu-card {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   background-color: white;
-  border-radius: 1rem;
-  overflow: hidden;
-  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1); /* 4px 8px */
-  /* As propriedades opacity, transform e as transições relacionadas à animação de surgimento foram removidas */
-  transition: box-shadow 0.25s ease; /* Mantém apenas a transição da sombra */
+  border-radius: 0.5rem;
+  box-shadow: 0 0.2rem 0.6rem rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.25s ease;
+  position: relative;
+  min-height: 130px;
+}
+
+@media (hover: hover) and (min-width: 769px) {
+  .menu-card {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .menu-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.375rem 1rem rgba(0, 0, 0, 0.12);
+    animation: subtleJumpEffect 0.6s ease-out forwards;
+  }
+
+  .menu-card.item-destacado:hover {
+    animation: cardDestaqueBoxShadowHover 1.8s infinite ease-in-out,
+               subtleJumpEffect 0.6s ease-out forwards;
+    box-shadow: 0 0.4rem 1.2rem rgba(249, 112, 21, 0.25);
+  }
+
+  .menu-card.item-destacado:hover::before {
+    animation: seloDestaqueAnimacaoHover 1.2s infinite ease-in-out;
+  }
+
+  .menu-card:hover .card-price-inline {
+    color: rgba(249, 112, 21, 0.9);
+  }
 }
 
 .menu-card:hover {
-  /* Aplica o efeito de saltinho a todos os cards no hover */
-  animation: subtleJumpEffect 0.6s ease-out forwards;
-
-  /* A box-shadow do hover normal é um pouco mais pronunciada,
-     mas para o item destacado, a animação de box-shadow prevalecerá. */
-  box-shadow: 0 0.375rem 0.75rem rgba(0, 0, 0, 0.15); /* 6px 12px */
+  box-shadow: 0 0.375rem 1rem rgba(0, 0, 0, 0.12);
+}
+.menu-card.item-destacado:hover {
+  box-shadow: 0 0.4rem 1.2rem rgba(249, 112, 21, 0.25);
 }
 
-/* A classe .menu-card.is-visible foi removida pois não é mais necessária para a animação de surgimento */
 
-.card-image-container {
-  position: relative;
-  width: 100%;
-  height: 12.5rem; /* 200px */
+section.category-section-with-bg .menu-card {
+  background-color: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 0.2rem 0.8rem rgba(0, 0, 0, 0.12);
 }
 
-.card-image {
+.card-image-wrapper {
+  flex-shrink: 0;
+  width: 120px;
+  background-color: #e9ecef;
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+  overflow: hidden;
+  display: flex;
+  align-items: stretch;
+}
+
+.item-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
+}
+.item-image.fallback-image {
+  object-fit: contain;
+  padding: 0.5rem;
 }
 
-.card-price {
-  position: absolute;
-  top: 0.625rem; /* 10px */
-  right: 0.625rem; /* 10px */
-  background-color: var(--brand-color);
-  opacity: 0.9;
-  color: white;
-  padding: 0.5rem 0.75rem;
-  border-radius: 0.5rem;
-  font-weight: var(--fw-semibold);
-  font-size: var(--fs-medium);
+.card-details {
+  flex-grow: 1;
+  padding: 0.75rem 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
 }
 
-.card-content {
-  padding: 1rem;
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.4rem;
+  gap: 0.5rem;
 }
 
 .card-title {
-  font-size: 1.125rem; /* 18px */
+  font-size: 1.05rem;
   font-weight: var(--fw-semibold);
-  margin-bottom: 0.5rem;
-  color: #333;
+  color: #2c3e50; /* Cor do título do card, não afetado pela mudança dos títulos de seção */
+  margin-bottom: 0;
+  white-space: normal;
+  flex-grow: 1;
+  margin-right: 0.5rem;
+  opacity: 1;
+}
+
+.card-price-inline {
+  font-weight: var(--fw-bold);
+  color: rgba(249, 112, 21, 0.75);
+  opacity: 1;
+  font-size: 1rem;
+  white-space: nowrap;
+  text-align: right;
+  transition: color 0.3s ease;
 }
 
 .card-description {
-  font-size: 0.875rem; /* 14px */
-  color: #666;
-  line-height: 1.4;
+  font-size: 0.825rem;
+  color: #555e68; /* Cor da descrição do card */
+  line-height: 1.45;
+  margin-bottom: 0;
+  opacity: 1;
 }
 
-@media (max-width: 768px) {
-  .grid-container {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (min-width: 1024px) {
-  .grid-container {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-/* Estilos específicos para o card destacado */
 .menu-card.item-destacado {
-  border: 0.125rem solid #f9701554; /* 2px */
-  position: relative;
-  /* Box-shadow base para o item destacado (sem hover) */
-  box-shadow: 0 0.05rem 0.3rem rgba(249, 112, 21, 0.5);
-  transition: border 0.25s ease; /* A transição da box-shadow foi movida para a regra .menu-card principal */
+  border-left: 4px solid var(--brand-color);
 }
 
-.menu-card.item-destacado:hover {
-  /* Animação da box-shadow para o card destacado no hover.
-     Isso substituirá a box-shadow definida em .menu-card:hover,
-     mas manterá a animação subtleJumpEffect (que mexe no transform). */
-  box-shadow: 0 0 1rem rgba(249, 112, 21, 0.76);
-  border: 0.125rem solid #f97015; /* 2px */
-  animation: cardDestaqueBoxShadowHover 1.8s infinite ease-in-out,
-             subtleJumpEffect 0.6s ease-out forwards; /* Mantém o salto e adiciona pulsação da sombra */
+section.category-section-with-bg .menu-card.item-destacado {
+    background-color: rgba(255, 255, 255, 0.98);
 }
 
-@media (width <= 26.5625rem) {
-  .menu-card.item-destacado {
-  border: 0.125rem solid #f97015c5;
-  }
-}
-
-.menu-card.item-destacado::after {
-  content: "Destaque!";
+.menu-card.item-destacado::before {
+  content: attr(data-selo-texto);
   position: absolute;
-  top: 0.625rem; /* 10px */
-  left: 0.625rem; /* 10px */
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background-color: var(--brand-color);
   color: white;
-  padding: 0.1875rem 0.625rem; /* 3px 10px */
-  border-radius: 0.9375rem; /* 15px */
-  font-size: 0.75rem;
+  padding: 0.25rem 0.8rem;
+  border-radius: 0.9375rem;
+  font-size: 0.7rem;
   font-weight: bold;
-  z-index: 1;
-  box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.2); /* 2px 4px */
-  /* Prepara para a animação de transform, se necessário */
-  transform-origin: center;
+  z-index: 5;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  transform-origin: center center;
+  white-space: nowrap;
 }
 
-.menu-card.item-destacado:hover::after {
-  /* Animação do selo "Destaque!" apenas no hover do card */
-  animation: seloDestaqueAnimacaoHover 1.2s infinite ease-in-out;
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .grid-container {
+     grid-template-columns: 1fr;
+  }
+
+  .titulo-categoria-principal {
+    font-size: 1.6rem;
+  }
+  .titulo-grupo-sabor { /* H3 */
+    font-size: 1.3rem;
+  }
+  .titulo-variacao-sabor { /* H4 */
+    font-size: 1.15rem;
+  }
+
+  .menu-card {
+    min-height: 130px;
+  }
+  .card-image-wrapper {
+    width: 115px;
+  }
+  .card-details {
+    padding: 0.6rem 0.8rem;
+  }
+  .card-title {
+    font-size: 1rem;
+  }
+  .card-price-inline {
+    font-size: 0.95rem;
+    color: rgba(249, 112, 21, 0.9);
+    opacity: 1;
+  }
+  .menu-card.item-destacado::before {
+    font-size: 0.65rem;
+    padding: 0.2rem 0.6rem;
+  }
+}
+
+@media (max-width: 425px) {
+  section.category-section-with-bg {
+    padding: 2rem 1rem;
+    padding-bottom: 80px;
+  }
+  section.category-section-with-bg::after {
+    height: 80px;
+  }
+  section:not(.category-section-with-bg) {
+    padding: 1.5rem 0.5rem;
+  }
+  .grid-container {
+    gap: 1rem;
+    grid-template-columns: 1fr;
+  }
+
+  .titulo-categoria-principal {
+    font-size: 1.5rem;
+  }
+  .titulo-grupo-sabor { /* H3 */
+    font-size: 1.2rem;
+  }
+   .titulo-variacao-sabor { /* H4 */
+    font-size: 1.1rem;
+  }
+
+  .menu-card {
+    min-height: 120px;
+  }
+  .card-image-wrapper {
+    width: 100px;
+  }
+  .card-details {
+    padding: 0.5rem 0.75rem;
+  }
+  .card-title {
+    font-size: 0.9rem;
+  }
+  .card-price-inline {
+    font-size: 0.85rem;
+  }
+  .card-description {
+    font-size: 0.75rem;
+  }
+  .menu-card.item-destacado::before {
+    font-size: 0.6rem;
+    padding: 0.15rem 0.5rem;
+  }
 }
