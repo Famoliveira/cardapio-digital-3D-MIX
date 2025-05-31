@@ -18,9 +18,10 @@ const categorias = [
     imagemFundo: 'assets/category-backgrounds/pizzas-bg.jpg'
   },
   {
-    id: 'Hamburgeres', nome: 'Hamburgeres',
-    icon: 'assets/icons/Hamburgeres.png',
-    imagemFundo: 'assets/category-backgrounds/Hamburgeres-bg.jpg'
+    id: 'hamburgueres', // ID corrigido: minúsculas
+    nome: 'Hambúrgueres', // Nome de exibição
+    icon: 'assets/icons/hamburgueres.png', // Caminho corrigido: minúsculas
+    imagemFundo: 'assets/category-backgrounds/hamburgueres-bg.jpg' // Caminho corrigido: minúsculas
   },
   {
     id: 'pasteis', nome: 'Pastéis',
@@ -52,7 +53,7 @@ const categorias = [
 // Dados do cardápio
 const cardapio = {
   combos: {
-    tipoEstrutura: 'hierarquica', 
+    tipoEstrutura: 'hierarquica',
     observacoesGerais: [
       "Pizza de bacon não entra no combo.",
       "Borda recheada: Catupiry, Cheddar, Chocolate ou Queijo – R$ 10,00",
@@ -66,213 +67,58 @@ const cardapio = {
         idSubsecao: 'combos-pizza',
         grupos: [
           {
-            // nomeGrupo: 'Opções de Pizza Combo', // Opcional
             itens: [
-              { 
-                id: 1, 
-                nome: 'Combo 1', 
-                descricao: 'Pizza Grande (35 cm) + Pizza Grande (35 cm) + Pizza Pequena Doce', 
-                preco: 94.90, 
-                destaque: true 
-              },
-              { 
-                id: 2, 
-                nome: 'Combo 2', 
-                descricao: 'Pizza Grande (35 cm) + Pizza Pequena (doce ou salgada) + Refrigerante', 
-                preco: 77.00, 
-                destaque: false 
-              },
-              { 
-                id: 3, 
-                nome: 'Combo 3', 
-                descricao: 'Pizza Família (40 cm) + Pizza Grande (35 cm)', 
-                preco: 91.90, 
-                destaque: false 
-              },
-              { 
-                id: 4, 
-                nome: 'Combo 4', 
-                descricao: 'Pizza Família (40 cm) + Pizza Família (40 cm) + Pizza Grande (35 cm) (doce ou salgada)', 
-                preco: 119.90, 
-                destaque: true 
-              },
-              { 
-                id: 5, 
-                nome: 'Combo 5', 
-                descricao: '3 Pizzas Grandes (35 cm)', 
-                preco: 105.90, 
-                destaque: false 
-              },
-              { 
-                id: 6, 
-                nome: 'Combo 6', 
-                descricao: 'Pizza Média (30 cm) + Refrigerante', 
-                preco: 41.90, 
-                destaque: false 
-              },
-              { 
-                id: 7, 
-                nome: 'Combo 7', 
-                descricao: 'Na compra de uma Pizza Grande, você ganha um Refrigerante', 
-                preco: 74.90, 
-                destaque: false 
-              }
+              { id: 1, nome: 'Combo 1', descricao: 'Pizza Grande (35 cm) + Pizza Grande (35 cm) + Pizza Pequena Doce', preco: 94.90, destaque: true },
+              { id: 2, nome: 'Combo 2', descricao: 'Pizza Grande (35 cm) + Pizza Pequena (doce ou salgada) + Refrigerante', preco: 77.00, destaque: false },
+              { id: 3, nome: 'Combo 3', descricao: 'Pizza Família (40 cm) + Pizza Grande (35 cm)', preco: 91.90, destaque: false },
+              { id: 4, nome: 'Combo 4', descricao: 'Pizza Família (40 cm) + Pizza Família (40 cm) + Pizza Grande (35 cm) (doce ou salgada)', preco: 119.90, destaque: true },
+              { id: 5, nome: 'Combo 5', descricao: '3 Pizzas Grandes (35 cm)', preco: 105.90, destaque: false },
+              { id: 6, nome: 'Combo 6', descricao: 'Pizza Média (30 cm) + Refrigerante', preco: 41.90, destaque: false },
+              { id: 7, nome: 'Combo 7', descricao: 'Na compra de uma Pizza Grande, você ganha um Refrigerante', preco: 74.90, destaque: false }
             ]
           }
         ]
       },
       {
-        tituloSubsecao: 'Combos de Lanche', 
+        tituloSubsecao: 'Combos de Lanche',
         idSubsecao: 'combos-lanche',
         grupos: [
           {
-            // nomeGrupo: 'Opções de Lanche Combo', // Opcional
             itens: [
-              {
-                id: 8, 
-                nome: 'Trio 19',
-                descricao: 'X-tudo + Batata pequena + 1 Guaravita',
-                preco: 32.00,
-                destaque: false
-              },
-              {
-                id: 9,
-                nome: 'Combo Mix',
-                descricao: 'X-tudo + 1 Milk Shake (300 ml)',
-                preco: 29.90,
-                destaque: true 
-              },
-              {
-                id: 10,
-                nome: 'Combo X-Egg',
-                descricao: '5 Egg Burguer + leve 1 Refrigerante',
-                preco: 59.90,
-                destaque: false
-              },
-              {
-                id: 11,
-                nome: 'Combo Bom de Boca',
-                descricao: '2 Hamburgeres + 1 porção de batata + leve 2 Guaravitas grátis',
-                preco: 45.00,
-                destaque: false
-              },
-              {
-                id: 12,
-                nome: 'Super Combo (Egg Burguer)', // Renomeado para evitar conflito com o novo Super Combo
-                descricao: '3 Egg Burguer + 1 Refrigerante + 1 Batata Grande',
-                preco: 49.90,
-                destaque: true
-              },
-              {
-                id: 13, // Novo ID
-                nome: 'Mega Combo',
-                descricao: '3 × Egg Bacon + 3 porções de batata + 1 refrigerante',
-                preco: 79.90,
-                destaque: false
-              },
-              {
-                id: 14, // Novo ID
-                nome: 'Dia do X-Bacon',
-                descricao: '3 × X-Bacon + 3 porções de batata + 1 refrigerante (ganhe o refri!)',
-                preco: 73.00,
-                destaque: true
-              },
-              {
-                id: 15, // Novo ID
-                nome: 'Combo Top',
-                descricao: '3 × Egg Burguer + 3 porções de batata + 1 refrigerante',
-                preco: 59.90,
-                destaque: false
-              },
-              {
-                id: 16, // Novo ID
-                nome: 'Super Combo (X-Tudo)', // Este é o novo Super Combo da lista
-                descricao: '3 × X-Tudo + porções de batata + 1 refrigerante',
-                preco: 94.50,
-                destaque: true
-              },
-              {
-                id: 17, // Novo ID
-                nome: 'Trio 04',
-                descricao: '1 × X-Egg Burguer + batata pequena + 1 Guaravita',
-                preco: 21.00,
-                destaque: false
-              },
-              {
-                id: 18, // Novo ID
-                nome: 'Trio 28',
-                descricao: '1 × X-Grill (com carne de picanha) + batata pequena + 1 Guaravita',
-                preco: 24.50,
-                destaque: false
-              }
+              { id: 8, nome: 'Trio 19', descricao: 'X-tudo + Batata pequena + 1 Guaravita', preco: 32.00, destaque: false },
+              { id: 9, nome: 'Combo Mix', descricao: 'X-tudo + 1 Milk Shake (300 ml)', preco: 29.90, destaque: true },
+              { id: 10, nome: 'Combo X-Egg', descricao: '5 Egg Burguer + leve 1 Refrigerante', preco: 59.90, destaque: false },
+              { id: 11, nome: 'Combo Bom de Boca', descricao: '2 Hambúrgueres + 1 porção de batata + leve 2 Guaravitas grátis', preco: 45.00, destaque: false },
+              { id: 12, nome: 'Super Combo (Egg Burguer)', descricao: '3 Egg Burguer + 1 Refrigerante + 1 Batata Grande', preco: 49.90, destaque: true },
+              { id: 13, nome: 'Mega Combo', descricao: '3 × Egg Bacon + 3 porções de batata + 1 refrigerante', preco: 79.90, destaque: false },
+              { id: 14, nome: 'Dia do X-Bacon', descricao: '3 × X-Bacon + 3 porções de batata + 1 refrigerante (ganhe o refri!)', preco: 73.00, destaque: true },
+              { id: 15, nome: 'Combo Top', descricao: '3 × Egg Burguer + 3 porções de batata + 1 refrigerante', preco: 59.90, destaque: false },
+              { id: 16, nome: 'Super Combo (X-Tudo)', descricao: '3 × X-Tudo + porções de batata + 1 refrigerante', preco: 94.50, destaque: true },
+              { id: 17, nome: 'Trio 04', descricao: '1 × X-Egg Burguer + batata pequena + 1 Guaravita', preco: 21.00, destaque: false },
+              { id: 18, nome: 'Trio 28', descricao: '1 × X-Grill (com carne de picanha) + batata pequena + 1 Guaravita', preco: 24.50, destaque: false }
             ]
           }
         ]
       },
-      // NOVA SUBSEÇÃO ADICIONADA AQUI
       {
         tituloSubsecao: 'Promoções de Ter. a Qui.',
         idSubsecao: 'promocoes-seg-sex',
         grupos: [
           {
-            // nomeGrupo: 'Promoções Especiais', // Opcional
             itens: [
-              {
-                id: 19, // ID continua a partir do último combo de lanche
-                nome: 'Hambúrguer + Guaravita',
-                descricao: '1 Hambúrguer simples acompanhado de 1 Guaravita.',
-                preco: 13.00,
-                destaque: false // Defina como true se quiser destacar
-              },
-              {
-                id: 20,
-                nome: 'X Burguer Duplo + Guaravita',
-                descricao: '2 X Burguer acompanhados de 1 Guaravita.',
-                preco: 19.80,
-                destaque: false 
-              },
-              {
-                id: 21,
-                nome: 'X Egg Burguer Duplo + Guaravita',
-                descricao: '2 X Egg Burguer acompanhados de 1 Guaravita.',
-                preco: 24.90,
-                destaque: false
-              },
-              {
-                id: 22,
-                nome: 'X Frango Duplo + Guaravita',
-                descricao: '2 X Frango acompanhados de 1 Guaravita.',
-                preco: 32.90,
-                destaque: false
-              },
-              {
-                id: 23,
-                nome: 'X Egg Frango Duplo + Guaravita',
-                descricao: '2 X Egg Frango acompanhados de 1 Guaravita.',
-                preco: 34.90,
-                destaque: false
-              },
-              {
-                id: 24,
-                nome: 'X Bacon Duplo + Guaravita',
-                descricao: '2 X Bacon acompanhados de 1 Guaravita.',
-                preco: 32.90,
-                destaque: false
-              },
-              {
-                id: 25,
-                nome: 'X Egg Bacon Duplo + Guaravita',
-                descricao: '2 X Egg Bacon acompanhados de 1 Guaravita.',
-                preco: 35.90,
-                destaque: false
-              }
+              { id: 19, nome: 'Hambúrguer + Guaravita', descricao: '1 Hambúrguer simples acompanhado de 1 Guaravita.', preco: 13.00, destaque: false },
+              { id: 20, nome: 'X Burguer Duplo + Guaravita', descricao: '2 X Burguer acompanhados de 1 Guaravita.', preco: 19.80, destaque: false },
+              { id: 21, nome: 'X Egg Burguer Duplo + Guaravita', descricao: '2 X Egg Burguer acompanhados de 1 Guaravita.', preco: 24.90, destaque: false },
+              { id: 22, nome: 'X Frango Duplo + Guaravita', descricao: '2 X Frango acompanhados de 1 Guaravita.', preco: 32.90, destaque: false },
+              { id: 23, nome: 'X Egg Frango Duplo + Guaravita', descricao: '2 X Egg Frango acompanhados de 1 Guaravita.', preco: 34.90, destaque: false },
+              { id: 24, nome: 'X Bacon Duplo + Guaravita', descricao: '2 X Bacon acompanhados de 1 Guaravita.', preco: 32.90, destaque: false },
+              { id: 25, nome: 'X Egg Bacon Duplo + Guaravita', descricao: '2 X Egg Bacon acompanhados de 1 Guaravita.', preco: 35.90, destaque: false }
             ]
           }
         ]
       }
     ]
   },
-  
   pizzas: {
     tipoEstrutura: 'hierarquica',
     observacoesGerais: [
@@ -323,9 +169,124 @@ const cardapio = {
       }
     ]
   },
-
-  Hamburgeres: [ /* Seus Hamburgeres aqui, se houver. Ex: { id: 1, nome: 'X-Burger', descricao: 'Pão, carne, queijo', preco: 15.00, destaque: false } */ ],
-
+  hamburgueres: { // Chave corrigida: minúsculas
+    tipoEstrutura: 'hierarquica',
+    subsecoes: [
+      {
+        tituloSubsecao: 'Hambúrguer com Carne',
+        idSubsecao: 'hamburgueres-carne',
+        grupos: [
+          {
+            itens: [
+              { id: 1, nome: 'HAMBÚRGUER', descricao: 'Pão, carne, salada, molho e cebola', preco: 7.00, destaque: false },
+              { id: 2, nome: 'X-BÚRGUER', descricao: 'Pão, carne, salada, queijo, molho e cebola', preco: 9.90, destaque: false },
+              { id: 3, nome: 'EGG BÚRGUER', descricao: 'Pão, carne, salada, ovo, molho e cebola', preco: 9.90, destaque: false },
+              { id: 4, nome: 'X-EGG BÚRGUER', descricao: 'Pão, carne, salada, queijo, ovo, molho e cebola', preco: 12.50, destaque: false },
+              { id: 5, nome: 'DOUBLE BÚRGUER', descricao: 'Pão, 2 carnes, salada, molho e cebola', preco: 9.90, destaque: false },
+              { id: 6, nome: 'DOUBLE X-BÚRGUER', descricao: 'Pão, 2 carnes, 2 queijos, salada, molho e cebola', preco: 17.90, destaque: false },
+              { id: 7, nome: 'DOUBLE EGG BÚRGUER', descricao: 'Pão, 2 carnes, 2 ovos, salada, molho e cebola', preco: 17.90, destaque: false },
+              { id: 8, nome: 'DOUBLE EGG X-BÚRGUER', descricao: 'Pão, 2 carnes, 2 queijos, 2 ovos, salada, molho e cebola', preco: 21.00, destaque: false },
+            ]
+          }
+        ]
+      },
+      {
+        tituloSubsecao: 'Hambúrguer com Frango',
+        idSubsecao: 'hamburgueres-frango',
+        grupos: [
+          {
+            itens: [
+              { id: 9, nome: 'FRANGO BÚRGUER', descricao: 'Pão, frango, salada, molho e cebola', preco: 14.90, destaque: false },
+              { id: 10, nome: 'X-FRANGO', descricao: 'Pão, frango, salada, queijo, molho e cebola', preco: 16.90, destaque: false },
+              { id: 11, nome: 'EGG FRANGO', descricao: 'Pão, frango, salada, ovo, molho e cebola', preco: 16.90, destaque: false },
+              { id: 12, nome: 'X-EGG FRANGO', descricao: 'Pão, frango, salada, queijo, ovo, molho e cebola', preco: 18.90, destaque: false },
+            ]
+          }
+        ]
+      },
+      {
+        tituloSubsecao: 'Hambúrguer com Bacon',
+        idSubsecao: 'hamburgueres-bacon',
+        grupos: [
+          {
+            itens: [
+              { id: 13, nome: 'X-BACON', descricao: 'Pão, carne, queijo, bacon, salada, molho e cebola', preco: 16.90, destaque: true },
+              { id: 14, nome: 'X-EGG BACON', descricao: 'Pão, carne, queijo, bacon, ovo, salada, molho e cebola', preco: 18.90, destaque: false },
+              { id: 15, nome: 'DOUBLE X-BACON', descricao: 'Pão, 2 carnes, 2 queijos, 2 bacon, salada, molho e cebola', preco: 25.90, destaque: false },
+              { id: 16, nome: 'DOUBLE X-EGG BACON', descricao: 'Pão, 2 carnes, 2 queijos, 2 ovos, 2 bacon, salada, molho e cebola', preco: 26.90, destaque: true },
+              { id: 17, nome: 'X-BACON FRANGO', descricao: 'Pão, frango, queijo, bacon, salada, molho e cebola', preco: 20.90, destaque: true },
+              { id: 18, nome: 'X-EGG BACON FRANGO', descricao: 'Pão, frango, queijo, ovo, bacon, salada, molho e cebola', preco: 22.90, destaque: true },
+              { id: 19, nome: 'X-TUDO', descricao: 'Pão, carne, frango, bacon, ovo, queijo, salada, molho e cebola', preco: 23.50, destaque: true },
+            ]
+          }
+        ]
+      },
+      {
+        tituloSubsecao: 'Hambúrguer com Calabresa',
+        idSubsecao: 'hamburgueres-calabresa',
+        grupos: [
+          {
+            itens: [
+              { id: 20, nome: 'X-CALABRESA', descricao: 'Pão, carne, calabresa, queijo, salada, molho e cebola', preco: 16.90, destaque: false },
+              { id: 21, nome: 'X-EGG CALABRESA', descricao: 'Pão, carne, calabresa, queijo, ovo, salada, molho e cebola', preco: 18.90, destaque: false },
+              { id: 22, nome: 'DOUBLE X-CALABRESA', descricao: 'Pão, 2 carnes, 2 queijos, 2 calabresas, salada, molho e cebola', preco: 25.90, destaque: false },
+              { id: 23, nome: 'DOUBLE X-EGG CALABRESA', descricao: 'Pão, 2 carnes, 2 calabresas, 2 queijos, 2 ovos, salada, molho e cebola', preco: 27.50, destaque: false },
+              { id: 24, nome: 'X-FRANGOBRESA', descricao: 'Pão, frango, calabresa, queijo, salada, molho e cebola', preco: 21.50, destaque: false },
+              { id: 25, nome: 'X-EGG FRANGOBRESA', descricao: 'Pão, frango, calabresa, queijo, ovo, salada, molho e cebola', preco: 22.90, destaque: false },
+              { id: 26, nome: 'X-TUDOBRESA', descricao: 'Pão, carne, calabresa, frango, ovo, queijo, salada, molho e cebola', preco: 24.90, destaque: true },
+            ]
+          }
+        ]
+      },
+      {
+        tituloSubsecao: 'Hambúrguer com Picanha',
+        idSubsecao: 'hamburgueres-picanha',
+        grupos: [
+          {
+            itens: [
+              { id: 27, nome: 'GRILL BÚRGUER', descricao: 'Pão, hamb. de picanha, salada, molho e cebola', preco: 11.50, destaque: false },
+              { id: 28, nome: 'X-GRILL', descricao: 'Pão, hamb. de picanha, queijo, salada, molho e cebola', preco: 16.00, destaque: false },
+              { id: 29, nome: 'EGG GRILL', descricao: 'Pão, hamb. de picanha, ovo, salada, molho e cebola', preco: 16.00, destaque: false },
+              { id: 30, nome: 'X-EGG GRILL', descricao: 'Pão, hamb. de picanha, ovo, queijo, salada, molho e cebola', preco: 18.50, destaque: false },
+              { id: 31, nome: 'DOUBLE GRILL', descricao: 'Pão, 2 hamb. de picanha, salada, molho e cebola', preco: 17.50, destaque: false },
+              { id: 32, nome: 'DOUBLE X-GRILL', descricao: 'Pão, 2 hamb. de picanha, 2 queijos, salada, molho e cebola', preco: 20.00, destaque: false },
+              { id: 33, nome: 'DOUBLE EGG GRILL', descricao: 'Pão, 2 hamb. de picanha, 2 ovos, salada, molho e cebola', preco: 20.00, destaque: false },
+              { id: 34, nome: 'DOUBLE EGG X-GRILL', descricao: 'Pão, 2 hamb. de picanha, 2 ovos, 2 queijos, salada, molho e cebola', preco: 22.90, destaque: false },
+              { id: 35, nome: 'GRILL BACON', descricao: 'Pão, hamb. de picanha, queijo, bacon, salada, molho e cebola', preco: 20.00, destaque: false },
+              { id: 36, nome: 'GRILL EGG BACON', descricao: 'Pão, hamb. de picanha, bacon, ovo, queijo, salada, molho e cebola', preco: 23.00, destaque: false },
+              { id: 37, nome: 'GRILL CALABRESA', descricao: 'Pão, hamb. de picanha, calabresa, queijo, salada, molho e cebola', preco: 21.50, destaque: false },
+              { id: 38, nome: 'GRILL EGG CALABRESA', descricao: 'Pão, hamb. de picanha, calabresa, ovo, queijo, salada, molho e cebola', preco: 23.50, destaque: false },
+              { id: 39, nome: 'DOUBLE GRILL BACON', descricao: 'Pão, 2 hamb. de picanha, 2 bacon, 2 queijos, salada, molho e cebola', preco: 26.50, destaque: false },
+              { id: 40, nome: 'DOUBLE EGG GRILL BACON', descricao: 'Pão, 2 hamb. de picanha, 2 bacon, 2 ovos, 2 queijos, salada, molho e cebola', preco: 30.90, destaque: false },
+              { id: 41, nome: 'DOUBLE GRILL CALABRESA', descricao: 'Pão, 2 hamb. de picanha, 2 calabresas, 2 queijos, salada, molho e cebola', preco: 27.00, destaque: false },
+              { id: 42, nome: 'DOUBLE EGG GRILL CALABRESA', descricao: 'Pão, 2 hamb. de picanha, 2 calabresas, 2 ovos, 2 queijos, salada, molho e cebola', preco: 29.90, destaque: false },
+            ]
+          }
+        ]
+      },
+      {
+        tituloSubsecao: 'Hambúrguer Mix',
+        idSubsecao: 'hamburgueres-mix',
+        grupos: [
+          {
+            itens: [
+              { id: 43, nome: 'GALLISBÚRGUER', descricao: 'Pão, carne, frango, salada, molho e cebola', preco: 11.50, destaque: false },
+              { id: 44, nome: 'X-GALLISBÚRGUER', descricao: 'Pão, carne, frango, queijo, salada, molho e cebola', preco: 19.90, destaque: false },
+              { id: 45, nome: 'X-EGG GALLISBÚRGUER', descricao: 'Pão, carne, frango, queijo, ovo, salada, molho e cebola', preco: 21.00, destaque: false },
+              { id: 46, nome: 'GRILL GALLIS', descricao: 'Pão, hamb. de picanha, frango, salada, molho e cebola', preco: 21.50, destaque: false },
+              { id: 47, nome: 'X-GRILL GALLIS', descricao: 'Pão, hamb. de picanha, frango, queijo, salada, molho e cebola', preco: 22.50, destaque: false },
+              { id: 48, nome: 'X-EGG GRILL GALLIS', descricao: 'Pão, hamb. de picanha, frango, queijo, ovo, salada, molho e cebola', preco: 23.90, destaque: false },
+              { id: 49, nome: 'BIG BOCÃO', descricao: 'Pão, carne, frango, bacon, calabresa, ovo, queijo, salada, molho e cebola', preco: 26.90, destaque: true },
+              { id: 50, nome: 'GRILL TUDO', descricao: 'Pão, hamb. de picanha, frango, bacon, ovo, queijo, salada, molho e cebola', preco: 28.50, destaque: true },
+              { id: 51, nome: 'GRILL TUDOBRESA', descricao: 'Pão, hamb. de picanha, frango, calabresa, ovo, queijo, salada, molho e cebola', preco: 29.70, destaque: true },
+              { id: 52, nome: 'TSUNAMI', descricao: 'Pão, hamb. de picanha, frango, 2 calabresas, 2 ovos, bacon, queijo, salada, molho e cebola', preco: 35.00, destaque: true },
+              { id: 53, nome: 'BOM DE BOCA', descricao: 'Pão, 2 carnes, 2 hamb. de picanha, frango, 2 calabresas, 2 ovos, 2 bacon, 2 queijos, salada, molho e cebola', preco: 45.00, destaque: true },
+            ]
+          }
+        ]
+      }
+    ]
+  },
   pasteis: {
     tipoEstrutura: 'hierarquica',
     subsecoes: [
@@ -666,7 +627,7 @@ const cardapio = {
               { id: 1, nome: 'Coca-Cola Lata', descricao: 'Lata 350ml', preco: 8.00, destaque: true },
               { id: 2, nome: 'Refrigerante Lata (Sabores Diversos)', descricao: 'Lata 350ml', preco: 8.00, destaque: false },
               { id: 3, nome: 'H2OH!', descricao: 'Limão ou outros sabores - Garrafa 500ml', preco: 8.00, destaque: true },
-              { id: 4, nome: 'Refrigerante Mini', descricao: 'Ideal para consumo individual', preco: 0.00, destaque: false } // PREÇO 0.00 - VERIFICAR SE É INTENCIONAL
+              { id: 4, nome: 'Refrigerante Mini', descricao: 'Ideal para consumo individual', preco: 0.00, destaque: false }
             ]
           },
           {
