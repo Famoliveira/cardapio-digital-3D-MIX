@@ -101,18 +101,19 @@ const cardapio = {
         ]
       },
       {
-        tituloSubsecao: 'Promoções de Ter. a Qui.',
-        idSubsecao: 'promocoes-seg-sex',
+        tituloSubsecao: 'Semana dose dupla',
+        idSubsecao: 'semana-dose-dupla',
         grupos: [
           {
+            nomeGrupo: 'Promoção válida de Seg. à Qui.',
             itens: [
-              { id: 19, nome: 'Hambúrguer + Guaravita', descricao: '1 Hambúrguer simples acompanhado de 1 Guaravita.', preco: 13.00, destaque: false },
-              { id: 20, nome: 'X Burguer Duplo + Guaravita', descricao: '2 X Burguer acompanhados de 1 Guaravita.', preco: 19.80, destaque: false },
-              { id: 21, nome: 'X Egg Burguer Duplo + Guaravita', descricao: '2 X Egg Burguer acompanhados de 1 Guaravita.', preco: 24.90, destaque: false },
-              { id: 22, nome: 'X Frango Duplo + Guaravita', descricao: '2 X Frango acompanhados de 1 Guaravita.', preco: 32.90, destaque: false },
-              { id: 23, nome: 'X Egg Frango Duplo + Guaravita', descricao: '2 X Egg Frango acompanhados de 1 Guaravita.', preco: 34.90, destaque: false },
-              { id: 24, nome: 'X Bacon Duplo + Guaravita', descricao: '2 X Bacon acompanhados de 1 Guaravita.', preco: 32.90, destaque: false },
-              { id: 25, nome: 'X Egg Bacon Duplo + Guaravita', descricao: '2 X Egg Bacon acompanhados de 1 Guaravita.', preco: 35.90, destaque: false }
+              { id: 19, nome: 'Hambúrguer + Hambúrguer + Guaravita', descricao: '2 Hambúrguer simples acompanhados de 1 Guaravita.', preco: 13.00, destaque: false },
+              { id: 20, nome: 'X-Burguer + X-Burguer + Guaravita', descricao: '2 X-Burguer acompanhados de 1 Guaravita.', preco: 19.80, destaque: false },
+              { id: 21, nome: 'X-Egg Burguer + X-Egg Burguer + Guaravita', descricao: '2 X-Egg Burguer acompanhados de 1 Guaravita.', preco: 24.90, destaque: false },
+              { id: 22, nome: 'X-Frango + X-Frango + Guaravita', descricao: '2 X-Frango acompanhados de 1 Guaravita.', preco: 32.90, destaque: false },
+              { id: 23, nome: 'X-Egg Frango + X-Egg Frango + Guaravita', descricao: '2 X-Egg Frango acompanhados de 1 Guaravita.', preco: 34.90, destaque: false },
+              { id: 24, nome: 'X-Bacon + X-Bacon + Guaravita', descricao: '2 X-Bacon acompanhados de 1 Guaravita.', preco: 32.90, destaque: false },
+              { id: 25, nome: 'X-Egg Bacon + X-Egg Bacon + Guaravita', descricao: '2 X-Egg Bacon acompanhados de 1 Guaravita.', preco: 35.90, destaque: false }
             ]
           }
         ]
