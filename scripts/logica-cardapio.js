@@ -4,7 +4,7 @@ import { cardapio, categorias } from './cardapio.js';
 const singularMap = {
   combos: 'combo',
   pizzas: 'pizza',
-  lanches: 'lanche',
+  Hamburgeres: 'lanche',
   pasteis: 'pastel',
   esfihas: 'esfiha',
   crepes: 'crepe',

@@ -18,9 +18,9 @@ const categorias = [
     imagemFundo: 'assets/category-backgrounds/pizzas-bg.jpg'
   },
   {
-    id: 'lanches', nome: 'Lanches',
-    icon: 'assets/icons/lanches.png',
-    imagemFundo: 'assets/category-backgrounds/lanches-bg.jpg'
+    id: 'Hamburgeres', nome: 'Hamburgeres',
+    icon: 'assets/icons/Hamburgeres.png',
+    imagemFundo: 'assets/category-backgrounds/Hamburgeres-bg.jpg'
   },
   {
     id: 'pasteis', nome: 'Pastéis',
@@ -152,7 +152,7 @@ const cardapio = {
               {
                 id: 11,
                 nome: 'Combo Bom de Boca',
-                descricao: '2 lanches + 1 porção de batata + leve 2 Guaravitas grátis',
+                descricao: '2 Hamburgeres + 1 porção de batata + leve 2 Guaravitas grátis',
                 preco: 45.00,
                 destaque: false
               },
@@ -324,7 +324,7 @@ const cardapio = {
     ]
   },
 
-  lanches: [ /* Seus lanches aqui, se houver. Ex: { id: 1, nome: 'X-Burger', descricao: 'Pão, carne, queijo', preco: 15.00, destaque: false } */ ],
+  Hamburgeres: [ /* Seus Hamburgeres aqui, se houver. Ex: { id: 1, nome: 'X-Burger', descricao: 'Pão, carne, queijo', preco: 15.00, destaque: false } */ ],
 
   pasteis: {
     tipoEstrutura: 'hierarquica',
