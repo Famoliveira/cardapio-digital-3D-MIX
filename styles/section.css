@@ -158,7 +158,8 @@ section.category-section-with-bg .titulo-variacao-sabor {
   box-shadow: 0 0.2rem 0.6rem rgba(0, 0, 0, 0.08);
   transition: box-shadow 0.25s ease;
   position: relative;
-  min-height: 130px;
+  min-height: 130px; /* Você pode ajustar ou remover se a altura do card-image-wrapper for suficiente */
+  /* align-items: stretch; é o padrão para itens flex, o que fará o wrapper da imagem esticar */
 }
 
 @media (hover: hover) and (min-width: 769px) {
@@ -198,12 +199,15 @@ section.category-section-with-bg .menu-card {
 .card-image-wrapper {
   flex-shrink: 0;
   width: 120px;
+  /* REMOVIDO height: 120px; para permitir que estique */
+  /* aspect-ratio: 1 / 1; pode ser uma alternativa se quiser manter quadrado e cortar mais */
   background-color: #e9ecef;
   border-top-left-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem;
-  overflow: hidden;
-  display: flex;
-  align-items: stretch;
+  overflow: hidden; /* IMPORTANTE: Esconde as partes da imagem que excedem o wrapper */
+  display: flex; /* Mantido para alinhar a imagem internamente se necessário */
+  align-items: center; 
+  justify-content: center;
   position: relative;
 }
 
@@ -233,12 +237,12 @@ section.category-section-with-bg .menu-card {
 
 .item-image {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: 100%; /* A imagem tentará preencher 100% da altura do .card-image-wrapper */
+  object-fit: cover; /* IMPORTANTE: Faz a imagem cobrir o espaço, cortando o excesso */
   display: block;
 }
 .item-image.fallback-image {
-  object-fit: contain;
+  object-fit: contain; 
   padding: 0.5rem;
 }
 
@@ -247,9 +251,10 @@ section.category-section-with-bg .menu-card {
   padding: 0.75rem 1rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: center; /* Centraliza o conteúdo de detalhes verticalmente se houver espaço extra */
   position: relative;
   z-index: 1;
+  min-height: 114px; /* Garante uma altura mínima para os detalhes, para que a imagem não fique muito pequena se o texto for curto. Ajuste conforme necessário (130px do card - 2*padding ~ 114px)*/
 }
 
 .card-header {
@@ -293,15 +298,13 @@ section.category-section-with-bg .menu-card {
 /* Separador fino para preços múltiplos */
 hr.price-separator {
   border: none;
-  height: 1px; /* Linha fina */
-  /* Cor da marca com 50% de opacidade. (249, 112, 21 são os valores RGB de #f97015) */
+  height: 1px; 
   background-color: rgba(249, 112, 21, 0.5);
   margin-top: 0.8rem;
   margin-bottom: 0.8rem;
 }
 
 section.category-section-with-bg hr.price-separator {
-  /* Em fundos escuros, uma cor clara com opacidade funciona melhor */
   background-color: #f9701581;
 }
 
@@ -315,7 +318,7 @@ section.category-section-with-bg hr.price-separator {
 
 .card-prices-multisize span {
   font-size: 0.9rem;
-  color: #485460; /* Cor do texto do tamanho (Ex: "Grande (8 fatias):") */
+  color: #485460; 
   font-weight: var(--fw-regular);
   line-height: 1.4;
   opacity: 1;
@@ -323,7 +326,7 @@ section.category-section-with-bg hr.price-separator {
 }
 
 .card-prices-multisize span .price-value {
-  color: var(--brand-color); /* Cor da marca para o valor do preço */
+  color: var(--brand-color); 
   font-weight: var(--fw-bold);
 }
 
@@ -451,11 +454,9 @@ section.category-section-with-bg .category-observacoes ul li::before {
     margin-bottom: 0.7rem;
   }
 
-  .menu-card {
-    min-height: 130px;
-  }
   .card-image-wrapper {
     width: 115px;
+    /* REMOVIDO height: 115px; */
   }
   .item-id-badge {
     width: 1.5rem;
@@ -466,6 +467,7 @@ section.category-section-with-bg .category-observacoes ul li::before {
   }
   .card-details {
     padding: 0.6rem 0.8rem;
+    min-height: 100px; /* Ajuste da altura mínima para os detalhes em telas menores */
   }
   .card-title {
     font-size: 1rem;
@@ -528,11 +530,9 @@ section.category-section-with-bg .category-observacoes ul li::before {
     font-size: 1.1rem;
   }
 
-  .menu-card {
-    min-height: 120px;
-  }
   .card-image-wrapper {
     width: 100px;
+    /* REMOVIDO height: 100px; */
   }
   .item-id-badge {
     width: 1.4rem;
@@ -543,6 +543,7 @@ section.category-section-with-bg .category-observacoes ul li::before {
   }
   .card-details {
     padding: 0.5rem 0.75rem;
+    min-height: 90px; /* Ajuste da altura mínima para os detalhes em telas ainda menores */
   }
   .card-title {
     font-size: 0.9rem;
