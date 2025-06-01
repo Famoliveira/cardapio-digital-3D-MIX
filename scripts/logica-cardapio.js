@@ -163,9 +163,15 @@ function criarCardItem(item, categoriaIdParaPastaImagens, categoriaIdAtualSendoE
   const card = document.createElement('div');
   card.className = 'menu-card item'; // Adiciona classe 'item' para o carrinho
 
+  // Cria ID único combinando categoria e item ID para evitar conflitos
+  const categoriaOriginal = item.originalCategoriaId || categoriaIdParaPastaImagens;
+  const uniqueItemId = `${categoriaOriginal}-${item.id}`;
+  
   // Adiciona atributos de dados para o carrinho
-  card.dataset.itemId = item.id;
+  card.dataset.itemId = uniqueItemId;
   card.dataset.itemNome = item.nome;
+  card.dataset.categoriaId = categoriaOriginal;
+  card.dataset.originalItemId = item.id;
   
   // Define o preço para o carrinho (usa preço único ou o primeiro preço múltiplo)
   let precoParaCarrinho = 0;

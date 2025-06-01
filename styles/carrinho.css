@@ -330,17 +330,14 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+  position: relative;
 }
 
-#finalizar-pedido::before {
-  content: '';
-  background-image: url('../assets/icons/whatsapp.png');
-  background-size: 20px 20px;
-  background-repeat: no-repeat;
-  background-position: center;
+#finalizar-pedido img {
   width: 20px;
   height: 20px;
-  filter: brightness(0) invert(1); /* Torna o ícone branco */
+  filter: brightness(0) invert(1);
+  flex-shrink: 0;
 }
 
 #finalizar-pedido:hover {
@@ -527,11 +524,11 @@
     width: 95%;
     padding: 1.5rem;
   }
-    #cart-bubble {
+  #cart-bubble {
     width: 60px;
     height: 60px;
     right: 20px;
-    bottom: 20px;
+    bottom: 90px;
   }
     #cart-bubble::before {
     font-size: 24px;
