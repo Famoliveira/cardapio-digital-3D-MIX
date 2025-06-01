@@ -1077,24 +1077,27 @@
   border-color: #3b82f6;
 }
 
-.payment-modal-content .payment-card::after {
-  content: 'Clique para selecionar';
-  position: absolute;
-  bottom: -30px;
-  left: 0;
-  right: 0;
-  background: linear-gradient(135deg, #2563eb, #3b82f6);
-  color: white;
-  padding: 0.5rem;
-  text-align: center;
-  font-size: 0.75rem;
-  font-weight: 600;
-  transition: bottom 0.3s ease;
-  border-radius: 0 0 12px 12px;
-}
+/* Desktop only - Funcionalidade de expansão com "Clique para selecionar" */
+@media (min-width: 48rem) {
+  .payment-modal-content .payment-card::after {
+    content: 'Clique para selecionar';
+    position: absolute;
+    bottom: -30px;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, #2563eb, #3b82f6);
+    color: white;
+    padding: 0.5rem;
+    text-align: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    transition: bottom 0.3s ease;
+    border-radius: 0 0 12px 12px;
+  }
 
-.payment-modal-content .payment-card:hover::after {
-  bottom: 0;
+  .payment-modal-content .payment-card:hover::after {
+    bottom: 0;
+  }
 }
 
 /* ===== MODAL DE ESCOLHA DO TIPO DE PEDIDO ===== */
@@ -1450,9 +1453,39 @@
   }
 }
 
+/* Mobile - Linha azul exclusiva sem funcionalidade de expansão */
+@media (max-width: 47.9375rem) {
+  /* Remover completamente a funcionalidade de expansão no mobile */
+  .payment-modal-content .payment-card::after {
+    display: none !important;
+  }
+  
+  .payment-modal-content .payment-card:hover::after {
+    display: none !important;
+  }
+  
+  /* Estilização mobile - apenas linha azul embaixo */
+  .payment-modal-content .payment-card {
+    border-bottom: 3px solid #2563eb !important;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .payment-modal-content .payment-card:hover {
+    transform: none;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+    border-color: #f0f0f0;
+    border-bottom-color: #2563eb !important;
+  }
+  
+  .payment-modal-content .payment-card.selected {
+    border-bottom-color: #1d4ed8 !important;
+    border-bottom-width: 4px;
+  }
+}
+
 /* Ajustes específicos para mobile na tela de pagamento */
-@media (max-width: 768px) {
-  /* Ajustar posição do X para não sobrepor o título */
+@media (max-width: 47.9375rem) {  /* Ajustar posição do X para não sobrepor o título */
   #payment-modal .close {
     top: 15px;
     right: 15px;
@@ -1466,65 +1499,20 @@
     padding-top: 10px;
   }
   
-  /* Remover texto "clique para" no mobile - mostrar apenas linha azul */
-  .payment-option::before {
-    content: '' !important;
+  /* Garantir grid responsivo para mobile */
+  .payment-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
   }
   
-  .payment-option .payment-text {
-    display: none;
-  }
-  
-  /* Garantir que apenas a linha azul apareça */
-  .payment-option {
-    border-bottom: 3px solid #007bff;
-    padding: 15px 0;
-    min-height: auto;
-  }
-  
-  /* Ajustar ícones para mobile */
-  .payment-option img {
-    width: 40px;
-    height: 40px;
-    margin: 0 auto;
-    display: block;
-  }
-  
-  /* Layout mais compacto para mobile */
-  .payment-options {
-    gap: 10px;
-    padding: 10px 0;
-  }
-  
-  /* Forçar remoção de qualquer texto adicional nos botões de pagamento */
-  .payment-option span:not(.payment-icon) {
-    display: none !important;
-  }
-  
-  .payment-option::after {
-    content: none !important;
-  }
-  
-  /* Garantir layout clean apenas com ícones e linha azul */
-  .payment-option {
-    text-align: center;
-    border-bottom: 3px solid #007bff;
-    padding: 20px 10px;
-    background: transparent;
-    position: relative;
-  }
-  
-  /* Centralizar ícones perfeitamente */
-  .payment-option img {
-    width: 45px;
-    height: 45px;
-    margin: 0 auto;
-    display: block;
+  /* Ajustar padding dos cards para mobile */
+  .payment-modal-content .payment-card {
+    padding: 1rem 0.75rem;
   }
 }
 
 /* Ajuste do X de fechar para mobile - Modal "Como você deseja fazer o pedido" */
-@media (max-width: 768px) {
+@media (max-width: 47.9375rem) {
   /* Ajustar posição do X no modal de tipo de pedido */
   #order-type-modal .close {
     top: 15px;
