@@ -1449,3 +1449,93 @@
     width: 100%;
   }
 }
+
+/* Ajustes específicos para mobile na tela de pagamento */
+@media (max-width: 768px) {
+  /* Ajustar posição do X para não sobrepor o título */
+  #payment-modal .close {
+    top: 15px;
+    right: 15px;
+    font-size: 24px;
+    z-index: 1001;
+  }
+  
+  /* Adicionar margem superior no título para evitar sobreposição */
+  #payment-modal .modal-content h2 {
+    margin-top: 40px;
+    padding-top: 10px;
+  }
+  
+  /* Remover texto "clique para" no mobile - mostrar apenas linha azul */
+  .payment-option::before {
+    content: '' !important;
+  }
+  
+  .payment-option .payment-text {
+    display: none;
+  }
+  
+  /* Garantir que apenas a linha azul apareça */
+  .payment-option {
+    border-bottom: 3px solid #007bff;
+    padding: 15px 0;
+    min-height: auto;
+  }
+  
+  /* Ajustar ícones para mobile */
+  .payment-option img {
+    width: 40px;
+    height: 40px;
+    margin: 0 auto;
+    display: block;
+  }
+  
+  /* Layout mais compacto para mobile */
+  .payment-options {
+    gap: 10px;
+    padding: 10px 0;
+  }
+  
+  /* Forçar remoção de qualquer texto adicional nos botões de pagamento */
+  .payment-option span:not(.payment-icon) {
+    display: none !important;
+  }
+  
+  .payment-option::after {
+    content: none !important;
+  }
+  
+  /* Garantir layout clean apenas com ícones e linha azul */
+  .payment-option {
+    text-align: center;
+    border-bottom: 3px solid #007bff;
+    padding: 20px 10px;
+    background: transparent;
+    position: relative;
+  }
+  
+  /* Centralizar ícones perfeitamente */
+  .payment-option img {
+    width: 45px;
+    height: 45px;
+    margin: 0 auto;
+    display: block;
+  }
+}
+
+/* Ajuste do X de fechar para mobile - Modal "Como você deseja fazer o pedido" */
+@media (max-width: 768px) {
+  /* Ajustar posição do X no modal de tipo de pedido */
+  #order-type-modal .close {
+    top: 15px;
+    right: 15px;
+    font-size: 24px;
+    z-index: 1001;
+  }
+  
+  /* Adicionar margem superior no título para evitar sobreposição */
+  #order-type-modal .modal-content h2 {
+    margin-top: 40px;
+    padding-top: 10px;
+  }
+}
