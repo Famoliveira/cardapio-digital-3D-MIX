@@ -578,7 +578,7 @@
 }
 
 .border-toggle-input:checked + .border-toggle-label .toggle-slider::before {
-  transform: translateX(30px);
+  transform: translateX(calc(100% + 6px));
 }
 
 .border-toggle-input:checked + .border-toggle-label {
@@ -1023,23 +1023,45 @@
   border: none;
   padding: 0;
   box-shadow: none;
+  text-align: center;
 }
 
 .payment-modal-content .payment-section::before {
   display: none;
 }
 
+.payment-modal-content .payment-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
 .payment-modal-content .payment-header h3 {
   text-align: center;
   font-size: 1.2rem;
   color: #334155;
-  margin-bottom: 1rem;
+  margin-bottom: 0;
+}
+
+.payment-modal-content .payment-section p {
+  text-align: center;
+  color: #64748b;
+  margin-bottom: 1.5rem;
 }
 
 .payment-modal-content .payment-required-badge {
   background: linear-gradient(135deg, #059669, #10b981);
   font-size: 0.75rem;
   padding: 0.4rem 0.8rem;
+  display: block;
+  text-align: center;
+  margin: 0;
+  width: fit-content;
+  border-radius: 15px;
+  color: white;
+  font-weight: 500;
 }
 
 .payment-modal-content .payment-card {
@@ -1094,5 +1116,20 @@
   
   .payment-modal-content .payment-card {
     padding: 1.5rem 1rem;
+  }
+  
+  /* Mantém a linha azul mas remove o texto no mobile */
+  .payment-modal-content .payment-card::after {
+    content: '';
+    bottom: 0;
+    height: 3px;
+    padding: 0;
+  }
+  
+  .payment-modal-content .payment-card:hover::after {
+    content: '';
+    bottom: 0;
+    height: 3px;
+    padding: 0;
   }
 }
