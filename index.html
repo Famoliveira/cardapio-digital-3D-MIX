@@ -107,8 +107,7 @@
     </div>
   </div>
 
-  <!-- Modal Seleção de Tamanho (para pizzas) -->
-  <div id="pizza-size-modal" class="modal" style="display: none;">
+  <!-- Modal Seleção de Tamanho (para pizzas) -->  <div id="pizza-size-modal" class="modal" style="display: none;">
     <div class="modal-content pizza-size-modal-content">
       <div class="modal-header">
         <span id="pizza-size-close" class="close">&times;</span>
@@ -118,10 +117,46 @@
       <div class="modal-body">
         <div id="pizza-sizes-container" class="pizza-sizes-container">
           <!-- Tamanhos serão inseridos dinamicamente -->
+        </div>        <!-- Seção de Borda Recheada -->
+        <div class="pizza-border-section">
+          <div class="border-header">
+            <h3>Borda Recheada</h3>
+            <span class="border-price-badge">+ R$ 10,00</span>
+          </div>
+          
+          <div class="border-toggle">
+            <input type="checkbox" id="border-checkbox" class="border-toggle-input">
+            <label for="border-checkbox" class="border-toggle-label">
+              <span class="toggle-slider"></span>
+              <span class="toggle-text">Adicionar borda recheada</span>
+            </label>
+          </div>
+          
+          <div id="border-flavor-container" class="border-flavor-container" style="display: none;">
+            <h4 class="flavor-title">Escolha seu sabor favorito:</h4>
+            <div class="flavor-grid">
+              <div class="flavor-card" data-flavor="Catupiry">
+                <div class="flavor-name">Catupiry</div>
+                <div class="flavor-description">Cremoso e suave</div>
+              </div>
+              <div class="flavor-card" data-flavor="Cheddar">
+                <div class="flavor-name">Cheddar</div>
+                <div class="flavor-description">Intenso e marcante</div>
+              </div>
+              <div class="flavor-card" data-flavor="Chocolate">
+                <div class="flavor-name">Chocolate</div>
+                <div class="flavor-description">Doce irresistível</div>
+              </div>
+              <div class="flavor-card" data-flavor="Queijo">
+                <div class="flavor-name">Queijo</div>
+                <div class="flavor-description">Clássico tradicional</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>  <!-- Scripts -->
+  </div><!-- Scripts -->
   <script src="scripts/cardapio.js"></script>
   <script type="module" src="scripts/logica-cardapio.js"></script>
   <script src="scripts/carrinho.js"></script>

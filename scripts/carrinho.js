@@ -63,24 +63,37 @@ document.addEventListener("DOMContentLoaded", () => {
   pizzaSizeClose.addEventListener("click", () => {
     pizzaSizeModal.style.display = "none";
   });
-
   // Evento para finalizar pedido (WhatsApp)
   finalizarPedidoBtn.addEventListener("click", () => {
     const message = generateWhatsAppMessage();
     const url = "https://wa.me/5522999964529?text=" + encodeURIComponent(message);
-    window.open(url, "_blank");  });
+    window.open(url, "_blank");
+    
+    // Limpa o carrinho automaticamente após finalizar o pedido
+    clearCartAfterOrder();
+  });
 
   // Função para verificar se é uma pizza com múltiplos tamanhos
   function isPizzaWithMultipleSizes(itemElement) {
     return itemElement.querySelector('.card-prices-multisize') !== null;
-  }
-  // Função para mostrar modal de seleção de tamanho
+  }  // Função para mostrar modal de seleção de tamanho
   function showPizzaSizeModal(itemId, itemName, itemElement) {
     pizzaNameElement.textContent = itemName;
     pizzaSizesContainer.innerHTML = "";
 
     // Extrai o ID original do item para buscar no cardápio
     const originalItemId = itemElement.dataset.originalItemId || itemId.split('-').pop();
+      // Reset da borda recheada ao abrir o modal
+    const borderCheckbox = document.getElementById("border-checkbox");
+    const borderFlavorContainer = document.getElementById("border-flavor-container");
+    
+    borderCheckbox.checked = false;
+    borderFlavorContainer.style.display = "none";
+    
+    // Remove seleção de todos os cards de sabor
+    document.querySelectorAll('.flavor-card').forEach(card => {
+      card.classList.remove('selected');
+    });
     
     // Busca as informações de tamanho do cardápio
     const pizzaData = findPizzaData(originalItemId);
@@ -98,8 +111,25 @@ document.addEventListener("DOMContentLoaded", () => {
           sizeOption.addEventListener("click", () => {
           // Extrai apenas o nome do tamanho (ex: "Grande" de "Grande (8 fatias)")
           const tamanhoNome = precoInfo.texto.split('(')[0].trim();
+            // Verifica se borda recheada foi selecionada
+          const borderCheckbox = document.getElementById("border-checkbox");
+          let precoFinal = precoInfo.valor;
+          let nomeFinal = `${itemName} (${tamanhoNome})`;
+          
+          if (borderCheckbox.checked) {
+            // Procura o card de sabor selecionado
+            const selectedFlavorCard = document.querySelector('.flavor-card.selected');
+            if (!selectedFlavorCard) {
+              alert("Por favor, selecione o sabor da borda recheada!");
+              return;
+            }
+            const saborBorda = selectedFlavorCard.dataset.flavor;
+            precoFinal += 10.00; // Adiciona R$ 10,00 da borda
+            nomeFinal += ` - Borda ${saborBorda}`;
+          }
+          
           // Usa o itemId único (categoria-id-tamanho) para garantir identificação única
-          addToCart(`${itemId}-${tamanho}`, `${itemName} (${tamanhoNome})`, precoInfo.valor);
+          addToCart(`${itemId}-${tamanho}`, nomeFinal, precoFinal);
           pizzaSizeModal.style.display = "none";
         });
 
@@ -145,6 +175,22 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // Função para limpar carrinho após finalizar pedido (sem confirmação)
+  function clearCartAfterOrder() {
+    if (cartData.length === 0) return;
+    
+    cartData = [];
+    saveCart();
+    updateCartCount();
+    renderCartItems();
+    showAddToCartFeedback("Pedido enviado! Carrinho limpo automaticamente.");
+    
+    // Fecha o modal do carrinho após um pequeno delay
+    setTimeout(() => {
+      cartModal.style.display = "none";
+    }, 1500);
+  }
+
   // Função para adicionar ou incrementar item no carrinho
   function addToCart(itemId, nome, preco) {
     let found = cartData.find((item) => item.itemId === itemId);
@@ -167,13 +213,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const existingFeedback = document.querySelector('.add-to-cart-feedback');
     if (existingFeedback) {
       existingFeedback.remove();
-    }
-
-    const feedback = document.createElement('div');
+    }    const feedback = document.createElement('div');
     feedback.className = 'add-to-cart-feedback';
     
     // Define ícone baseado na mensagem
-    const icon = itemName.includes("Carrinho limpo") ? "🗑️" : "✓";
+    const icon = itemName.includes("Carrinho limpo") ? "" : "✓";
     
     feedback.innerHTML = `
       <div class="feedback-content">
@@ -335,5 +379,36 @@ document.addEventListener("DOMContentLoaded", () => {
     message += `Gostaria de confirmar meu pedido e saber sobre o frete.`;
 
     return message;
-  }
+  }  
+  // Event listener para checkbox da borda recheada
+  document.addEventListener("change", (event) => {
+    if (event.target.id === "border-checkbox") {
+      const borderFlavorContainer = document.getElementById("border-flavor-container");
+      
+      if (event.target.checked) {
+        borderFlavorContainer.style.display = "block";
+      } else {
+        borderFlavorContainer.style.display = "none";
+        // Remove seleção de todos os cards
+        document.querySelectorAll('.flavor-card').forEach(card => {
+          card.classList.remove('selected');
+        });
+      }
+    }
+  });
+
+  // Event listener para seleção de sabores da borda (cards)
+  document.addEventListener("click", (event) => {
+    if (event.target.closest('.flavor-card')) {
+      const clickedCard = event.target.closest('.flavor-card');
+      
+      // Remove seleção de outros cards
+      document.querySelectorAll('.flavor-card').forEach(card => {
+        card.classList.remove('selected');
+      });
+      
+      // Adiciona seleção ao card clicado
+      clickedCard.classList.add('selected');
+    }
+  });
 });
