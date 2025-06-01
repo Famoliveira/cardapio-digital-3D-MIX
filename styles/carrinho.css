@@ -885,9 +885,9 @@
   transform: translateY(0);
 }
 
-/* Responsividade */
+/* Responsividade Geral do Modal de Carrinho e Pizza */
 @media (max-width: 768px) {
-  .modal-content {
+  .modal-content { /* Aplica-se a todos os modais */
     margin: 2% auto;
     width: 95%;
     padding: 1.2rem;
@@ -915,28 +915,24 @@
     width: 60px;
     height: 60px;
     right: 20px;
-    bottom: 90px;
+    bottom: 90px; /* Ajustado para não sobrepor o botão de delivery */
   }
-    #cart-bubble::before {
-    font-size: 24px;
-    width: 24px;
-    height: 24px;
-  }
-  
-  /* Quando usar ícone PNG:
   #cart-bubble::before {
-    background-size: 24px 24px;
-    width: 24px;
-    height: 24px;
+    font-size: 24px; /* Se usar ícone de fonte */
+    width: 24px; /* Se usar ícone de fonte */
+    height: 24px; /* Se usar ícone de fonte */
+    /* Se usar ícone PNG: */
+    /* background-size: 24px 24px; */
+    /* width: 24px; */
+    /* height: 24px; */
   }
-  */
   
   #cart-count {
     min-width: 22px;
     height: 22px;
     font-size: 11px;
   }
-    .feedback-content {
+  .feedback-content {
     padding: 0.75rem 1rem;
     font-size: 0.85rem;
     margin: 0 1rem;
@@ -949,136 +945,150 @@
   }
 }
 
-/* Responsividade para Modal de Pizza */
+/* Responsividade para Modal de Pizza (Ajustes mais específicos para compactar) */
 @media (max-width: 768px) {
   .pizza-size-modal-content {
-    margin: 2% auto;
-    width: 96%;
-    padding: 1.2rem;
-    max-height: 95vh;
-    overflow-y: auto;
+    /* padding: 1rem; */ /* Reduzido ainda mais no próximo breakpoint */
   }
 
-  .modal-header h2 {
-    font-size: 1.4rem;
-    margin-bottom: 0.3rem;
+  .pizza-size-modal-content .modal-header h2 {
+    font-size: 1.3rem; /* Reduzido */
+    margin-bottom: 0.2rem; /* Reduzido */
   }
 
-  #pizza-name {
-    font-size: 1rem;
-    margin-bottom: 0.8rem;
+  .pizza-size-modal-content #pizza-name {
+    font-size: 1rem; /* Mantido, mas padding pode ser ajustado */
+    padding: 0.5rem; /* Reduzido */
+    margin-bottom: 0.6rem; /* Reduzido */
   }
 
   /* Tamanhos de pizza mais compactos */
-  .pizza-sizes-container {
-    gap: 0.6rem;
-    margin-top: 0.8rem;
+  .pizza-size-modal-content .pizza-sizes-container {
+    gap: 0.5rem; /* Reduzido */
+    margin-top: 0.6rem; /* Reduzido */
   }
 
-  .pizza-size-option {
-    padding: 0.8rem;
-    gap: 0.5rem;
+  .pizza-size-modal-content .pizza-size-option {
+    padding: 0.7rem; /* Reduzido */
+    gap: 0.4rem; /* Reduzido */
+    border-radius: 10px; /* Levemente reduzido */
   }
 
-  .pizza-size-name {
-    font-size: 1rem;
+  .pizza-size-modal-content .pizza-size-name {
+    font-size: 0.95rem; /* Reduzido */
+    margin-bottom: 0.15rem; /* Reduzido */
   }
 
-  .pizza-size-description {
-    font-size: 0.8rem;
+  .pizza-size-modal-content .pizza-size-description {
+    font-size: 0.75rem; /* Mantido */
     color: #777;
   }
 
-  .pizza-size-price {
-    font-size: 1.1rem;
+  .pizza-size-modal-content .pizza-size-price {
+    font-size: 1.05rem; /* Reduzido */
   }
-  /* Seção de borda recheada mais compacta */
-  .pizza-border-section {
-    margin-top: 1.2rem;
-    padding: 1rem;
-    border-radius: 12px;
-  }
-
-  .border-header {
-    margin-bottom: 0.8rem;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .border-header h3 {
-    font-size: 1.1rem;
-    margin: 0;
-  }
-
-  .border-price-badge {
-    font-size: 0.75rem;
-    padding: 0.3rem 0.6rem;
-    white-space: nowrap;
-  }
-
-  .border-toggle {
-    margin-bottom: 1rem;
-  }
-
-  .border-toggle-label {
-    font-size: 0.95rem;
-    gap: 0.8rem;
-  }
-
-  .toggle-slider {
-    width: 50px;
-    height: 26px;
-  }
-
-  .toggle-slider::before {
+  .pizza-size-option.selected::after { /* Ícone de check menor */
     width: 20px;
     height: 20px;
-    top: 3px;
-    left: 3px;
+    font-size: 12px;
+    top: 8px;
+    right: 8px;
   }
 
-  .border-toggle-input:checked + .border-toggle-label .toggle-slider::before {
-    transform: translateX(24px);
+  /* Seção de borda recheada mais compacta */
+  .pizza-size-modal-content .pizza-border-section {
+    margin-top: 1rem; /* Reduzido */
+    padding: 0.8rem; /* Reduzido */
+    border-radius: 12px; /* Mantido */
+  }
+
+  .pizza-size-modal-content .border-header {
+    margin-bottom: 0.6rem; /* Reduzido */
+    /* flex-direction: row; Mantido */
+    /* justify-content: space-between; Mantido */
+    /* align-items: center; Mantido */
+  }
+
+  .pizza-size-modal-content .border-header h3 {
+    font-size: 1.05rem; /* Reduzido */
+    /* margin: 0; Mantido */
+  }
+
+  .pizza-size-modal-content .border-price-badge {
+    font-size: 0.7rem; /* Reduzido */
+    padding: 0.25rem 0.5rem; /* Reduzido */
+    /* white-space: nowrap; Mantido */
+  }
+
+  .pizza-size-modal-content .border-toggle {
+    margin-bottom: 0.8rem; /* Reduzido */
+  }
+
+  .pizza-size-modal-content .border-toggle-label {
+    font-size: 0.9rem; /* Reduzido */
+    gap: 0.6rem; /* Reduzido */
+  }
+
+  .pizza-size-modal-content .toggle-slider {
+    width: 46px; /* Reduzido */
+    height: 24px; /* Reduzido */
+  }
+
+  .pizza-size-modal-content .toggle-slider::before {
+    width: 18px; /* Reduzido */
+    height: 18px; /* Reduzido */
+    top: 3px; /* Mantido */
+    left: 3px; /* Mantido */
+  }
+
+  .pizza-size-modal-content .border-toggle-input:checked + .border-toggle-label .toggle-slider::before {
+    transform: translateX(22px); /* Ajustado */
   }
 
   /* Grid de sabores mais compacto */
-  .flavor-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.6rem;
-    margin-top: 0.8rem;
+  .pizza-size-modal-content .flavor-grid {
+    /* grid-template-columns: repeat(2, 1fr); Mantido */
+    gap: 0.5rem; /* Reduzido */
+    margin-top: 0.6rem; /* Reduzido */
   }
 
-  .flavor-card {
-    padding: 0.8rem 0.6rem;
-    border-radius: 8px;
+  .pizza-size-modal-content .flavor-card {
+    padding: 0.7rem 0.5rem; /* Reduzido */
+    border-radius: 8px; /* Mantido */
+  }
+  .flavor-card.selected::after { /* Ícone de check menor */
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+    top: 6px;
+    right: 6px;
   }
 
-  .flavor-title {
-    font-size: 1rem;
-    margin-bottom: 0.8rem;
+  .pizza-size-modal-content .flavor-title {
+    font-size: 0.95rem; /* Reduzido */
+    margin-bottom: 0.6rem; /* Reduzido */
   }
 
-  .flavor-name {
-    font-size: 0.9rem;
-    margin-bottom: 0.2rem;
+  .pizza-size-modal-content .flavor-name {
+    font-size: 0.85rem; /* Reduzido */
+    margin-bottom: 0.1rem; /* Reduzido */
   }
 
-  .flavor-description {
-    font-size: 0.75rem;
+  .pizza-size-modal-content .flavor-description {
+    font-size: 0.7rem; /* Reduzido */
   }
 
   /* Botão adicionar mais compacto */
-  .pizza-add-section {
-    margin-top: 1rem;
-    padding: 0.8rem 0;
+  .pizza-size-modal-content .pizza-add-section {
+    margin-top: 0.8rem; /* Reduzido */
+    padding: 0.6rem 0; /* Reduzido */
   }
 
-  .add-pizza-btn {
-    font-size: 0.95rem;
-    padding: 0.8rem 1.2rem;
-    width: 100%;
-    border-radius: 10px;
+  .pizza-size-modal-content .add-pizza-btn {
+    font-size: 0.9rem; /* Reduzido */
+    padding: 0.75rem 1rem; /* Reduzido */
+    /* width: 100%; Mantido */
+    border-radius: 10px; /* Mantido */
   }
 }
 
@@ -1086,90 +1096,103 @@
   .pizza-size-modal-content {
     margin: 1% auto;
     width: 98%;
-    padding: 1rem;
+    padding: 0.8rem; /* Ajustado */
     max-height: 98vh;
   }
 
-  .modal-header h2 {
-    font-size: 1.3rem;
-    margin-bottom: 0.2rem;
+  .pizza-size-modal-content .modal-header h2 {
+    font-size: 1.2rem; /* Ajustado */
+    /* margin-bottom: 0.2rem; Mantido */
   }
 
-  #pizza-name {
-    font-size: 0.95rem;
-    margin-bottom: 0.6rem;
+  .pizza-size-modal-content #pizza-name {
+    font-size: 0.9rem; /* Ajustado */
+    padding: 0.4rem; /* Ajustado */
+    /* margin-bottom: 0.6rem; Mantido */
   }
 
-  .pizza-sizes-container {
-    gap: 0.5rem;
-    margin-top: 0.6rem;
+  .pizza-size-modal-content .pizza-sizes-container {
+    gap: 0.4rem; /* Ajustado */
+    margin-top: 0.5rem; /* Ajustado */
   }
 
-  .pizza-size-option {
-    padding: 0.7rem;
-    flex-direction: column;
-    text-align: center;
-    gap: 0.4rem;
+  .pizza-size-modal-content .pizza-size-option {
+    padding: 0.6rem; /* Ajustado */
+    flex-direction: column; /* Mantido */
+    text-align: center; /* Mantido */
+    gap: 0.3rem; /* Ajustado */
   }
 
-  .pizza-size-name {
-    font-size: 0.95rem;
+  .pizza-size-modal-content .pizza-size-name {
+    font-size: 0.9rem; /* Ajustado */
   }
 
-  .pizza-size-description {
-    font-size: 0.75rem;
+  .pizza-size-modal-content .pizza-size-description {
+    font-size: 0.7rem; /* Ajustado */
   }
 
-  .pizza-size-price {
-    font-size: 1.2rem;
-    margin-top: 0.2rem;
+  .pizza-size-modal-content .pizza-size-price {
+    font-size: 1rem; /* Ajustado */
+    margin-top: 0.1rem; /* Ajustado */
   }
 
-  .pizza-border-section {
-    margin-top: 1rem;
-    padding: 0.8rem;
+  .pizza-size-modal-content .pizza-border-section {
+    margin-top: 0.8rem; /* Ajustado */
+    padding: 0.7rem; /* Ajustado */
   }
 
-  .border-header h3 {
-    font-size: 1rem;
+  .pizza-size-modal-content .border-header h3 {
+    font-size: 0.95rem; /* Ajustado */
   }
 
-  .border-price-badge {
-    font-size: 0.7rem;
-    padding: 0.25rem 0.5rem;
+  .pizza-size-modal-content .border-price-badge {
+    font-size: 0.65rem; /* Ajustado */
+    padding: 0.2rem 0.4rem; /* Ajustado */
   }
 
-  .border-toggle-label {
-    font-size: 0.9rem;
-    gap: 0.6rem;
+  .pizza-size-modal-content .border-toggle-label {
+    font-size: 0.85rem; /* Ajustado */
+    gap: 0.5rem; /* Ajustado */
+  }
+  .pizza-size-modal-content .toggle-slider {
+    width: 42px;
+    height: 22px;
+  }
+  .pizza-size-modal-content .toggle-slider::before {
+    width: 16px;
+    height: 16px;
+  }
+  .pizza-size-modal-content .border-toggle-input:checked + .border-toggle-label .toggle-slider::before {
+    transform: translateX(20px);
   }
 
-  .flavor-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.5rem;
+
+  .pizza-size-modal-content .flavor-grid {
+    /* grid-template-columns: repeat(2, 1fr); Mantido */
+    gap: 0.4rem; /* Ajustado */
   }
 
-  .flavor-card {
-    padding: 0.6rem 0.4rem;
+  .pizza-size-modal-content .flavor-card {
+    padding: 0.5rem 0.3rem; /* Ajustado */
   }
 
-  .flavor-name {
-    font-size: 0.85rem;
-    margin-bottom: 0.1rem;
+  .pizza-size-modal-content .flavor-name {
+    font-size: 0.8rem; /* Ajustado */
+    /* margin-bottom: 0.1rem; Mantido */
   }
 
-  .flavor-description {
-    font-size: 0.7rem;
+  .pizza-size-modal-content .flavor-description {
+    font-size: 0.65rem; /* Ajustado */
   }
 
-  .pizza-add-section {
-    margin-top: 0.8rem;
-    padding: 0.6rem 0;
+  .pizza-size-modal-content .pizza-add-section {
+    margin-top: 0.7rem; /* Ajustado */
+    padding: 0.5rem 0; /* Ajustado */
   }
 
-  .add-pizza-btn {
-    font-size: 0.9rem;
-    padding: 0.75rem 1rem;
+  .pizza-size-modal-content .add-pizza-btn {
+    font-size: 0.85rem; /* Ajustado */
+    padding: 0.7rem 0.9rem; /* Ajustado */
   }
 }
 
@@ -1178,95 +1201,129 @@
   .pizza-size-modal-content {
     margin: 0.5% auto;
     width: 99%;
-    padding: 0.8rem;
+    padding: 0.6rem; /* Ainda mais reduzido */
     max-height: 99vh;
-    border-radius: 12px;
+    border-radius: 10px; /* Reduzido */
   }
 
-  .modal-header h2 {
+  .pizza-size-modal-content .modal-header h2 {
+    font-size: 1.1rem; /* Reduzido */
+  }
+  .pizza-size-modal-content .close { /* Ajuste do X para telas muito pequenas */
+    top: 0.6rem;
+    right: 0.6rem;
     font-size: 1.2rem;
+    width: 26px;
+    height: 26px;
   }
 
-  #pizza-name {
-    font-size: 0.9rem;
-    padding: 0.5rem;
-    margin-bottom: 0.5rem;
+
+  .pizza-size-modal-content #pizza-name {
+    font-size: 0.85rem; /* Reduzido */
+    padding: 0.3rem; /* Reduzido */
+    margin-bottom: 0.4rem; /* Reduzido */
   }
 
-  .pizza-sizes-container {
-    gap: 0.4rem;
-    margin-top: 0.5rem;
+  .pizza-size-modal-content .pizza-sizes-container {
+    gap: 0.3rem; /* Reduzido */
+    margin-top: 0.4rem; /* Reduzido */
   }
 
-  .pizza-size-option {
-    padding: 0.6rem;
-    gap: 0.3rem;
+  .pizza-size-modal-content .pizza-size-option {
+    padding: 0.5rem; /* Reduzido */
+    gap: 0.2rem; /* Reduzido */
   }
 
-  .pizza-size-name {
-    font-size: 0.9rem;
+  .pizza-size-modal-content .pizza-size-name {
+    font-size: 0.85rem; /* Reduzido */
   }
 
-  .pizza-size-description {
-    font-size: 0.7rem;
+  .pizza-size-modal-content .pizza-size-description {
+    font-size: 0.65rem; /* Reduzido */
   }
 
-  .pizza-size-price {
-    font-size: 1.1rem;
+  .pizza-size-modal-content .pizza-size-price {
+    font-size: 0.95rem; /* Reduzido */
+  }
+   .pizza-size-option.selected::after {
+    width: 18px;
+    height: 18px;
+    font-size: 10px;
+    top: 5px;
+    right: 5px;
   }
 
-  .pizza-border-section {
-    margin-top: 0.8rem;
-    padding: 0.6rem;
+
+  .pizza-size-modal-content .pizza-border-section {
+    margin-top: 0.6rem; /* Reduzido */
+    padding: 0.5rem; /* Reduzido */
   }
 
-  .border-header {
-    flex-direction: column;
-    gap: 0.5rem;
-    text-align: center;
+  .pizza-size-modal-content .border-header {
+    /* flex-direction: column; Mantido */
+    gap: 0.4rem; /* Reduzido */
+    /* text-align: center; Mantido */
   }
 
-  .border-header h3 {
-    font-size: 0.95rem;
+  .pizza-size-modal-content .border-header h3 {
+    font-size: 0.9rem; /* Reduzido */
   }
 
-  .border-price-badge {
-    font-size: 0.65rem;
-    padding: 0.2rem 0.4rem;
+  .pizza-size-modal-content .border-price-badge {
+    font-size: 0.6rem; /* Reduzido */
+    padding: 0.15rem 0.3rem; /* Reduzido */
   }
-
-  .flavor-grid {
-    gap: 0.4rem;
-  }
-
-  .flavor-card {
-    padding: 0.5rem 0.3rem;
-  }
-
-  .flavor-name {
+  .pizza-size-modal-content .border-toggle-label {
     font-size: 0.8rem;
   }
-
-  .flavor-description {
-    font-size: 0.65rem;
+  .pizza-size-modal-content .toggle-slider {
+    width: 38px;
+    height: 20px;
+  }
+  .pizza-size-modal-content .toggle-slider::before {
+    width: 14px;
+    height: 14px;
+  }
+  .pizza-size-modal-content .border-toggle-input:checked + .border-toggle-label .toggle-slider::before {
+    transform: translateX(18px);
   }
 
-  .pizza-add-section {
-    margin-top: 0.6rem;
-    padding: 0.5rem 0;
-  }
 
-  .add-pizza-btn {
+  .pizza-size-modal-content .flavor-grid {
+    gap: 0.3rem; /* Reduzido */
+  }
+  .pizza-size-modal-content .flavor-title {
     font-size: 0.85rem;
-    padding: 0.7rem 0.8rem;
+    margin-bottom: 0.4rem;
   }
 
-  .close {
-    top: 0.8rem;
-    right: 0.8rem;
-    font-size: 1.3rem;
-    width: 28px;
-    height: 28px;
+  .pizza-size-modal-content .flavor-card {
+    padding: 0.4rem 0.2rem; /* Reduzido */
+  }
+  .flavor-card.selected::after {
+    width: 18px;
+    height: 18px;
+    font-size: 10px;
+    top: 4px;
+    right: 4px;
+  }
+
+  .pizza-size-modal-content .flavor-name {
+    font-size: 0.75rem; /* Reduzido */
+  }
+
+  .pizza-size-modal-content .flavor-description {
+    font-size: 0.6rem; /* Reduzido */
+  }
+
+  .pizza-size-modal-content .pizza-add-section {
+    margin-top: 0.5rem; /* Reduzido */
+    padding: 0.4rem 0; /* Reduzido */
+  }
+
+  .pizza-size-modal-content .add-pizza-btn {
+    font-size: 0.8rem; /* Reduzido */
+    padding: 0.6rem 0.7rem; /* Reduzido */
   }
 }
 
@@ -1375,11 +1432,11 @@
 }
 
 .payment-card.selected::after {
-  content: '';
+  content: ''; /* Alterado para vazio para não exibir o '✓' que estava quebrando */
   position: absolute;
   top: 8px;
   right: 8px;
-  background: #2563eb;
+  background: #2563eb; /* Mantém a cor de fundo para o círculo */
   color: white;
   width: 24px;
   height: 24px;
@@ -1393,6 +1450,7 @@
   border: 3px solid white;
   box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
+
 
 .payment-name {
   font-family: var(--ff-poppins);
