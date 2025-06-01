@@ -15,7 +15,7 @@
 .card-right-section {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: center;
   gap: 0.5rem;
   min-width: fit-content;
 }
