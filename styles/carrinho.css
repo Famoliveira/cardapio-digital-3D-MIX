@@ -444,6 +444,7 @@
   background: white;
   cursor: pointer;
   transition: all 0.3s ease;
+  position: relative;
 }
 
 .pizza-size-option:hover {
@@ -451,6 +452,29 @@
   background: rgba(249, 112, 21, 0.05);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(249, 112, 21, 0.15);
+}
+
+.pizza-size-option.selected {
+  border-color: var(--brand-color);
+  background: rgba(249, 112, 21, 0.1);
+  box-shadow: 0 0 0 3px rgba(249, 112, 21, 0.2);
+}
+
+.pizza-size-option.selected::after {
+  content: '✓';
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: var(--brand-color);
+  color: white;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: bold;
 }
 
 .pizza-size-info {
@@ -717,6 +741,45 @@
   color: #333;
 }
 
+/* Seção do Botão Adicionar ao Carrinho */
+.pizza-add-section {
+  margin-top: 2rem;
+  padding: 1.5rem 0;
+  text-align: center;
+}
+
+.add-pizza-btn {
+  background: linear-gradient(135deg, var(--brand-color), #ff8533);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-family: var(--ff-poppins);
+  font-weight: var(--fw-semibold);
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(249, 112, 21, 0.3);
+  min-width: 200px;
+}
+
+.add-pizza-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(249, 112, 21, 0.4);
+  background: linear-gradient(135deg, #e6601a, var(--brand-color));
+}
+
+.add-pizza-btn:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+  box-shadow: none;
+  color: #888888;
+}
+
+.add-pizza-btn:disabled:hover {
+  transform: none;
+}
+
 /* Responsividade */
 @media (max-width: 768px) {
   .pizza-border-section {
@@ -843,9 +906,20 @@
   .pizza-size-info {
     margin-bottom: 0.5rem;
   }
-  
-  .pizza-size-price {
+    .pizza-size-price {
     font-size: 1.4rem;
+  }
+  
+  .pizza-add-section {
+    margin-top: 1.5rem;
+    padding: 1rem 0;
+  }
+  
+  .add-pizza-btn {
+    font-size: 1rem;
+    padding: 0.875rem 1.5rem;
+    min-width: auto;
+    width: 100%;
   }
 }
 

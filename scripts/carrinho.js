@@ -1,5 +1,6 @@
 // Função de inicialização
-document.addEventListener("DOMContentLoaded", () => {  // Referências aos elementos
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("🍕 Pizza Modal System: Initializing...");  // Referências aos elementos
   const btnAddList = document.querySelectorAll(".btn-add");
   const cartBubble = document.getElementById("cart-bubble");
   const cartCount = document.getElementById("cart-count");
@@ -90,11 +91,19 @@ document.addEventListener("DOMContentLoaded", () => {  // Referências aos eleme
       document.getElementById("order-list-modal").style.display = "none";
     }
   });
-
   // Eventos para modal de seleção de tamanho
   pizzaSizeClose.addEventListener("click", () => {
     pizzaSizeModal.style.display = "none";
-  });  // Evento para finalizar pedido (abre modal de escolha do tipo de pedido)
+  });  // Event listener para o botão de adicionar pizza ao carrinho
+  document.addEventListener("click", (event) => {
+    if (event.target.id === "add-pizza-to-cart-btn" && !event.target.disabled) {
+      console.log("🛒 Add to cart button clicked!");
+      const itemId = event.target.dataset.itemId;
+      const itemName = event.target.dataset.itemName;
+      console.log(`Adding pizza to cart: ${itemName} (ID: ${itemId})`);
+      addPizzaToCart(itemId, itemName);
+    }
+  });// Evento para finalizar pedido (abre modal de escolha do tipo de pedido)
   finalizarPedidoBtn.addEventListener("click", () => {
     if (cartData.length === 0) {
       alert("Seu carrinho está vazio!");
@@ -111,6 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {  // Referências aos eleme
     return itemElement.querySelector('.card-prices-multisize') !== null;
   }  // Função para mostrar modal de seleção de tamanho
   function showPizzaSizeModal(itemId, itemName, itemElement) {
+    console.log(`🍕 Opening pizza modal for: ${itemName} (ID: ${itemId})`);
     pizzaNameElement.textContent = itemName;
     pizzaSizesContainer.innerHTML = "";
 
@@ -119,6 +129,7 @@ document.addEventListener("DOMContentLoaded", () => {  // Referências aos eleme
       // Reset da borda recheada ao abrir o modal
     const borderCheckbox = document.getElementById("border-checkbox");
     const borderFlavorContainer = document.getElementById("border-flavor-container");
+    const addButton = document.getElementById("add-pizza-to-cart-btn");
     
     borderCheckbox.checked = false;
     borderFlavorContainer.style.display = "none";
@@ -128,12 +139,28 @@ document.addEventListener("DOMContentLoaded", () => {  // Referências aos eleme
       card.classList.remove('selected');
     });
     
+    // Remove seleção de todos os tamanhos
+    document.querySelectorAll('.pizza-size-option').forEach(option => {
+      option.classList.remove('selected');
+    });
+    
+    // Desabilita o botão inicialmente
+    addButton.disabled = true;
+    addButton.textContent = "Selecione um tamanho";
+    
+    // Armazena o itemId no botão para uso posterior
+    addButton.dataset.itemId = itemId;
+    addButton.dataset.itemName = itemName;
+    
     // Busca as informações de tamanho do cardápio
     const pizzaData = findPizzaData(originalItemId);
     if (pizzaData && pizzaData.precos) {
       Object.entries(pizzaData.precos).forEach(([tamanho, precoInfo]) => {
         const sizeOption = document.createElement("div");
         sizeOption.className = "pizza-size-option";
+        sizeOption.dataset.tamanho = tamanho;
+        sizeOption.dataset.preco = precoInfo.valor;
+        sizeOption.dataset.texto = precoInfo.texto;
         sizeOption.innerHTML = `
           <div class="pizza-size-info">
             <div class="pizza-size-name">${precoInfo.texto}</div>
@@ -141,29 +168,20 @@ document.addEventListener("DOMContentLoaded", () => {  // Referências aos eleme
           </div>
           <div class="pizza-size-price">R$ ${precoInfo.valor.toFixed(2).replace('.', ',')}</div>
         `;
-          sizeOption.addEventListener("click", () => {
-          // Extrai apenas o nome do tamanho (ex: "Grande" de "Grande (8 fatias)")
-          const tamanhoNome = precoInfo.texto.split('(')[0].trim();
-            // Verifica se borda recheada foi selecionada
-          const borderCheckbox = document.getElementById("border-checkbox");
-          let precoFinal = precoInfo.valor;
-          let nomeFinal = `${itemName} (${tamanhoNome})`;
+          // Event listener para seleção de tamanho (não adiciona automaticamente)
+        sizeOption.addEventListener("click", () => {
+          console.log(`🍕 Size selected: ${precoInfo.texto}`);
+          // Remove seleção de outros tamanhos
+          document.querySelectorAll('.pizza-size-option').forEach(option => {
+            option.classList.remove('selected');
+          });
           
-          if (borderCheckbox.checked) {
-            // Procura o card de sabor selecionado
-            const selectedFlavorCard = document.querySelector('.flavor-card.selected');
-            if (!selectedFlavorCard) {
-              alert("Por favor, selecione o sabor da borda recheada!");
-              return;
-            }
-            const saborBorda = selectedFlavorCard.dataset.flavor;
-            precoFinal += 10.00; // Adiciona R$ 10,00 da borda
-            nomeFinal += ` - Borda ${saborBorda}`;
-          }
+          // Adiciona seleção ao tamanho clicado
+          sizeOption.classList.add('selected');
+          console.log("Size option marked as selected");
           
-          // Usa o itemId único (categoria-id-tamanho) para garantir identificação única
-          addToCart(`${itemId}-${tamanho}`, nomeFinal, precoFinal);
-          pizzaSizeModal.style.display = "none";
+          // Atualiza o estado do botão
+          updateAddButtonState();
         });
 
         pizzaSizesContainer.appendChild(sizeOption);
@@ -191,9 +209,77 @@ document.addEventListener("DOMContentLoaded", () => {  // Referências aos eleme
       }
     } catch (error) {
       console.warn('Erro ao buscar dados da pizza:', error);
+    }    return null;
+  }  // Função para atualizar o estado do botão adicionar
+  function updateAddButtonState() {
+    console.log("🔄 Updating add button state...");
+    const addButton = document.getElementById("add-pizza-to-cart-btn");
+    const borderCheckbox = document.getElementById("border-checkbox");
+    const selectedSize = document.querySelector('.pizza-size-option.selected');
+    
+    console.log("Selected size:", selectedSize);
+    console.log("Border checked:", borderCheckbox?.checked);
+    
+    if (!selectedSize) {
+      addButton.disabled = true;
+      addButton.textContent = "Selecione um tamanho";
+      console.log("❌ No size selected - button disabled");
+      return;
     }
-    return null;
-  }  // Função para limpar carrinho
+      // Se tem tamanho selecionado, verifica se precisa de sabor da borda
+    if (borderCheckbox.checked) {
+      const selectedFlavor = document.querySelector('.flavor-card.selected');
+      console.log("Selected flavor:", selectedFlavor);
+      if (!selectedFlavor) {
+        addButton.disabled = true;
+        addButton.textContent = "Selecione o sabor da borda";
+        console.log("❌ Border checked but no flavor selected - button disabled");
+        return;
+      }
+    }
+    
+    // Se chegou aqui, pode habilitar o botão
+    addButton.disabled = false;
+    addButton.textContent = "Adicionar ao Carrinho";
+    console.log("✅ All requirements met - button enabled");
+  }
+
+  // Função para adicionar pizza ao carrinho com as seleções feitas
+  function addPizzaToCart(itemId, itemName) {
+    const selectedSize = document.querySelector('.pizza-size-option.selected');
+    const borderCheckbox = document.getElementById("border-checkbox");
+    
+    if (!selectedSize) {
+      alert("Por favor, selecione um tamanho!");
+      return;
+    }
+    
+    const tamanho = selectedSize.dataset.tamanho;
+    const preco = parseFloat(selectedSize.dataset.preco);
+    const textoTamanho = selectedSize.dataset.texto;
+    const tamanhoNome = textoTamanho.split('(')[0].trim();
+    
+    let precoFinal = preco;
+    let nomeFinal = `${itemName} (${tamanhoNome})`;
+    
+    if (borderCheckbox.checked) {
+      const selectedFlavorCard = document.querySelector('.flavor-card.selected');
+      if (!selectedFlavorCard) {
+        alert("Por favor, selecione o sabor da borda recheada!");
+        return;
+      }
+      const saborBorda = selectedFlavorCard.dataset.flavor;
+      precoFinal += 10.00; // Adiciona R$ 10,00 da borda
+      nomeFinal += ` - Borda ${saborBorda}`;
+    }
+    
+    // Usa o itemId único (categoria-id-tamanho) para garantir identificação única
+    addToCart(`${itemId}-${tamanho}`, nomeFinal, precoFinal);
+    
+    // Fecha o modal
+    const pizzaSizeModal = document.getElementById("pizza-size-modal");
+    pizzaSizeModal.style.display = "none";
+  }// Função para limpar carrinho
   function clearCart() {
     if (cartData.length === 0) return;
     
@@ -442,8 +528,7 @@ document.addEventListener("DOMContentLoaded", () => {  // Referências aos eleme
     message += `Gostaria de confirmar meu pedido e saber sobre o frete.`;
 
     return message;
-  }  
-  // Event listener para checkbox da borda recheada
+  }    // Event listener para checkbox da borda recheada
   document.addEventListener("change", (event) => {
     if (event.target.id === "border-checkbox") {
       const borderFlavorContainer = document.getElementById("border-flavor-container");
@@ -455,16 +540,20 @@ document.addEventListener("DOMContentLoaded", () => {  // Referências aos eleme
         // Remove seleção de todos os cards
         document.querySelectorAll('.flavor-card').forEach(card => {
           card.classList.remove('selected');
-        });
+        });      }
+      
+      // Atualiza o estado do botão
+      const pizzaSizeModal = document.getElementById("pizza-size-modal");
+      if (pizzaSizeModal.style.display === "block") {
+        updateAddButtonState();
       }
     }
-  });  // Event listener para seleção de sabores da borda (cards)
+  });// Event listener para seleção de sabores da borda (cards)
   document.addEventListener("click", (event) => {
     if (event.target.closest('.flavor-card')) {
       const clickedCard = event.target.closest('.flavor-card');
       const flavorName = clickedCard.dataset.flavor;
-      
-      // Remove seleção de outros cards
+        // Remove seleção de outros cards
       document.querySelectorAll('.flavor-card').forEach(card => {
         card.classList.remove('selected');
       });
@@ -474,6 +563,11 @@ document.addEventListener("DOMContentLoaded", () => {  // Referências aos eleme
       
       // Mostra notificação de seleção do sabor
       showAddToCartFeedback(`Borda ${flavorName} selecionada`);
+        // Atualiza o estado do botão
+      const pizzaSizeModal = document.getElementById("pizza-size-modal");
+      if (pizzaSizeModal.style.display === "block") {
+        updateAddButtonState();
+      }
     }
       // Event listener para seleção de forma de pagamento na modal de pagamento
     if (event.target.closest('.payment-card') && paymentModal.style.display === "block") {
