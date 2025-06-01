@@ -1,6 +1,5 @@
 // Função de inicialização
-document.addEventListener("DOMContentLoaded", () => {
-  // Referências aos elementos
+document.addEventListener("DOMContentLoaded", () => {  // Referências aos elementos
   const btnAddList = document.querySelectorAll(".btn-add");
   const cartBubble = document.getElementById("cart-bubble");
   const cartCount = document.getElementById("cart-count");
@@ -10,17 +9,21 @@ document.addEventListener("DOMContentLoaded", () => {
   const cartTotal = document.getElementById("cart-total");
   const finalizarPedidoBtn = document.getElementById("finalizar-pedido");
   
+  // Elementos da modal de forma de pagamento
+  const paymentModal = document.getElementById("payment-modal");
+  const paymentClose = document.getElementById("payment-close");
+  
   // Elementos do modal de seleção de tamanho
   const pizzaSizeModal = document.getElementById("pizza-size-modal");
   const pizzaSizeClose = document.getElementById("pizza-size-close");
   const pizzaNameElement = document.getElementById("pizza-name");
   const pizzaSizesContainer = document.getElementById("pizza-sizes-container");
-
   // Carrega carrinho do localStorage ou cria vazio
   let cartData = JSON.parse(localStorage.getItem("cartData")) || [];
+  let selectedPaymentMethod = null;
 
   // Atualiza contador ao carregar
-  updateCartCount();  // Vincula evento de adicionar item usando delegação de eventos
+  updateCartCount();// Vincula evento de adicionar item usando delegação de eventos
   document.addEventListener("click", (event) => {
     if (event.target.classList.contains("btn-add")) {
       const parentItem = event.target.closest(".item");
@@ -44,12 +47,15 @@ document.addEventListener("DOMContentLoaded", () => {
     renderCartItems();
     cartModal.style.display = "block";
   });
-
   // Evento para fechar modal
   cartClose.addEventListener("click", () => {
     cartModal.style.display = "none";
   });
-  // Fecha modal ao clicar fora
+
+  // Eventos para modal de forma de pagamento
+  paymentClose.addEventListener("click", () => {
+    paymentModal.style.display = "none";
+  });  // Fecha modal ao clicar fora
   window.addEventListener("click", (event) => {
     if (event.target === cartModal) {
       cartModal.style.display = "none";
@@ -57,20 +63,24 @@ document.addEventListener("DOMContentLoaded", () => {
     if (event.target === pizzaSizeModal) {
       pizzaSizeModal.style.display = "none";
     }
+    if (event.target === paymentModal) {
+      paymentModal.style.display = "none";
+    }
   });
 
   // Eventos para modal de seleção de tamanho
   pizzaSizeClose.addEventListener("click", () => {
     pizzaSizeModal.style.display = "none";
-  });
-  // Evento para finalizar pedido (WhatsApp)
+  });  // Evento para finalizar pedido (abre modal de pagamento)
   finalizarPedidoBtn.addEventListener("click", () => {
-    const message = generateWhatsAppMessage();
-    const url = "https://wa.me/5522999964529?text=" + encodeURIComponent(message);
-    window.open(url, "_blank");
+    if (cartData.length === 0) {
+      alert("Seu carrinho está vazio!");
+      return;
+    }
     
-    // Limpa o carrinho automaticamente após finalizar o pedido
-    clearCartAfterOrder();
+    // Fecha modal do carrinho e abre modal de pagamento
+    cartModal.style.display = "none";
+    paymentModal.style.display = "block";
   });
 
   // Função para verificar se é uma pizza com múltiplos tamanhos
@@ -160,9 +170,7 @@ document.addEventListener("DOMContentLoaded", () => {
       console.warn('Erro ao buscar dados da pizza:', error);
     }
     return null;
-  }
-
-  // Função para limpar carrinho
+  }  // Função para limpar carrinho
   function clearCart() {
     if (cartData.length === 0) return;
     
@@ -205,23 +213,38 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
     saveCart();
-    updateCartCount();
-    showAddToCartFeedback(nome);
-  }  // Mostra feedback visual quando item é adicionado
+    updateCartCount();    showAddToCartFeedback(nome);
+  }
+
+  // Mostra feedback visual quando item é adicionado
   function showAddToCartFeedback(itemName) {
     // Remove feedback anterior se existir
     const existingFeedback = document.querySelector('.add-to-cart-feedback');
     if (existingFeedback) {
       existingFeedback.remove();
-    }    const feedback = document.createElement('div');
+    }
+
+    const feedback = document.createElement('div');
     feedback.className = 'add-to-cart-feedback';
     
-    // Define ícone baseado na mensagem
-    const icon = itemName.includes("Carrinho limpo") ? "" : "✓";
+    // Define ícone e mensagem baseado no tipo de notificação
+    let icon = "✓";
+    let message = "";
+    
+    if (itemName.includes("Carrinho limpo")) {
+      icon = "";
+      message = itemName;
+    } else if (itemName.includes("Borda") && itemName.includes("selecionada")) {
+      icon = "✓";
+      message = itemName;
+    } else {
+      icon = "✓";
+      message = `${itemName} adicionado ao carrinho!`;
+    }
     
     feedback.innerHTML = `
       <div class="feedback-content">
-        ${icon} <strong>${itemName}</strong>${itemName.includes("Carrinho limpo") ? "" : " adicionado ao carrinho!"}
+        ${icon} <strong>${message}</strong>
       </div>
     `;
     
@@ -231,11 +254,14 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => {
       if (feedback.parentNode) {
         feedback.remove();
-      }
-    }, 3000);
-  }// Renderiza itens no modal
+      }    }, 3000);
+  }
+
+  // Renderiza itens no modal
   function renderCartItems() {
-    cartItemsContainer.innerHTML = "";    if (cartData.length === 0) {
+    cartItemsContainer.innerHTML = "";
+
+    if (cartData.length === 0) {
       const emptyMessage = document.createElement("div");
       emptyMessage.className = "empty-cart-message";
       emptyMessage.innerHTML = `
@@ -255,7 +281,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Reabilita o botão finalizar pedido
     finalizarPedidoBtn.disabled = false;
     finalizarPedidoBtn.style.opacity = "1";
-    finalizarPedidoBtn.style.cursor = "pointer";    // Adiciona botão de limpar carrinho
+    finalizarPedidoBtn.style.cursor = "pointer";// Adiciona botão de limpar carrinho
     const clearCartButton = document.createElement("button");
     clearCartButton.className = "clear-cart-btn";
     clearCartButton.innerHTML = `Limpar Carrinho`;
@@ -338,11 +364,25 @@ document.addEventListener("DOMContentLoaded", () => {
     const totalQtd = cartData.reduce((acc, item) => acc + item.quantidade, 0);
     cartCount.innerText = totalQtd;
   }
-
   // Salva alterações no localStorage
   function saveCart() {
     localStorage.setItem("cartData", JSON.stringify(cartData));
-  }  // Gera mensagem para WhatsApp
+  }
+
+  // Processa o pedido com a forma de pagamento selecionada
+  function processOrder(paymentMethod) {
+    selectedPaymentMethod = paymentMethod;
+    
+    const message = generateWhatsAppMessage();
+    const url = "https://wa.me/5522999964529?text=" + encodeURIComponent(message);
+    window.open(url, "_blank");
+    
+    // Fecha a modal de pagamento
+    paymentModal.style.display = "none";
+    
+    // Limpa o carrinho automaticamente após finalizar o pedido
+    clearCartAfterOrder();
+  }// Gera mensagem para WhatsApp
   function generateWhatsAppMessage() {
     const now = new Date();
     const hour = now.getHours();
@@ -371,10 +411,10 @@ document.addEventListener("DOMContentLoaded", () => {
     
     const totalValue = cartData.reduce((acc, item) => acc + item.preco * item.quantidade, 0);
     const totalFormatted = totalValue.toFixed(2).replace('.', ',');
-    
-    message += `━━━━━━━━━━━━━━━━━━\n`;
+      message += `━━━━━━━━━━━━━━━━━━\n`;
     message += `*TOTAL: R$ ${totalFormatted}*\n`;
     message += `(frete não incluso)\n\n`;
+    message += `*FORMA DE PAGAMENTO:* ${selectedPaymentMethod}\n\n`;
     message += `Vim do cardápio digital da 3D MIX!\n`;
     message += `Gostaria de confirmar meu pedido e saber sobre o frete.`;
 
@@ -395,12 +435,11 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       }
     }
-  });
-
-  // Event listener para seleção de sabores da borda (cards)
+  });  // Event listener para seleção de sabores da borda (cards)
   document.addEventListener("click", (event) => {
     if (event.target.closest('.flavor-card')) {
       const clickedCard = event.target.closest('.flavor-card');
+      const flavorName = clickedCard.dataset.flavor;
       
       // Remove seleção de outros cards
       document.querySelectorAll('.flavor-card').forEach(card => {
@@ -409,6 +448,17 @@ document.addEventListener("DOMContentLoaded", () => {
       
       // Adiciona seleção ao card clicado
       clickedCard.classList.add('selected');
+      
+      // Mostra notificação de seleção do sabor
+      showAddToCartFeedback(`Borda ${flavorName} selecionada`);
+    }
+      // Event listener para seleção de forma de pagamento na modal de pagamento
+    if (event.target.closest('.payment-card') && paymentModal.style.display === "block") {
+      const clickedCard = event.target.closest('.payment-card');
+      const paymentMethod = clickedCard.dataset.payment;
+      
+      // Processa o pedido imediatamente ao selecionar forma de pagamento
+      processOrder(paymentMethod);
     }
   });
 });

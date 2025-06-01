@@ -667,7 +667,7 @@
 }
 
 .flavor-card.selected::after {
-  content: '';
+  content: '✓';
   position: absolute;
   top: 8px;
   right: 8px;
@@ -680,7 +680,7 @@
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   z-index: 2;
   border: 3px solid white;
   box-shadow: 0 2px 8px rgba(0,0,0,0.2);
@@ -846,5 +846,253 @@
   
   .pizza-size-price {
     font-size: 1.4rem;
+  }
+}
+
+/* Estilos para Forma de Pagamento - UI Moderna */
+.payment-section {
+  margin-top: 2rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, #f0f9ff, #fff);
+  border: 2px solid #e0f2fe;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(37, 99, 235, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.payment-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #2563eb, #3b82f6, #2563eb);
+  border-radius: 16px 16px 0 0;
+}
+
+.payment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.payment-header h3 {
+  font-family: var(--ff-poppins);
+  font-weight: var(--fw-bold);
+  color: #333;
+  font-size: 1.3rem;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.payment-required-badge {
+  background: linear-gradient(135deg, #dc2626, #ef4444);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: var(--fw-bold);
+  font-size: 0.8rem;
+  box-shadow: 0 2px 8px rgba(220, 38, 38, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Grid de Formas de Pagamento */
+.payment-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.payment-card {
+  background: white;
+  border: 2px solid #f0f0f0;
+  border-radius: 12px;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.payment-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #2563eb, #3b82f6);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+
+.payment-card:hover {
+  border-color: #2563eb;
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(37, 99, 235, 0.2);
+}
+
+.payment-card:hover::before {
+  opacity: 0.1;
+}
+
+.payment-card.selected {
+  border-color: #2563eb;
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(59, 130, 246, 0.1));
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.25);
+}
+
+.payment-card.selected::after {
+  content: '';
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #2563eb;
+  color: white;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.8rem;
+  z-index: 2;
+  border: 3px solid white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.payment-name {
+  font-family: var(--ff-poppins);
+  font-weight: var(--fw-semibold);
+  color: #333;
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+  position: relative;
+  z-index: 2;
+}
+
+.payment-description {
+  font-family: var(--ff-poppins);
+  color: #666;
+  font-size: 0.8rem;
+  font-weight: var(--fw-regular);
+  position: relative;
+  z-index: 2;
+}
+
+.payment-card.selected .payment-name,
+.payment-card.selected .payment-description {
+  color: #333;
+}
+
+/* Modal de Forma de Pagamento - Específica */
+.payment-modal-content {
+  max-width: 500px;
+  padding: 2rem;
+  background: linear-gradient(135deg, #f8fafc, #ffffff);
+  border: none;
+  box-shadow: 0 20px 60px rgba(37, 99, 235, 0.2);
+}
+
+.payment-modal-content h2 {
+  text-align: center;
+  color: #1e40af;
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+  background: linear-gradient(135deg, #2563eb, #3b82f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.payment-modal-content .payment-section {
+  margin-top: 0;
+  background: transparent;
+  border: none;
+  padding: 0;
+  box-shadow: none;
+}
+
+.payment-modal-content .payment-section::before {
+  display: none;
+}
+
+.payment-modal-content .payment-header h3 {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #334155;
+  margin-bottom: 1rem;
+}
+
+.payment-modal-content .payment-required-badge {
+  background: linear-gradient(135deg, #059669, #10b981);
+  font-size: 0.75rem;
+  padding: 0.4rem 0.8rem;
+}
+
+.payment-modal-content .payment-card {
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.payment-modal-content .payment-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(37, 99, 235, 0.25);
+  border-color: #3b82f6;
+}
+
+.payment-modal-content .payment-card::after {
+  content: 'Clique para selecionar';
+  position: absolute;
+  bottom: -30px;
+  left: 0;
+  right: 0;
+  background: linear-gradient(135deg, #2563eb, #3b82f6);
+  color: white;
+  padding: 0.5rem;
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  transition: bottom 0.3s ease;
+  border-radius: 0 0 12px 12px;
+}
+
+.payment-modal-content .payment-card:hover::after {
+  bottom: 0;
+}
+
+/* Responsividade para Modal de Pagamento */
+@media (max-width: 768px) {
+  .payment-modal-content {
+    margin: 10% auto;
+    width: 95%;
+    padding: 1.5rem;
+  }
+  
+  .payment-modal-content h2 {
+    font-size: 1.5rem;
+  }
+  
+  .payment-modal-content .payment-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .payment-modal-content .payment-card {
+    padding: 1.5rem 1rem;
   }
 }

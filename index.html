@@ -96,18 +96,51 @@
   <div id="cart-bubble">
     <span id="cart-count">0</span>
   </div>
-
   <!-- Modal do carrinho -->
   <div id="cart-modal" class="modal">
     <div class="modal-content">
       <span id="cart-close" class="close">&times;</span>
       <h2>Seu Carrinho</h2>      <div id="cart-items"></div>
       <div id="cart-total"></div>
+      
       <button id="finalizar-pedido">Finalizar Pedido</button>
+    </div>  </div>
+
+  <!-- Modal de Forma de Pagamento -->
+  <div id="payment-modal" class="modal">
+    <div class="modal-content payment-modal-content">
+      <span id="payment-close" class="close">&times;</span>
+      <h2>Escolha a Forma de Pagamento</h2>
+      
+      <div class="payment-section">
+        <div class="payment-header">
+          <h3>Como você deseja pagar?</h3>
+          <span class="payment-required-badge">Selecione uma opção</span>
+        </div>
+        
+        <div class="payment-grid">
+          <div class="payment-card" data-payment="PIX">
+            <div class="payment-name">PIX</div>
+            <div class="payment-description">Rápido e prático</div>
+          </div>
+          <div class="payment-card" data-payment="Dinheiro">
+            <div class="payment-name">Dinheiro</div>
+            <div class="payment-description">Pagamento na entrega</div>
+          </div>
+          <div class="payment-card" data-payment="Débito">
+            <div class="payment-name">Débito</div>
+            <div class="payment-description">Cartão de débito</div>
+          </div>
+          <div class="payment-card" data-payment="Crédito">
+            <div class="payment-name">Crédito</div>
+            <div class="payment-description">Cartão de crédito</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- Modal Seleção de Tamanho (para pizzas) -->  <div id="pizza-size-modal" class="modal" style="display: none;">
+  <!-- Modal Seleção de Tamanho (para pizzas) --><div id="pizza-size-modal" class="modal" style="display: none;">
     <div class="modal-content pizza-size-modal-content">
       <div class="modal-header">
         <span id="pizza-size-close" class="close">&times;</span>
