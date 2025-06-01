@@ -67,13 +67,12 @@ document.addEventListener("DOMContentLoaded", () => {  // Referências aos eleme
   orderListClose.addEventListener("click", () => {
     document.getElementById("order-list-modal").style.display = "none";
   });
-
   // Evento para botão "Fechar e Limpar Carrinho"
   const clearAndCloseBtn = document.getElementById("clear-and-close");
   clearAndCloseBtn.addEventListener("click", () => {
-    limparCarrinho();
+    clearCart();
     document.getElementById("order-list-modal").style.display = "none";
-  });  // Fecha modal ao clicar fora
+  });// Fecha modal ao clicar fora
   window.addEventListener("click", (event) => {
     if (event.target === cartModal) {
       cartModal.style.display = "none";
