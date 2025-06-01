@@ -19,16 +19,19 @@
     </header>    <div class="boas-vindas" id="home">      <div class="welcome-content">
         <h1>Cardápio Digital da 3D MIX</h1>        <p class="welcome-subtitle">
           <span>Deliciosas opções de</span>
-          <span class="category-container">            <span id="animated-category">
-              <span class="category-item">pizzas</span>
-              <span class="category-item">hambúrgueres</span>
-              <span class="category-item">pastéis</span>
-              <span class="category-item">esfihas</span>
-              <span class="category-item">crepes</span>
-              <span class="category-item">combos</span>
-              <span class="category-item">pizzas</span>
-            </span>
-          </span>
+          <div class="category-slider-container">
+            <div class="category-slider">
+              <div class="category-slide active" data-category="pizzas">pizzas</div>
+              <div class="category-slide" data-category="hamburgueres">hambúrgueres</div>
+              <div class="category-slide" data-category="pasteis">pastéis</div>
+              <div class="category-slide" data-category="esfihas">esfihas</div>
+              <div class="category-slide" data-category="crepes">crepes</div>
+              <div class="category-slide" data-category="combos">combos</div>
+            </div>
+            <div class="category-progress-bar">
+              <div class="progress-fill"></div>
+            </div>
+          </div>
         </p>
       </div>
     </div>
@@ -191,6 +194,7 @@
     </div>
   </div><!-- Scripts -->
   <script src="scripts/cardapio.js"></script>
+  <script src="scripts/category-slider.js"></script>
   <script type="module" src="scripts/logica-cardapio.js"></script>
   <script src="scripts/carrinho.js"></script>
 </body>
