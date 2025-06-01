@@ -153,8 +153,8 @@ section.category-section-with-bg .titulo-variacao-sabor {
   box-shadow: 0 0.2rem 0.6rem rgba(0, 0, 0, 0.08);
   transition: box-shadow 0.25s ease;
   position: relative;
-  height: 130px; /* Altura fixa para todos os cards */
-  align-items: stretch; /* Faz o wrapper da imagem e os detalhes preencherem toda a altura */
+  min-height: 130px; /* Você pode ajustar ou remover se a altura do card-image-wrapper for suficiente */
+  /* align-items: stretch; é o padrão para itens flex, o que fará o wrapper da imagem esticar */
 }
 
 @media (hover: hover) and (min-width: 769px) {
@@ -194,12 +194,13 @@ section.category-section-with-bg .menu-card {
 .card-image-wrapper {
   flex-shrink: 0;
   width: 120px;
-  height: 130px; /* Altura fixa igual à altura do card */
+  /* REMOVIDO height: 120px; para permitir que estique */
+  /* aspect-ratio: 1 / 1; pode ser uma alternativa se quiser manter quadrado e cortar mais */
   background-color: #e9ecef;
   border-top-left-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem;
   overflow: hidden; /* IMPORTANTE: Esconde as partes da imagem que excedem o wrapper */
-  display: flex;
+  display: flex; /* Mantido para alinhar a imagem internamente se necessário */
   align-items: center; 
   justify-content: center;
   position: relative;
@@ -234,16 +235,10 @@ section.category-section-with-bg .menu-card {
   height: 100%; /* A imagem tentará preencher 100% da altura do .card-image-wrapper */
   object-fit: cover; /* IMPORTANTE: Faz a imagem cobrir o espaço, cortando o excesso */
   display: block;
-  /* Fallback para imagens muito pequenas */
-  min-width: 100%;
-  min-height: 100%;
 }
-
 .item-image.fallback-image {
   object-fit: contain; 
   padding: 0.5rem;
-  /* Para imagens de fallback, mantém o objeto centrado */
-  background-color: #f8f9fa;
 }
 
 .card-details {
@@ -251,10 +246,10 @@ section.category-section-with-bg .menu-card {
   padding: 0.75rem 1rem;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Centraliza o conteúdo de detalhes verticalmente */
+  justify-content: center; /* Centraliza o conteúdo de detalhes verticalmente se houver espaço extra */
   position: relative;
   z-index: 1;
-  height: 100%; /* Garante que ocupe toda a altura disponível */
+  min-height: 114px; /* Garante uma altura mínima para os detalhes, para que a imagem não fique muito pequena se o texto for curto. Ajuste conforme necessário (130px do card - 2*padding ~ 114px)*/
 }
 
 .card-header {
@@ -460,9 +455,10 @@ section.category-section-with-bg .category-observacoes ul li::before {
     margin-top: 0.7rem;
     margin-bottom: 0.7rem;
   }
+
   .card-image-wrapper {
     width: 115px;
-    height: 130px; /* Mantém altura fixa mesmo em telas médias */
+    /* REMOVIDO height: 115px; */
   }
   .item-id-badge {
     width: 1.5rem;
@@ -470,9 +466,10 @@ section.category-section-with-bg .category-observacoes ul li::before {
     font-size: 0.65rem;
     top: 0.3rem;
     left: 0.3rem;
-  }  .card-details {
+  }
+  .card-details {
     padding: 0.6rem 0.8rem;
-    height: 100%; /* Garante que ocupe toda a altura disponível em telas médias também */
+    min-height: 100px; /* Ajuste da altura mínima para os detalhes em telas menores */
   }
   .card-title {
     font-size: 1rem;
@@ -582,53 +579,9 @@ section.category-section-with-bg .category-observacoes ul li::before {
   }
 }
 
-/* Ajustes responsivos para os cards */
-@media (max-width: 480px) {
-  .grid-container {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-  
-  .menu-card {
-    height: 120px; /* Altura ligeiramente menor em telas pequenas */
-  }
-  
-  .card-image-wrapper {
-    width: 100px; /* Imagem menor em telas pequenas */
-    height: 120px;
-  }
-  
-  .card-details {
-    padding: 0.6rem 0.8rem;
-  }
-  
-  .card-title {
-    font-size: 0.95rem;
-  }
-  
-  .card-description {
-    font-size: 0.75rem;
-  }
-}
-
-@media (max-width: 360px) {
-  .menu-card {
-    height: 110px; /* Altura ainda menor para telas muito pequenas */
-  }
-  
-  .card-image-wrapper {
-    width: 90px;
-    height: 110px;
-  }
-  
-  .card-details {
-    padding: 0.5rem 0.7rem;
-  }
-}
-
 /* Otimizações para cards de pizza */
 .pizzas .menu-card {
-  height: 130px; /* Usa altura fixa ao invés de min-height */
+  min-height: 120px;
 }
 
 .pizzas .card-prices-multisize {
