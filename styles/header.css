@@ -7,32 +7,227 @@ header {
   padding-block: 1.5rem; /* 24px */
   margin: 0 auto;
   max-width: 80rem;
+  background-color: var(--bg-color);
 }
 
 .boas-vindas {
-  display: block;
-  padding-block: 1.5rem; /* 24px */
-  padding-inline: 1rem; /* 16px */
-  /* background-color: #1a1a1a; SUBSTITUÍDO PELO GRADIENTE ABAIXO */
-  background: radial-gradient(circle, #fc761c 0%, #ca5f17 55%, rgb(158, 74, 18) 100%);
-  color: #fff;
+  position: relative;
+  padding: 3rem 1.5rem;
+  background: linear-gradient(135deg, var(--brand-color) 0%, #ff8533 50%, #e6641a 100%);
+  color: white;
   text-align: center;
-  width: 100%;
   overflow: hidden;
+  min-height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+
+.boas-vindas::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.12) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.06) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.welcome-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .boas-vindas h1 {
-  font-size: clamp(1.5rem, 5vw, 2.25rem);
-  margin-bottom: 0.5rem;
-  color: #fff; /* Certifique-se que a cor do h1 também contraste bem com o novo fundo */
+  font-family: var(--ff-poppins);
+  font-size: clamp(1.8rem, 6vw, 3.5rem);
+  font-weight: var(--fw-bold);
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+  text-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
+  color: white;
 }
 
-.boas-vindas span {
-  font-size: clamp(0.875rem, 3vw, 1rem);
+.welcome-subtitle {
+  font-family: var(--ff-poppins);
+  font-size: clamp(1rem, 3.5vw, 1.4rem);
+  font-weight: var(--fw-medium);
+  margin-bottom: 1.5rem;
+  opacity: 0.95;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  color: white;
+}
+
+.category-container {
   display: inline-block;
-  max-width: 90%;
-  color: #fff; /* Certifique-se que a cor do span também contraste bem */
-  opacity: 0.9; /* Ajuste a opacidade se necessário para melhor leitura no gradiente */
+  min-width: 140px;
+  text-align: left;
+  position: relative;
+  height: calc(1.2em + 0.2em);
+  overflow: hidden;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 0.3rem 0.8rem 0.5rem 0.8rem;
+  backdrop-filter: blur(10px);
+  transform: translateY(0.1em);
+}
+
+#animated-category {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2em;
+  color: #ffeb3b;
+  font-weight: var(--fw-bold);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+  --item-height: calc(1.2em + 0.2em);
+  --bounce-1: calc(-1 * var(--item-height));
+  --bounce-2: calc(-2 * var(--item-height));
+  --bounce-3: calc(-3 * var(--item-height));
+  --bounce-4: calc(-4 * var(--item-height));
+  --bounce-5: calc(-5 * var(--item-height));
+  --bounce-6: calc(-6 * var(--item-height));
+  animation-name: categorySlideUp;
+  animation-duration: 8s;
+  animation-delay: 0.5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease;
+}
+
+.category-item {
+  display: block;
+  height: 1.2em;
+  line-height: 1.2em;
+}
+
+@keyframes categorySlideUp {
+  /* pizzas static */
+  0%, 12% {
+    transform: translateY(0);
+  }
+
+  /* hambúrgueres in (bounce) */
+  13% {
+    transform: translateY(calc(var(--bounce-1) - 15px));
+  }
+  15% {
+    transform: translateY(calc(var(--bounce-1) + 10px));
+  }
+  17% {
+    transform: translateY(calc(var(--bounce-1) - 5px));
+  }
+  19% {
+    transform: translateY(calc(var(--bounce-1) + 5px));
+  }
+
+  /* hambúrgueres static */
+  21%, 26% {
+    transform: translateY(var(--bounce-1));
+  }
+
+  /* pastéis in (bounce) */
+  27% {
+    transform: translateY(calc(var(--bounce-2) - 15px));
+  }
+  29% {
+    transform: translateY(calc(var(--bounce-2) + 10px));
+  }
+  31% {
+    transform: translateY(calc(var(--bounce-2) - 5px));
+  }
+  33% {
+    transform: translateY(calc(var(--bounce-2) + 5px));
+  }
+
+  /* pastéis static */
+  35%, 40% {
+    transform: translateY(var(--bounce-2));
+  }
+
+  /* esfihas in (bounce) */
+  41% {
+    transform: translateY(calc(var(--bounce-3) - 15px));
+  }
+  43% {
+    transform: translateY(calc(var(--bounce-3) + 10px));
+  }
+  45% {
+    transform: translateY(calc(var(--bounce-3) - 5px));
+  }
+  47% {
+    transform: translateY(calc(var(--bounce-3) + 5px));
+  }
+
+  /* esfihas static */
+  49%, 54% {
+    transform: translateY(var(--bounce-3));
+  }
+
+  /* crepes in (bounce) */
+  55% {
+    transform: translateY(calc(var(--bounce-4) - 15px));
+  }
+  57% {
+    transform: translateY(calc(var(--bounce-4) + 10px));
+  }
+  59% {
+    transform: translateY(calc(var(--bounce-4) - 5px));
+  }
+  61% {
+    transform: translateY(calc(var(--bounce-4) + 5px));
+  }
+
+  /* crepes static */
+  63%, 68% {
+    transform: translateY(var(--bounce-4));
+  }
+
+  /* combos in (bounce) */
+  69% {
+    transform: translateY(calc(var(--bounce-5) - 15px));
+  }
+  71% {
+    transform: translateY(calc(var(--bounce-5) + 10px));
+  }
+  73% {
+    transform: translateY(calc(var(--bounce-5) - 5px));
+  }
+  75% {
+    transform: translateY(calc(var(--bounce-5) + 5px));
+  }
+
+  /* combos static */
+  77%, 82% {
+    transform: translateY(var(--bounce-5));
+  }
+
+  /* pizzas (duplicada) in (bounce) */
+  83% {
+    transform: translateY(calc(var(--bounce-6) - 15px));
+  }
+  85% {
+    transform: translateY(calc(var(--bounce-6) + 10px));
+  }
+  87% {
+    transform: translateY(calc(var(--bounce-6) - 5px));
+  }
+  89% {
+    transform: translateY(calc(var(--bounce-6) + 5px));
+  }
+
+  /* pizzas (duplicada) static e volta para início */
+  91%, 100% {
+    transform: translateY(var(--bounce-6));
+  }
 }
 
 .logo {
@@ -49,6 +244,115 @@ header {
   .logo {
     max-width: 50%;
     object-fit: cover;
+    margin: 0 auto;
+  }
+}
+
+/* Responsividade para seção de boas-vindas */
+@media (max-width: 768px) {
+  .boas-vindas {
+    padding: 2.5rem 1.5rem;
+    min-height: 240px;
+  }
+    .boas-vindas h1 {
+    font-size: clamp(1.5rem, 7vw, 2.5rem);
+    margin-bottom: 1rem;
+  }
+  
+  .welcome-subtitle {
+    font-size: clamp(0.9rem, 4vw, 1.2rem);
+  }
+  
+  .category-container {
+    min-width: 120px;
+    height: calc(1.1em + 0.2em);
+    padding: 0.25rem 0.6rem 0.4rem 0.6rem;
+    text-align: center;
+    transform: translateY(-0.15em);
+    margin: 0 auto;
+  }
+  
+  .category-item {
+    height: 1.1em;
+    line-height: 1.1em;
+  }
+  
+  #animated-category {
+    gap: 0.15em;
+    --item-height: calc(1.1em + 0.15em);
+    --bounce-1: calc(-1 * var(--item-height));
+    --bounce-2: calc(-2 * var(--item-height));
+    --bounce-3: calc(-3 * var(--item-height));
+    --bounce-4: calc(-4 * var(--item-height));
+    --bounce-5: calc(-5 * var(--item-height));
+    --bounce-6: calc(-6 * var(--item-height));
+  }
+}
+
+@media (max-width: 480px) {
+  .boas-vindas {
+    padding: 2rem 1rem;
+    min-height: 220px;
+  }  .boas-vindas h1 {
+    font-size: clamp(1.3rem, 8vw, 2rem);
+    margin-bottom: 1rem;
+    max-width: 280px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .welcome-subtitle {
+    font-size: clamp(0.85rem, 4.5vw, 1.1rem);
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .category-container {
+    min-width: 100px;
+    height: calc(1em + 0.15em);
+    padding: 0.2rem 0.5rem 0.35rem 0.5rem;
+    border-radius: 6px;
+    text-align: center;
+    transform: translateY(-0.1em);
+    margin: 0 auto;
+  }
+  
+  .category-item {
+    height: 1em;
+    line-height: 1em;
+  }
+  
+  #animated-category {
+    gap: 0.1em;
+    --item-height: calc(1em + 0.1em);
+    --bounce-1: calc(-1 * var(--item-height));
+    --bounce-2: calc(-2 * var(--item-height));
+    --bounce-3: calc(-3 * var(--item-height));
+    --bounce-4: calc(-4 * var(--item-height));
+    --bounce-5: calc(-5 * var(--item-height));
+    --bounce-6: calc(-6 * var(--item-height));
+  }
+}
+
+/* Extra responsividade para telas muito pequenas */
+@media (max-width: 360px) {
+  .boas-vindas {
+    padding: 1.5rem 0.75rem;
+    min-height: 200px;
+  }
+  
+  .boas-vindas h1 {
+    font-size: clamp(1.1rem, 9vw, 1.8rem);
+    margin-bottom: 0.75rem;
+  }
+  
+  .welcome-subtitle {
+    font-size: clamp(0.8rem, 5vw, 1rem);
+    gap: 0.75rem;
+  }    .category-container {
+    min-width: 90px;
+    padding: 0.15rem 0.4rem;
+    text-align: center;
     margin: 0 auto;
   }
 }

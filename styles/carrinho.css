@@ -1,0 +1,588 @@
+/* Estilos do Carrinho de Compras */
+
+/* Layout do Card Header */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.card-title-section {
+  flex: 1;
+}
+
+.card-right-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+  min-width: fit-content;
+}
+
+/* Botão Adicionar nos Cards */
+.btn-add {
+  background: linear-gradient(135deg, var(--brand-color), #ff8533);
+  color: white;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 15px;
+  font-family: var(--ff-poppins);
+  font-weight: var(--fw-semibold);
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(249, 112, 21, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  min-width: 80px;
+  white-space: nowrap;
+}
+
+.btn-add:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(249, 112, 21, 0.4);
+  background: linear-gradient(135deg, #ff8533, var(--brand-color));
+}
+
+.btn-add:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(249, 112, 21, 0.3);
+}
+
+/* Bolha do Carrinho */
+#cart-bubble {
+  position: fixed;
+  right: 25px;
+  bottom: 25px; /* Descido para baixo já que não há mais botão flutuante */
+  width: 65px;
+  height: 65px;
+  background: linear-gradient(135deg, var(--brand-color), #ff8533);
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  box-shadow: 0 6px 25px rgba(249, 112, 21, 0.4);
+  transition: all 0.3s ease;
+  border: 3px solid white;
+}
+
+#cart-bubble::before {
+  content: '🛒';
+  font-size: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+}
+
+/* Quando o ícone carrinho.png estiver disponível, descomente as linhas abaixo e comente o content acima:
+#cart-bubble::before {
+  content: '';
+  background-image: url('../assets/icons/carrinho.png');
+  background-size: 28px 28px;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 28px;
+  height: 28px;
+  filter: brightness(0) invert(1);
+}
+*/
+
+#cart-bubble:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 30px rgba(249, 112, 21, 0.5);
+}
+
+#cart-count {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: linear-gradient(135deg, #e63946, #d62828);
+  color: white;
+  font-size: 13px;
+  font-weight: var(--fw-bold);
+  font-family: var(--ff-poppins);
+  min-width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 12px rgba(214, 40, 40, 0.6);
+  opacity: 1;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+/* Modal do Carrinho */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 10000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(3px);
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-content {
+  background: linear-gradient(145deg, #ffffff, #f8f9fa);
+  margin: 5% auto;
+  padding: 2rem;
+  border-radius: 20px;
+  width: 92%;
+  max-width: 480px;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  font-family: var(--ff-poppins);
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from { transform: translateY(-50px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.modal-content h2 {
+  color: var(--brand-color);
+  font-weight: var(--fw-bold);
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 1rem;
+}
+
+.close {
+  position: absolute;
+  right: 1.5rem;
+  top: 1.5rem;
+  color: #999;
+  font-size: 2rem;
+  font-weight: var(--fw-bold);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: transparent;
+}
+
+.close:hover {
+  color: var(--brand-color);
+  background: rgba(249, 112, 21, 0.1);
+  transform: rotate(90deg);
+}
+
+/* Itens do Carrinho */
+#cart-items {
+  margin-bottom: 1.5rem;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+#cart-items::-webkit-scrollbar {
+  width: 6px;
+}
+
+#cart-items::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+#cart-items::-webkit-scrollbar-thumb {
+  background: var(--brand-color);
+  border-radius: 10px;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  border-left: 4px solid var(--brand-color);
+  transition: all 0.3s ease;
+}
+
+.cart-item:hover {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.cart-item-info {
+  flex: 1;
+  margin-right: 1rem;
+}
+
+.cart-item-name {
+  font-weight: var(--fw-semibold);
+  color: #333;
+  font-size: var(--fs-small);
+  margin-bottom: 0.25rem;
+  line-height: 1.4;
+}
+
+.cart-item-price {
+  color: var(--brand-color);
+  font-weight: var(--fw-bold);
+  font-size: 0.9rem;
+}
+
+/* Controles de Quantidade */
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.quantity-controls button {
+  width: 32px;
+  height: 32px;
+  border: 2px solid var(--brand-color);
+  background: white;
+  color: var(--brand-color);
+  border-radius: 50%;
+  cursor: pointer;
+  font-weight: var(--fw-bold);
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  font-family: var(--ff-poppins);
+}
+
+.quantity-controls button:hover {
+  background: var(--brand-color);
+  color: white;
+  transform: scale(1.1);
+}
+
+.quantity-controls button:active {
+  transform: scale(0.95);
+}
+
+.quantity-display {
+  min-width: 35px;
+  text-align: center;
+  font-weight: var(--fw-semibold);
+  color: #333;
+  font-size: 1rem;
+  padding: 0.25rem;
+  background: rgba(249, 112, 21, 0.1);
+  border-radius: 8px;
+}
+
+/* Total do Carrinho */
+#cart-total {
+  font-size: 1.25rem;
+  font-weight: var(--fw-bold);
+  color: #333;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: linear-gradient(135deg, rgba(249, 112, 21, 0.1), rgba(255, 133, 51, 0.1));
+  border-radius: 12px;
+  border: 2px solid rgba(249, 112, 21, 0.2);
+}
+
+/* Botão Finalizar Pedido */
+#finalizar-pedido {
+  background: linear-gradient(135deg, #25d366, #20c653);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  cursor: pointer;
+  width: 100%;
+  font-size: 1.1rem;
+  font-weight: var(--fw-semibold);
+  font-family: var(--ff-poppins);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+#finalizar-pedido::before {
+  content: '';
+  background-image: url('../assets/icons/whatsapp.png');
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 20px;
+  height: 20px;
+  filter: brightness(0) invert(1); /* Torna o ícone branco */
+}
+
+#finalizar-pedido:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+  background: linear-gradient(135deg, #20c653, #25d366);
+}
+
+#finalizar-pedido:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(37, 211, 102, 0.3);
+}
+
+#finalizar-pedido:disabled {
+  background: linear-gradient(135deg, #cccccc, #999999);
+  cursor: not-allowed;
+  opacity: 0.5;
+  transform: none;
+  box-shadow: none;
+}
+
+#finalizar-pedido:disabled:hover {
+  transform: none;
+  box-shadow: none;
+  background: linear-gradient(135deg, #cccccc, #999999);
+}
+
+/* Mensagem de carrinho vazio */
+.empty-cart-message {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+  font-style: italic;
+  background: rgba(249, 112, 21, 0.05);
+  border-radius: 12px;
+  border: 2px dashed rgba(249, 112, 21, 0.2);
+}
+
+/* Feedback de Item Adicionado */
+.add-to-cart-feedback {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10001;
+  animation: feedbackSlideUp 3s ease-in-out forwards;
+  width: 90%;
+  max-width: 400px;
+}
+
+.feedback-content {
+  background: linear-gradient(135deg, #28a745, #20c653);
+  color: white;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  font-family: var(--ff-poppins);
+  font-weight: var(--fw-semibold);
+  box-shadow: 0 8px 25px rgba(40, 167, 69, 0.4);
+  text-align: center;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  font-size: 0.95rem;
+}
+
+@keyframes feedbackSlideUp {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 100px);
+  }
+  15%, 85% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -20px);
+  }
+}
+
+/* Modal de Seleção de Tamanho de Pizza */
+.pizza-size-modal-content {
+  max-width: 500px;
+  width: 90%;
+}
+
+.modal-header h2 {
+  margin-bottom: 0.5rem;
+}
+
+#pizza-name {
+  font-weight: var(--fw-semibold);
+  color: var(--brand-color);
+  font-size: 1.2rem;
+  text-align: center;
+  margin: 0.5rem 0 0 0;
+  padding: 0.75rem;
+  background: rgba(249, 112, 21, 0.1);
+  border-radius: 8px;
+  border-left: 4px solid var(--brand-color);
+}
+
+.pizza-sizes-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.pizza-size-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.pizza-size-option:hover {
+  border-color: var(--brand-color);
+  background: rgba(249, 112, 21, 0.05);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(249, 112, 21, 0.15);
+}
+
+.pizza-size-info {
+  flex: 1;
+}
+
+.pizza-size-name {
+  font-weight: var(--fw-semibold);
+  color: #333;
+  font-size: 1.1rem;
+  margin-bottom: 0.25rem;
+}
+
+.pizza-size-description {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.pizza-size-price {
+  font-weight: var(--fw-bold);
+  color: var(--brand-color);
+  font-size: 1.2rem;
+}
+
+/* Botão Limpar Carrinho */
+.clear-cart-btn {
+  background: linear-gradient(135deg, #dc3545, #c82333);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-family: var(--ff-poppins);
+  font-weight: var(--fw-semibold);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 1rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.clear-cart-btn:hover {
+  background: linear-gradient(135deg, #c82333, #bd2130);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+}
+
+.clear-cart-btn:active {
+  transform: translateY(0);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .modal-content {
+    margin: 10% auto;
+    width: 95%;
+    padding: 1.5rem;
+  }
+    #cart-bubble {
+    width: 60px;
+    height: 60px;
+    right: 20px;
+    bottom: 20px;
+  }
+    #cart-bubble::before {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+  }
+  
+  /* Quando usar ícone PNG:
+  #cart-bubble::before {
+    background-size: 24px 24px;
+    width: 24px;
+    height: 24px;
+  }
+  */
+  
+  #cart-count {
+    min-width: 22px;
+    height: 22px;
+    font-size: 11px;
+  }
+    .feedback-content {
+    padding: 0.75rem 1rem;
+    font-size: 0.85rem;
+    margin: 0 1rem;
+  }
+  
+  .add-to-cart-feedback {
+    bottom: 20px;
+    width: 95%;
+    max-width: 350px;
+  }
+}
+
+/* Responsividade para Modal de Pizza */
+@media (max-width: 600px) {
+  .pizza-size-modal-content {
+    margin: 5% auto;
+    width: 95%;
+  }
+  
+  .pizza-size-option {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+  }
+  
+  .pizza-size-info {
+    margin-bottom: 0.5rem;
+  }
+  
+  .pizza-size-price {
+    font-size: 1.4rem;
+  }
+}

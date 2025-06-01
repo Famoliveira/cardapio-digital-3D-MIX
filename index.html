@@ -5,9 +5,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cardápio Digital 3D MIX</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <title>Cardápio Digital 3D MIX</title>  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles/index.css">
+  <link rel="stylesheet" href="styles/carrinho.css">
 </head>
 <body>
   <div class="cardapio-digital">
@@ -16,10 +16,21 @@
         <img src="assets/logo.png" alt="Logo 3D Mix" class="logo">
       </a>
       <span class="desktop-only">Cardápio Digital</span>
-    </header>
-    <div class="boas-vindas" id="home">
-      <h1>Bem-vindo(a) ao nosso Cardápio Digital</h1>
-      <span>Descubra nossas deliciosas opções de pizzas, hamburgueres, pastéis e bebidas</span>
+    </header>    <div class="boas-vindas" id="home">      <div class="welcome-content">
+        <h1>Cardápio Digital da 3D MIX</h1>        <p class="welcome-subtitle">
+          <span>Deliciosas opções de</span>
+          <span class="category-container">            <span id="animated-category">
+              <span class="category-item">pizzas</span>
+              <span class="category-item">hambúrgueres</span>
+              <span class="category-item">pastéis</span>
+              <span class="category-item">esfihas</span>
+              <span class="category-item">crepes</span>
+              <span class="category-item">combos</span>
+              <span class="category-item">pizzas</span>
+            </span>
+          </span>
+        </p>
+      </div>
     </div>
     
     <div class="category-nav">
@@ -77,15 +88,43 @@
       
       <div class="footer-copyright">
         © 2025 3D MIX. Todos os direitos reservados.
-        <a href="https://www.instagram.com/famoliveira_/" class="developer-credit-link">Site feito por Gustavo Reis</a>
-      </div>
+        <a href="https://www.instagram.com/famoliveira_/" class="developer-credit-link">Site feito por Gustavo Reis</a>      </div>
     </footer>
   </div>
 
-  <a href="https://wa.me/5522999964529?text=Ol%C3%A1%2C%20boa%20noite!%20Vim%20do%20card%C3%A1pio%20digital%20e%20gostaria%20de%20fazer%20um%20pedido." class="floating-delivery-button" aria-label="Fazer pedido via WhatsApp">
-    <img src="assets/icons/delivery.png" alt="Ícone Delivery">
-  </a>
-  
+  <!-- Bolha de carrinho (abre modal) -->
+  <div id="cart-bubble">
+    <span id="cart-count">0</span>
+  </div>
+
+  <!-- Modal do carrinho -->
+  <div id="cart-modal" class="modal">
+    <div class="modal-content">
+      <span id="cart-close" class="close">&times;</span>
+      <h2>Seu Carrinho</h2>
+      <div id="cart-items"></div>
+      <div id="cart-total"></div>
+      <button id="finalizar-pedido">Finalizar Pedido</button>
+    </div>
+  </div>  
+
+  <!-- Modal Seleção de Tamanho (para pizzas) -->
+  <div id="pizza-size-modal" class="modal" style="display: none;">
+    <div class="modal-content pizza-size-modal-content">
+      <div class="modal-header">
+        <span id="pizza-size-close" class="close">&times;</span>
+        <h2>Escolha o tamanho</h2>
+        <p id="pizza-name"></p>
+      </div>
+      <div class="modal-body">
+        <div id="pizza-sizes-container" class="pizza-sizes-container">
+          <!-- Tamanhos serão inseridos dinamicamente -->
+        </div>
+      </div>
+    </div>
+  </div>  <!-- Scripts -->
+  <script src="scripts/cardapio.js"></script>
   <script type="module" src="scripts/logica-cardapio.js"></script>
+  <script src="scripts/carrinho.js"></script>
 </body>
 </html>

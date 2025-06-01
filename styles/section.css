@@ -48,12 +48,7 @@ section.category-section-with-bg .category-observacoes {
 
 section:not(.category-section-with-bg) {
   padding: 2rem 1rem;
-  max-width: 85rem;
-  margin: 0 auto;
-}
-
-.category-content-section {
-  /* Estilos para o container da seção de categoria ativa, se necessário */
+  max-width: 85rem;  margin: 0 auto;
 }
 
 .titulo-cardapio {
@@ -313,7 +308,14 @@ section.category-section-with-bg hr.price-separator {
   display: flex;
   flex-direction: column;
   gap: 0.3rem;
-  padding-left: 0.1rem;
+  margin-top: 0.5rem;
+}
+
+.card-prices-multisize .price-message {
+  font-style: italic;
+  color: #666;
+  font-size: 0.85rem;
+  text-align: center;
 }
 
 .card-prices-multisize span {
@@ -575,4 +577,34 @@ section.category-section-with-bg .category-observacoes ul li::before {
   .category-observacoes ul li {
     font-size: 0.75rem;
   }
+}
+
+/* Otimizações para cards de pizza */
+.pizzas .menu-card {
+  min-height: 120px;
+}
+
+.pizzas .card-prices-multisize {
+  font-size: 0.85rem;
+}
+
+.pizzas .card-prices-multisize span {
+  margin-bottom: 0.25rem;
+}
+
+/* Melhoria no espaçamento dos preços múltiplos */
+.card-prices-multisize {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-top: 0.5rem;
+}
+
+.card-prices-multisize .price-message {
+  font-style: italic;
+  color: #888;
+  font-size: 0.8rem;
+  text-align: left;
+  margin-top: 0;
+  font-weight: normal;
 }

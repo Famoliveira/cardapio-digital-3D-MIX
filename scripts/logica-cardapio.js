@@ -161,7 +161,21 @@ function gerarNavegacao() {
 
 function criarCardItem(item, categoriaIdParaPastaImagens, categoriaIdAtualSendoExibida) {
   const card = document.createElement('div');
-  card.className = 'menu-card';
+  card.className = 'menu-card item'; // Adiciona classe 'item' para o carrinho
+
+  // Adiciona atributos de dados para o carrinho
+  card.dataset.itemId = item.id;
+  card.dataset.itemNome = item.nome;
+  
+  // Define o preço para o carrinho (usa preço único ou o primeiro preço múltiplo)
+  let precoParaCarrinho = 0;
+  if (typeof item.preco === 'number') {
+    precoParaCarrinho = item.preco;
+  } else if (item.precos && typeof item.precos === 'object') {
+    const primeiroPreco = Object.values(item.precos)[0];
+    precoParaCarrinho = primeiroPreco ? primeiroPreco.valor : 0;
+  }
+  card.dataset.itemPreco = precoParaCarrinho;
 
   if (item.destaque) {
     card.classList.add('item-destacado');
@@ -179,31 +193,30 @@ function criarCardItem(item, categoriaIdParaPastaImagens, categoriaIdAtualSendoE
 
   let headerPriceHTML = '';
   let multiPricesHTML = '';
-  let priceSeparatorHTML = '';
-
-  // Verifica se o item tem múltiplos preços (estrutura de objeto 'precos')
+  let priceSeparatorHTML = '';  // Verifica se o item tem múltiplos preços (estrutura de objeto 'precos')
   if (item.precos && typeof item.precos === 'object') {
-    multiPricesHTML = '<div class="card-prices-multisize">';
-    for (const tamanho in item.precos) {
-      const precoInfo = item.precos[tamanho];
-      const precoValorFormatado = precoInfo.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-      multiPricesHTML += `<span>${precoInfo.texto}: <strong class="price-value">${precoValorFormatado}</strong></span>`;
-    }
-    multiPricesHTML += '</div>';
-    if (Object.keys(item.precos).length > 0) { // Adiciona separador apenas se houver preços múltiplos
-        priceSeparatorHTML = '<hr class="price-separator">';
-    }
+    // Para itens com múltiplos preços, mostra apenas o menor preço no header com asterisco
+    const precos = Object.values(item.precos);
+    const menorPreco = Math.min(...precos.map(p => p.valor));
+    const menorPrecoFormatado = menorPreco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    headerPriceHTML = `<span class="card-price-inline">${menorPrecoFormatado}*</span>`;
+    
+    // Substitui os preços múltiplos por uma mensagem simples
+    multiPricesHTML = '<div class="card-prices-multisize"><span class="price-message">* A partir de - Escolha o tamanho</span></div>';
+    priceSeparatorHTML = '<hr class="price-separator">';
   // Verifica se o item tem um preço único (propriedade 'preco')
   } else if (typeof item.preco === 'number') {
     const precoFormatado = item.preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
     headerPriceHTML = `<span class="card-price-inline">${precoFormatado}</span>`;
   }
 
+  // Define o texto do botão baseado no tipo de item
+  const buttonText = (item.precos && typeof item.precos === 'object') ? 'Escolher' : 'Adicionar';
+
   // Define o caminho da imagem do item
   // categoriaIdParaPastaImagens deve ser o ID da categoria original do item (ex: "hamburgueres", "pizzas")
   const imagemItemSrc = `assets/sections/${categoriaIdParaPastaImagens}/${item.id}.jpg`;
   const fallbackImageSrc = 'assets/logo-square.png'; // Imagem fallback
-
   card.innerHTML = `
     <div class="card-image-wrapper">
       <div class="item-id-badge">${item.id}</div>
@@ -213,13 +226,16 @@ function criarCardItem(item, categoriaIdParaPastaImagens, categoriaIdAtualSendoE
         class="item-image"
         onerror="this.onerror=null; this.src='${fallbackImageSrc}'; this.classList.add('fallback-image');"
       >
-    </div>
-    <div class="card-details">
+    </div>    <div class="card-details">
       <div class="card-header">
-        <h3 class="card-title">${item.nome}</h3>
-        ${headerPriceHTML}
+        <div class="card-title-section">
+          <h3 class="card-title">${item.nome}</h3>
+          <p class="card-description">${item.descricao}</p>        </div>
+        <div class="card-right-section">
+          ${headerPriceHTML}
+          <button class="btn-add">${buttonText}</button>
+        </div>
       </div>
-      <p class="card-description">${item.descricao}</p>
       ${priceSeparatorHTML}
       ${multiPricesHTML}
     </div>

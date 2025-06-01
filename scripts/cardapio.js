@@ -741,3 +741,7 @@ const cardapio = {
 
 // Exportando os dados
 export { cardapio, categorias };
+
+// Tornando disponível globalmente para o carrinho
+window.cardapio = cardapio;
+window.categorias = categorias;
