@@ -106,8 +106,34 @@
       <h2>Seu Carrinho</h2>      <div id="cart-items"></div>
       <div id="cart-total"></div>
       
-      <button id="finalizar-pedido">Finalizar Pedido</button>
-    </div>  </div>
+      <button id="finalizar-pedido">Finalizar Pedido</button>    </div>  </div>
+
+  <!-- Modal de Escolha do Tipo de Pedido -->
+  <div id="order-type-modal" class="modal">
+    <div class="modal-content order-type-modal-content">
+      <span id="order-type-close" class="close">&times;</span>
+      <h2>Como você deseja fazer o pedido?</h2>
+      
+      <div class="order-type-section">
+        <div class="order-type-header">
+          <h3>Escolha uma das opções abaixo:</h3>
+        </div>
+        
+        <div class="order-type-grid">
+          <div class="order-type-card" data-order-type="delivery">
+            <div class="order-type-icon">🛵</div>
+            <div class="order-type-name">Pedido para Delivery</div>
+            <div class="order-type-description">Entrega no seu endereço via WhatsApp</div>
+          </div>
+          <div class="order-type-card" data-order-type="balcao">
+            <div class="order-type-icon">🏪</div>
+            <div class="order-type-name">Estou na loja física</div>
+            <div class="order-type-description">Fazer pedido no balcão</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Modal de Forma de Pagamento -->
   <div id="payment-modal" class="modal">
@@ -139,6 +165,24 @@
             <div class="payment-description">Cartão de crédito</div>
           </div>
         </div>
+      </div>    </div>
+  </div>
+
+  <!-- Modal de Lista do Pedido (para balcão) -->
+  <div id="order-list-modal" class="modal">
+    <div class="modal-content order-list-modal-content">
+      <span id="order-list-close" class="close">&times;</span>
+      <h2>Seu Pedido</h2>
+      
+      <div class="order-list-header">
+        <p class="order-list-instruction">Leve esta lista para o balcão:</p>
+      </div>
+      
+      <div id="order-list-items" class="order-list-items"></div>
+      <div id="order-list-total" class="order-list-total"></div>
+      
+      <div class="order-list-footer">
+        <button id="clear-and-close" class="order-list-btn">Fechar e Limpar Carrinho</button>
       </div>
     </div>
   </div>

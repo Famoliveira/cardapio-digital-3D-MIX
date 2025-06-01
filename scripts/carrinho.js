@@ -51,10 +51,28 @@ document.addEventListener("DOMContentLoaded", () => {  // Referências aos eleme
   cartClose.addEventListener("click", () => {
     cartModal.style.display = "none";
   });
-
   // Eventos para modal de forma de pagamento
   paymentClose.addEventListener("click", () => {
     paymentModal.style.display = "none";
+  });
+
+  // Eventos para modal de escolha do tipo de pedido
+  const orderTypeClose = document.getElementById("order-type-close");
+  orderTypeClose.addEventListener("click", () => {
+    document.getElementById("order-type-modal").style.display = "none";
+  });
+
+  // Eventos para modal de lista do pedido
+  const orderListClose = document.getElementById("order-list-close");
+  orderListClose.addEventListener("click", () => {
+    document.getElementById("order-list-modal").style.display = "none";
+  });
+
+  // Evento para botão "Fechar e Limpar Carrinho"
+  const clearAndCloseBtn = document.getElementById("clear-and-close");
+  clearAndCloseBtn.addEventListener("click", () => {
+    limparCarrinho();
+    document.getElementById("order-list-modal").style.display = "none";
   });  // Fecha modal ao clicar fora
   window.addEventListener("click", (event) => {
     if (event.target === cartModal) {
@@ -66,21 +84,27 @@ document.addEventListener("DOMContentLoaded", () => {  // Referências aos eleme
     if (event.target === paymentModal) {
       paymentModal.style.display = "none";
     }
+    if (event.target === document.getElementById("order-type-modal")) {
+      document.getElementById("order-type-modal").style.display = "none";
+    }
+    if (event.target === document.getElementById("order-list-modal")) {
+      document.getElementById("order-list-modal").style.display = "none";
+    }
   });
 
   // Eventos para modal de seleção de tamanho
   pizzaSizeClose.addEventListener("click", () => {
     pizzaSizeModal.style.display = "none";
-  });  // Evento para finalizar pedido (abre modal de pagamento)
+  });  // Evento para finalizar pedido (abre modal de escolha do tipo de pedido)
   finalizarPedidoBtn.addEventListener("click", () => {
     if (cartData.length === 0) {
       alert("Seu carrinho está vazio!");
       return;
     }
     
-    // Fecha modal do carrinho e abre modal de pagamento
+    // Fecha modal do carrinho e abre modal de escolha do tipo de pedido
     cartModal.style.display = "none";
-    paymentModal.style.display = "block";
+    document.getElementById("order-type-modal").style.display = "block";
   });
 
   // Função para verificar se é uma pizza com múltiplos tamanhos
@@ -461,4 +485,90 @@ document.addEventListener("DOMContentLoaded", () => {  // Referências aos eleme
       processOrder(paymentMethod);
     }
   });
+
+// ===== FUNCIONALIDADES DO TIPO DE PEDIDO =====
+
+// Event listener para seleção do tipo de pedido
+document.addEventListener("click", (event) => {
+  if (event.target.closest('.order-type-card')) {
+    const clickedCard = event.target.closest('.order-type-card');
+    const orderType = clickedCard.dataset.orderType;
+    
+    // Remove seleção de todos os cards
+    document.querySelectorAll('.order-type-card').forEach(card => {
+      card.classList.remove('selected');
+    });
+    
+    // Adiciona seleção ao card clicado
+    clickedCard.classList.add('selected');
+    
+    // Aguarda um pouco para mostrar a seleção, depois procede
+    setTimeout(() => {
+      if (orderType === 'delivery') {
+        // Para delivery, vai para o modal de pagamento
+        document.getElementById("order-type-modal").style.display = "none";
+        paymentModal.style.display = "block";
+      } else if (orderType === 'balcao') {
+        // Para balcão, mostra a lista organizada
+        showOrderListForBalcao();
+      }
+      
+      // Remove a seleção após processar
+      setTimeout(() => {
+        clickedCard.classList.remove('selected');
+      }, 100);
+    }, 300);
+  }
+});
+
+// Função para mostrar lista do pedido para o balcão
+function showOrderListForBalcao() {
+  document.getElementById("order-type-modal").style.display = "none";
+  renderOrderList();
+  document.getElementById("order-list-modal").style.display = "block";
+}
+
+// Função para renderizar a lista do pedido
+function renderOrderList() {
+  const orderListItems = document.getElementById("order-list-items");
+  const orderListTotal = document.getElementById("order-list-total");
+  
+  if (cartData.length === 0) {
+    orderListItems.innerHTML = '<p style="text-align: center; color: #666;">Nenhum item no carrinho</p>';
+    orderListTotal.innerHTML = 'Total: R$ 0,00';
+    return;
+  }
+  
+  let html = '';
+  let total = 0;
+  
+  cartData.forEach(item => {
+    const itemTotal = item.preco * item.quantidade;
+    total += itemTotal;
+    
+    // Monta detalhes do item (tamanho, borda, etc.)
+    let details = '';
+    if (item.tamanho) {
+      details += `Tamanho: ${item.tamanho}`;
+    }
+    if (item.bordaRecheada && item.saborBorda) {
+      details += details ? ` | Borda: ${item.saborBorda}` : `Borda: ${item.saborBorda}`;
+    }
+      html += `
+      <div class="order-list-item">
+        <div class="order-list-item-info">
+          <div class="order-list-item-name">${item.nome}</div>
+          ${details ? `<div class="order-list-item-details">${details}</div>` : ''}
+        </div>
+        <div class="order-list-item-bottom">
+          <div class="order-list-item-quantity">${item.quantidade}x</div>
+          <div class="order-list-item-price">R$ ${itemTotal.toFixed(2).replace('.', ',')}</div>
+        </div>
+      </div>
+    `;
+  });
+  
+  orderListItems.innerHTML = html;
+  orderListTotal.innerHTML = `Total: R$ ${total.toFixed(2).replace('.', ',')}`;
+}
 });
