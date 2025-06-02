@@ -221,16 +221,25 @@ function criarCardItem(item, categoriaIdParaPastaImagens, categoriaIdAtualSendoE
 
   // Define o caminho da imagem do item
   // categoriaIdParaPastaImagens deve ser o ID da categoria original do item (ex: "hamburgueres", "pizzas")
-  const imagemItemSrc = `assets/sections/${categoriaIdParaPastaImagens}/${item.id}.jpg`;
+  const imagemItemJpgSrc = `assets/sections/${categoriaIdParaPastaImagens}/${item.id}.jpg`;
+  const imagemItemJpegSrc = `assets/sections/${categoriaIdParaPastaImagens}/${item.id}.jpeg`;
   const fallbackImageSrc = 'assets/logo-square.png'; // Imagem fallback
   card.innerHTML = `
     <div class="card-image-wrapper">
       <div class="item-id-badge">${item.id}</div>
       <img
-        src="${imagemItemSrc}"
+        src="${imagemItemJpgSrc}"
         alt="${item.nome}"
         class="item-image"
-        onerror="this.onerror=null; this.src='${fallbackImageSrc}'; this.classList.add('fallback-image');"
+        onerror="
+          if (this.src.endsWith('.jpg')) { // If .jpg failed, try .jpeg
+            this.src='${imagemItemJpegSrc}';
+          } else { // If .jpeg also failed (or it wasn't .jpg initially), use fallback
+            this.onerror=null; 
+            this.src='${fallbackImageSrc}';
+            this.classList.add('fallback-image');
+          }
+        "
       >
     </div>    <div class="card-details">
       <div class="card-header">
