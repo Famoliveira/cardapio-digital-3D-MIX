@@ -24,8 +24,11 @@
         <img src="assets/logo.png" alt="Logo 3D Mix" class="logo">
       </a>
       <span class="desktop-only">Cardápio Digital</span>
-    </header>    <div class="boas-vindas" id="home">      <div class="welcome-content">
-        <h1>Cardápio Digital da 3D MIX</h1>        <p class="welcome-subtitle">
+    </header>
+    <div class="boas-vindas" id="home">
+      <div class="welcome-content">
+        <h1>Cardápio Digital da 3D MIX</h1>
+        <p class="welcome-subtitle">
           <span>Deliciosas opções de</span>
           <div class="category-slider-container">
             <div class="category-slider">
@@ -34,7 +37,7 @@
               <div class="category-slide" data-category="pasteis">pastéis</div>
               <div class="category-slide" data-category="esfihas">esfihas</div>
               <div class="category-slide" data-category="crepes">crepes</div>
-              <div class="category-slide" data-category="combos">combos</div>
+              <div class="category-slide" data-category="batatas">batatas</div> <div class="category-slide" data-category="combos">combos</div>
             </div>
             <div class="category-progress-bar">
               <div class="progress-fill"></div>
@@ -99,27 +102,28 @@
       
       <div class="footer-copyright">
         © 2025 3D MIX. Todos os direitos reservados.
-        <a href="https://www.instagram.com/famoliveira_/" class="developer-credit-link">Site feito por Gustavo Reis</a>      </div>
+        <a href="https://www.instagram.com/famoliveira_/" class="developer-credit-link">Site feito por Gustavo Reis</a>
+      </div>
     </footer>
   </div>
 
-  <!-- Bolha de carrinho (abre modal) -->
   <div id="cart-bubble">
     <span id="cart-count">0</span>
   </div>
-  <!-- Modal do carrinho -->
   <div id="cart-modal" class="modal">
     <div class="modal-content">
-      <span id="cart-close" class="close">&times;</span>
-      <h2>Seu Carrinho</h2>      <div id="cart-items"></div>
+      <span id="cart-close" class="close">×</span>
+      <h2>Seu Carrinho</h2>
+      <div id="cart-items"></div>
       <div id="cart-total"></div>
       
-      <button id="finalizar-pedido">Finalizar Pedido</button>    </div>  </div>
+      <button id="finalizar-pedido">Finalizar Pedido</button>
+    </div>
+  </div>
 
-  <!-- Modal de Escolha do Tipo de Pedido -->
   <div id="order-type-modal" class="modal">
     <div class="modal-content order-type-modal-content">
-      <span id="order-type-close" class="close">&times;</span>
+      <span id="order-type-close" class="close">×</span>
       <h2>Como você deseja fazer o pedido?</h2>
       
       <div class="order-type-section">
@@ -143,10 +147,9 @@
     </div>
   </div>
 
-  <!-- Modal de Forma de Pagamento -->
   <div id="payment-modal" class="modal">
     <div class="modal-content payment-modal-content">
-      <span id="payment-close" class="close">&times;</span>
+      <span id="payment-close" class="close">×</span>
       <h2>Escolha a Forma de Pagamento</h2>
       
       <div class="payment-section">
@@ -173,13 +176,13 @@
             <div class="payment-description">Cartão de crédito</div>
           </div>
         </div>
-      </div>    </div>
+      </div>
+    </div>
   </div>
 
-  <!-- Modal de Lista do Pedido (para balcão) -->
   <div id="order-list-modal" class="modal">
     <div class="modal-content order-list-modal-content">
-      <span id="order-list-close" class="close">&times;</span>
+      <span id="order-list-close" class="close">×</span>
       <h2>Seu Pedido</h2>
       
       <div class="order-list-header">
@@ -195,17 +198,16 @@
     </div>
   </div>
 
-  <!-- Modal Seleção de Tamanho (para pizzas) --><div id="pizza-size-modal" class="modal" style="display: none;">
+  <div id="pizza-size-modal" class="modal" style="display: none;">
     <div class="modal-content pizza-size-modal-content">
       <div class="modal-header">
-        <span id="pizza-size-close" class="close">&times;</span>
+        <span id="pizza-size-close" class="close">×</span>
         <h2>Escolha o tamanho</h2>
         <p id="pizza-name"></p>
       </div>
-      <div class="modal-body">        <div id="pizza-sizes-container" class="pizza-sizes-container">
-          <!-- Tamanhos serão inseridos dinamicamente -->
-        </div>        
-        <!-- Seção de Borda Recheada -->
+      <div class="modal-body">
+        <div id="pizza-sizes-container" class="pizza-sizes-container">
+          </div>        
         <div class="pizza-border-section">
           <div class="border-header">
             <h3>Borda Recheada</h3>
@@ -239,10 +241,10 @@
                 <div class="flavor-name">Queijo</div>
                 <div class="flavor-description">Clássico tradicional</div>
               </div>
-            </div>          </div>
+            </div>
+          </div>
         </div>
         
-        <!-- Botão Adicionar ao Carrinho -->
         <div class="pizza-add-section">
           <button id="add-pizza-to-cart-btn" class="add-pizza-btn" disabled>
             Adicionar ao Carrinho
@@ -250,7 +252,7 @@
         </div>
       </div>
     </div>
-  </div><!-- Scripts -->
+  </div>
   <script src="scripts/cardapio.js"></script>
   <script src="scripts/category-slider.js"></script>
   <script type="module" src="scripts/logica-cardapio.js"></script>

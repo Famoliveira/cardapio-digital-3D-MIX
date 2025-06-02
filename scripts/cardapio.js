@@ -39,9 +39,9 @@ const categorias = [
     imagemFundo: 'assets/category-backgrounds/crepes-bg.jpg'
   },
   {
-    id: 'batatas', nome: 'Batatas',
-    icon: 'assets/icons/batatas.png',
-    imagemFundo: 'assets/category-backgrounds/batatas-bg.jpg'
+    id: 'batatas', nome: 'Batatas', // Nova categoria
+    icon: 'assets/icons/batatas.png', // Adicione o ícone correspondente
+    imagemFundo: 'assets/category-backgrounds/batatas-bg.jpg' // Adicione a imagem de fundo correspondente
   },
   {
     id: 'bebidas', nome: 'Bebidas',
@@ -679,8 +679,14 @@ const cardapio = {
       }
     ]
   },
-
-  batatas: [ /* Suas batatas aqui, se houver */ ],
+  batatas: { // Nova categoria de batatas
+    tipoEstrutura: 'simples', // Ou 'hierarquica' se precisar de subseções/grupos no futuro
+    itens: [
+      { id: 1, nome: 'Batata frita pequena', descricao: 'Porção individual de batatas fritas crocantes.', preco: 8.00, destaque: false },
+      { id: 2, nome: 'Batata frita grande', descricao: 'Porção generosa de batatas fritas para compartilhar.', preco: 9.90, destaque: true },
+      { id: 3, nome: 'Batata frita mix', descricao: 'Com calabresa ou bacon e catupiry e cheddar.', preco: 29.99, destaque: true }
+    ]
+  },
   bebidas: {
     tipoEstrutura: 'hierarquica',
     subsecoes: [
