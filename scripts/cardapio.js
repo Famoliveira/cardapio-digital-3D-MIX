@@ -74,7 +74,7 @@ const cardapio = {
               { id: 4, nome: 'Combo 4', descricao: 'Pizza Família (40 cm) + Pizza Família (40 cm) + Pizza Grande (35 cm) (doce ou salgada)', preco: 119.90, destaque: false },
               { id: 5, nome: 'Combo 5', descricao: '3 Pizzas Grandes (35 cm)', preco: 105.90, destaque: false },
               { id: 6, nome: 'Combo 6', descricao: 'Pizza Média (30 cm) + Refrigerante', preco: 41.90, destaque: false },
-              { id: 7, nome: 'Combo 7', descricao: 'Na compra de uma Pizza Grande, você ganha um Refrigerante', preco: 74.90, destaque: true }
+              { id: 7, nome: 'Combo 7', descricao: 'Na compra de uma Pizza Gigante, você ganha um Refrigerante', preco: 74.90, destaque: true }
             ]
           }
         ]
@@ -105,7 +105,6 @@ const cardapio = {
         idSubsecao: 'semana-dose-dupla',
         grupos: [
           {
-            nomeGrupo: 'Promoção válida de Seg. à Qui.',
             itens: [
               { id: 19, nome: 'Hambúrguer + Hambúrguer + Guaravita', descricao: '2 Hambúrguer simples acompanhados de 1 Guaravita.', preco: 13.00, destaque: true },
               { id: 20, nome: 'X-Burguer + X-Burguer + Guaravita', descricao: '2 X-Burguer acompanhados de 1 Guaravita.', preco: 19.80, destaque: false },
@@ -695,7 +694,7 @@ const cardapio = {
               { id: 1, nome: 'Coca-Cola Lata', descricao: 'Lata 350ml', preco: 8.00, destaque: true },
               { id: 2, nome: 'Refrigerante Lata (Sabores Diversos)', descricao: 'Lata 350ml', preco: 8.00, destaque: false },
               { id: 3, nome: 'H2OH!', descricao: 'Limão ou outros sabores - Garrafa 500ml', preco: 8.00, destaque: false },
-              { id: 4, nome: 'Refrigerante Mini', descricao: 'Ideal para consumo individual', preco: 0.00, destaque: false }
+              { id: 4, nome: 'Refrigerante Mini', descricao: 'Ideal para consumo individual', preco: 5.00, destaque: false }
             ]
           },
           {
