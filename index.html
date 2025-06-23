@@ -106,13 +106,24 @@
 
   <div id="cart-bubble">
     <span id="cart-count">0</span>
-  </div>
-  <div id="cart-modal" class="modal">
+  </div>  <div id="cart-modal" class="modal">
     <div class="modal-content">
       <span id="cart-close" class="close">×</span>
       <h2>Seu Carrinho</h2>
       <div id="cart-items"></div>
       <div id="cart-total"></div>
+      
+      <div class="cart-observation-section">
+        <label for="cart-observation" class="observation-label">Observações:</label>
+        <textarea 
+          id="cart-observation" 
+          class="observation-input" 
+          placeholder="Ex: Sem cebola, metade portuguesa e metade frango..."
+          rows="3"
+          maxlength="200"
+        ></textarea>
+        <small class="observation-helper">Máx. 200 caracteres</small>
+      </div>
       
       <button id="finalizar-pedido">Finalizar Pedido</button>
     </div>

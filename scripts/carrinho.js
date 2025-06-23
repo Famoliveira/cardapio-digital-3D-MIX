@@ -18,13 +18,24 @@ document.addEventListener("DOMContentLoaded", () => {
   const pizzaSizeModal = document.getElementById("pizza-size-modal");
   const pizzaSizeClose = document.getElementById("pizza-size-close");
   const pizzaNameElement = document.getElementById("pizza-name");
-  const pizzaSizesContainer = document.getElementById("pizza-sizes-container");
-  // Carrega carrinho do localStorage ou cria vazio
+  const pizzaSizesContainer = document.getElementById("pizza-sizes-container");  // Carrega carrinho do localStorage ou cria vazio
   let cartData = JSON.parse(localStorage.getItem("cartData")) || [];
   let selectedPaymentMethod = null;
 
   // Atualiza contador ao carregar
-  updateCartCount();// Vincula evento de adicionar item usando delegação de eventos
+  updateCartCount();
+  
+  // Restaura observação do localStorage
+  const savedObservation = localStorage.getItem("cartObservation") || "";
+  const observationInput = document.getElementById('cart-observation');
+  if (observationInput) {
+    observationInput.value = savedObservation;
+    
+    // Adiciona evento para salvar observação automaticamente
+    observationInput.addEventListener('input', function() {
+      localStorage.setItem("cartObservation", this.value);
+    });
+  }// Vincula evento de adicionar item usando delegação de eventos
   document.addEventListener("click", (event) => {
     if (event.target.classList.contains("btn-add")) {
       const parentItem = event.target.closest(".item");
@@ -275,11 +286,12 @@ document.addEventListener("DOMContentLoaded", () => {
     
     // Usa o itemId único (categoria-id-tamanho) para garantir identificação única
     addToCart(`${itemId}-${tamanho}`, nomeFinal, precoFinal);
-    
-    // Fecha o modal
+      // Fecha o modal
     const pizzaSizeModal = document.getElementById("pizza-size-modal");
     pizzaSizeModal.style.display = "none";
-  }// Função para limpar carrinho
+  }
+
+  // Função para limpar carrinho
   function clearCart() {
     if (cartData.length === 0) return;
     
@@ -288,10 +300,17 @@ document.addEventListener("DOMContentLoaded", () => {
       saveCart();
       updateCartCount();
       renderCartItems();
+      
+      // Limpa também a observação
+      const observationInput = document.getElementById('cart-observation');
+      if (observationInput) {
+        observationInput.value = '';
+        localStorage.removeItem("cartObservation");
+      }
+      
       showAddToCartFeedback("Carrinho limpo!");
     }
   }
-
   // Função para limpar carrinho após finalizar pedido (sem confirmação)
   function clearCartAfterOrder() {
     if (cartData.length === 0) return;
@@ -300,6 +319,14 @@ document.addEventListener("DOMContentLoaded", () => {
     saveCart();
     updateCartCount();
     renderCartItems();
+    
+    // Limpa também a observação
+    const observationInput = document.getElementById('cart-observation');
+    if (observationInput) {
+      observationInput.value = '';
+      localStorage.removeItem("cartObservation");
+    }
+    
     showAddToCartFeedback("Pedido enviado! Carrinho limpo automaticamente.");
     
     // Fecha o modal do carrinho após um pequeno delay
@@ -491,7 +518,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     // Limpa o carrinho automaticamente após finalizar o pedido
     clearCartAfterOrder();
-  }// Gera mensagem para WhatsApp
+  }  // Gera mensagem para WhatsApp
   function generateWhatsAppMessage() {
     const now = new Date();
     const hour = now.getHours();
@@ -524,11 +551,20 @@ document.addEventListener("DOMContentLoaded", () => {
     message += `*TOTAL: R$ ${totalFormatted}*\n`;
     message += `(frete não incluso)\n\n`;
     message += `*FORMA DE PAGAMENTO:* ${selectedPaymentMethod}\n\n`;
+    
+    // Adiciona observações se houver
+    const observationInput = document.getElementById('cart-observation');
+    const observation = observationInput ? observationInput.value.trim() : '';
+    
+    if (observation) {
+      message += `*OBSERVAÇÕES:*\n${observation}\n\n`;
+    }
+    
     message += `Vim do cardápio digital da 3D MIX!\n`;
     message += `Gostaria de confirmar meu pedido e saber sobre o frete.`;
 
     return message;
-  }    // Event listener para checkbox da borda recheada
+  }// Event listener para checkbox da borda recheada
   document.addEventListener("change", (event) => {
     if (event.target.id === "border-checkbox") {
       const borderFlavorContainer = document.getElementById("border-flavor-container");

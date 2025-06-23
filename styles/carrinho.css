@@ -298,6 +298,60 @@
   border: 2px solid rgba(249, 112, 21, 0.2);
 }
 
+/* Seção de Observações do Carrinho */
+.cart-observation-section {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: linear-gradient(135deg, rgba(249, 112, 21, 0.05), rgba(255, 133, 51, 0.05));
+  border-radius: 12px;
+  border: 2px solid rgba(249, 112, 21, 0.15);
+}
+
+.observation-label {
+  display: block;
+  font-family: var(--ff-poppins);
+  font-weight: var(--fw-semibold);
+  color: #333;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.observation-input {
+  width: 100%;
+  min-height: 80px;
+  padding: 0.75rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-family: var(--ff-poppins);
+  font-size: 0.9rem;
+  color: #333;
+  background: white;
+  resize: vertical;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.observation-input:focus {
+  outline: none;
+  border-color: var(--brand-color);
+  background: rgba(249, 112, 21, 0.05);
+  box-shadow: 0 0 0 3px rgba(249, 112, 21, 0.1);
+}
+
+.observation-input::placeholder {
+  color: #999;
+  font-style: italic;
+}
+
+.observation-helper {
+  display: block;
+  font-family: var(--ff-poppins);
+  font-size: 0.75rem;
+  color: #666;
+  margin-top: 0.25rem;
+  text-align: right;
+}
+
 /* Botão Finalizar Pedido */
 #finalizar-pedido {
   background: linear-gradient(135deg, #25d366, #20c653);
@@ -943,14 +997,32 @@
     width: 95%;
     max-width: 350px;
   }
+
+  /* Responsividade para campo de observações */
+  .cart-observation-section {
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .observation-label {
+    font-size: 0.9rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .observation-input {
+    font-size: 0.85rem;
+    padding: 0.6rem;
+    min-height: 70px;
+  }
+
+  .observation-helper {
+    font-size: 0.7rem;
+    margin-top: 0.2rem;
+  }
 }
 
 /* Responsividade para Modal de Pizza (Ajustes mais específicos para compactar) */
 @media (max-width: 768px) {
-  .pizza-size-modal-content {
-    /* padding: 1rem; */ /* Reduzido ainda mais no próximo breakpoint */
-  }
-
   .pizza-size-modal-content .modal-header h2 {
     font-size: 1.3rem; /* Reduzido */
     margin-bottom: 0.2rem; /* Reduzido */
