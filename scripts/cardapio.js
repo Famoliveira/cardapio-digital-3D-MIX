@@ -70,7 +70,7 @@ const cardapio = {
             itens: [
               { id: 1, nome: 'Combo 1', descricao: 'Pizza Grande (35 cm) + Pizza Grande (35 cm) + Pizza Pequena Doce', preco: 94.90, destaque: true },
               { id: 2, nome: 'Combo 2', descricao: 'Pizza Grande (35 cm) + Pizza Pequena (doce ou salgada) + Refrigerante', preco: 77.00, destaque: false },
-              { id: 3, nome: 'Combo 3', descricao: 'Pizza Família (40 cm) + Pizza Grande (35 cm)', preco: 91.90, destaque: false },
+              { id: 3, nome: 'Combo 3', descricao: 'Pizza Família (40 cm) + Pizza Grande (35 cm) + Refri', preco: 101.90, destaque: true },
               { id: 4, nome: 'Combo 4', descricao: 'Pizza Família (40 cm) + Pizza Família (40 cm) + Pizza Grande (35 cm) (doce ou salgada)', preco: 119.90, destaque: false },
               { id: 5, nome: 'Combo 5', descricao: '3 Pizzas Grandes (35 cm)', preco: 105.90, destaque: false },
               { id: 6, nome: 'Combo 6', descricao: 'Pizza Média (30 cm) + Refrigerante', preco: 41.90, destaque: false },
