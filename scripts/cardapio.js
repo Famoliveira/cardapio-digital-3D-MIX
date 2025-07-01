@@ -622,34 +622,34 @@ const cardapio = {
           {
             nomeGrupo: 'Frango',
             itens: [
-              { id: 1, nome: 'Frango', descricao: 'Crepe recheado com frango temperado.', preco: 19.90, destaque: true },
-              { id: 2, nome: 'Frango com cheddar', descricao: 'Crepe recheado com frango e queijo cheddar.', preco: 19.90, destaque: false },
-              { id: 3, nome: 'Frango com catupiry', descricao: 'Crepe recheado com frango e catupiry.', preco: 19.90, destaque: false },
-              { id: 4, nome: 'Frango com catupiry e palmito', descricao: 'Crepe recheado com frango, catupiry e palmito.', preco: 19.90, destaque: false }
+              { id: 1, nome: 'Crepe de Frango', descricao: 'Crepe recheado com frango temperado.', preco: 19.90, destaque: true },
+              { id: 2, nome: 'Crepe de Frango com cheddar', descricao: 'Crepe recheado com frango e queijo cheddar.', preco: 19.90, destaque: false },
+              { id: 3, nome: 'Crepe de Frango com catupiry', descricao: 'Crepe recheado com frango e catupiry.', preco: 19.90, destaque: false },
+              { id: 4, nome: 'Crepe de Frango com catupiry e palmito', descricao: 'Crepe recheado com frango, catupiry e palmito.', preco: 19.90, destaque: false }
             ]
           },
           {
             nomeGrupo: 'Carne',
             itens: [
-              { id: 5, nome: 'Carne com queijo', descricao: 'Crepe recheado com carne desfiada e queijo derretido.', preco: 19.90, destaque: true },
-              { id: 6, nome: 'Carne com queijo, ovo, tomate e cebola', descricao: 'Crepe recheado com carne desfiada, queijo, ovo, tomate e cebola.', preco: 19.90, destaque: false }
+              { id: 5, nome: 'Crepe de Carne com queijo', descricao: 'Crepe recheado com carne desfiada e queijo derretido.', preco: 19.90, destaque: true },
+              { id: 6, nome: 'Crepe de Carne com queijo, ovo, tomate e cebola', descricao: 'Crepe recheado com carne desfiada, queijo, ovo, tomate e cebola.', preco: 19.90, destaque: false }
             ]
           },
           {
             nomeGrupo: 'Calabresa',
             itens: [
-              { id: 7, nome: 'Calabresa com cheddar', descricao: 'Crepe recheado com calabresa fatiada e queijo cheddar.', preco: 19.90, destaque: true },
-              { id: 8, nome: 'Calabresa com catupiry', descricao: 'Crepe recheado com calabresa fatiada e catupiry.', preco: 19.90, destaque: false },
-              { id: 9, nome: 'Calabresa com mussarela', descricao: 'Crepe recheado com calabresa fatiada e mussarela.', preco: 19.90, destaque: false },
-              { id: 10, nome: 'Calabresa, mussarela, tomate e cebola', descricao: 'Crepe recheado com calabresa, mussarela, tomate e cebola.', preco: 19.90, destaque: false }
+              { id: 7, nome: 'Crepe de Calabresa com cheddar', descricao: 'Crepe recheado com calabresa fatiada e queijo cheddar.', preco: 19.90, destaque: true },
+              { id: 8, nome: 'Crepe de Calabresa com catupiry', descricao: 'Crepe recheado com calabresa fatiada e catupiry.', preco: 19.90, destaque: false },
+              { id: 9, nome: 'Crepe de Calabresa com mussarela', descricao: 'Crepe recheado com calabresa fatiada e mussarela.', preco: 19.90, destaque: false },
+              { id: 10, nome: 'Crepe de Calabresa, mussarela, tomate e cebola', descricao: 'Crepe recheado com calabresa, mussarela, tomate e cebola.', preco: 19.90, destaque: false }
             ]
           },
           {
             nomeGrupo: 'Outros Sabores Salgados',
             itens: [
-              { id: 11, nome: 'Peito de peru, tomate, cebola e orégano', descricao: 'Crepe recheado com peito de peru, tomate, cebola e orégano.', preco: 19.90, destaque: false },
-              { id: 12, nome: 'Napolitano com cebola e tomate', descricao: 'Crepe recheado ao estilo Napolitano (queijo, tomate e cebola).', preco: 19.90, destaque: false },
-              { id: 13, nome: 'Quatro queijos', descricao: 'Crepe recheado com quatro tipos de queijo derretido.', preco: 19.90, destaque: false }
+              { id: 11, nome: 'Crepe de Peito de peru, tomate, cebola e orégano', descricao: 'Crepe recheado com peito de peru, tomate, cebola e orégano.', preco: 19.90, destaque: false },
+              { id: 12, nome: 'Crepe Napolitano com cebola e tomate', descricao: 'Crepe recheado ao estilo Napolitano (queijo, tomate e cebola).', preco: 19.90, destaque: false },
+              { id: 13, nome: 'Crepe de Quatro queijos', descricao: 'Crepe recheado com quatro tipos de queijo derretido.', preco: 19.90, destaque: false }
             ]
           }
         ]
@@ -661,18 +661,18 @@ const cardapio = {
           {
             nomeGrupo: 'Chocolate',
             itens: [
-              { id: 14, nome: 'Chocolate preto', descricao: 'Crepe recheado com chocolate amargo derretido.', preco: 19.90, destaque: false },
-              { id: 15, nome: 'Chocolate preto e chocolate branco', descricao: 'Crepe recheado com contrastes de chocolate amargo e branco.', preco: 19.90, destaque: false },
-              { id: 16, nome: 'Prestígio', descricao: 'Crepe recheado com chocolate e coco ralado, inspirado no clássico “Prestígio”.', preco: 19.90, destaque: false },
-              { id: 17, nome: 'Brigadeiro', descricao: 'Crepe recheado com creme de chocolate e granulado, estilo brigadeiro.', preco: 19.90, destaque: false },
-              { id: 18, nome: 'Chocolate com amendoim', descricao: 'Crepe recheado com chocolate e pedacinhos de amendoim.', preco: 19.90, destaque: false },
-              { id: 19, nome: 'Chocolate com banana, canela e açúcar', descricao: 'Crepe recheado com chocolate, rodelas de banana, polvilhado com canela e açúcar.', preco: 19.90, destaque: false }
+              { id: 14, nome: 'Crepe de Chocolate preto', descricao: 'Crepe recheado com chocolate amargo derretido.', preco: 19.90, destaque: false },
+              { id: 15, nome: 'Crepe de Chocolate preto e chocolate branco', descricao: 'Crepe recheado com contrastes de chocolate amargo e branco.', preco: 19.90, destaque: false },
+              { id: 16, nome: 'Crepe de Prestígio', descricao: 'Crepe recheado com chocolate e coco ralado, inspirado no clássico “Prestígio”.', preco: 19.90, destaque: false },
+              { id: 17, nome: 'Crepe de Brigadeiro', descricao: 'Crepe recheado com creme de chocolate e granulado, estilo brigadeiro.', preco: 19.90, destaque: false },
+              { id: 18, nome: 'Crepe de Chocolate com amendoim', descricao: 'Crepe recheado com chocolate e pedacinhos de amendoim.', preco: 19.90, destaque: false },
+              { id: 19, nome: 'Crepe de Chocolate com banana, canela e açúcar', descricao: 'Crepe recheado com chocolate, rodelas de banana, polvilhado com canela e açúcar.', preco: 19.90, destaque: false }
             ]
           },
           {
             nomeGrupo: 'Goiabada',
             itens: [
-              { id: 20, nome: 'Romeu e Julieta', descricao: 'Crepe recheado com goiabada e queijo, no estilo Romeu e Julieta.', preco: 19.90, destaque: false }
+              { id: 20, nome: 'Crepe de Romeu e Julieta', descricao: 'Crepe recheado com goiabada e queijo, no estilo Romeu e Julieta.', preco: 19.90, destaque: false }
             ]
           }
         ]
